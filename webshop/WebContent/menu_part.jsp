@@ -18,7 +18,7 @@
        		name = session.getAttribute("name").toString();
         } else {
         	name = "MEIN KONTO";
-        } 
+        }  
         %>
         <%=name %></li></a><!-- Wenn user eingeloggt, hier den Namen anzeigen -->
         <a href="shoppingcart.jsp"><li>EINKAUFSWAGEN</li></a>

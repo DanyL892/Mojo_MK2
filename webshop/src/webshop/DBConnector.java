@@ -12,7 +12,8 @@ public class DBConnector {
 	public static Connection connect() {
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+		/* return DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");*/
+		return DriverManager.getConnection("jdbc:mysql://192.168.64.2/webshop", "root", "");
 	} catch(Exception e) {
 		throw new Error(e);
 	}

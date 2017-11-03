@@ -58,7 +58,8 @@ public class register extends HttpServlet {
 		
 		try {
 	          Class.forName("com.mysql.jdbc.Driver");
-	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+	          /* "jdbc:mysql://localhost:3306/webshop" */
+	          Connection con = DriverManager.getConnection("jdbc:mysql://192.168.64.2/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
 	          //prüfe ob Username bereits existiert

@@ -3,7 +3,6 @@ package webshop;
 import java.sql.*;
 import java.util.*;
 import javax.crypto.*;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServlet;
 
 import java.security.MessageDigest;
@@ -17,7 +16,7 @@ public class Benutzer {
 	    String error = "";
 	    String message = "";
 		
-		//Eingabe prüfen
+		//Eingabe prï¿½fen
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -31,7 +30,7 @@ public class Benutzer {
 	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
-	          //prüfe ob Username bereits existiert
+	          //prï¿½fe ob Username bereits existiert
 	          String sql;
 	      	  sql="SELECT name FROM users WHERE name='"+name+"'";
 	      	  ResultSet rs = null;
@@ -40,7 +39,7 @@ public class Benutzer {
 	        	  error = "Ein User mit diesem Namen existiert bereits!";
 	          } 
 	          
-	          //prüfe ob die Mail bereits verwendet wird
+	          //prï¿½fe ob die Mail bereits verwendet wird
 	          sql="SELECT mail FROM users WHERE mail='"+mail+"'";
 	          ResultSet rs2 = null;
 	          rs2=st.executeQuery(sql);
@@ -77,7 +76,7 @@ public class Benutzer {
 			else if (success == true) {
 				message = "Du hast dich erfolgreich registriert";
 			} else if (success == false) { 
-				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
+				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es spï¿½ter erneut.";
 		    } 
 			
 			return message;
@@ -91,7 +90,7 @@ public class Benutzer {
 		String text     = "";
 		boolean success = false;
 		
-		//Eingabe prüfen
+		//Eingabe prï¿½fen
 		if (username == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -103,7 +102,7 @@ public class Benutzer {
 	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
-	          //prüfe ob Username existiert
+	          //prï¿½fe ob Username existiert
 	          String sql;
 	      	  sql="SELECT * FROM users WHERE name='"+username+"'";
 	    	  ResultSet rs=st.executeQuery(sql);
@@ -123,7 +122,7 @@ public class Benutzer {
 		       	  }
 		       	  pass = hashedpasswd.toString();
 		       	  
-		       	  //Prüfe Passwort auf Gültigkeit
+		       	  //Prï¿½fe Passwort auf Gï¿½ltigkeit
 		       	  passwort = rs.getString("passwort");
 		       	  if (pass.equals(passwort)) {
 		       		  success = true;

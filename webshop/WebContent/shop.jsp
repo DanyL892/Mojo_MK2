@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="webshop.shop" %>
+<%@page import="java.sql.ResultSet" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,59 +19,32 @@
   <%@include file="menu_part.jsp" %>
       <h1>Unser Shop</h1>
       <hr/>
-      <a href="#content"><button class="button">Jetzt einkaufen</button></a>
+      <a href="#content"><button class="button">JETZT EINKAUFEN</button></a>
   </div>
   <div class="col-md-12">
     <h1>Lorem ipsum dolor</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
   <div class="content" id="content">
-    <div class="col-md-4">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-    <div class="col-md-4">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-    <div class="col-md-4">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div></span>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-    <div class="col-md-4">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div></span>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-    <div class="col-md-4">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div></span>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-    <div class="col-md-4">
+  <%
+  	shop shop = new shop();
+  	ResultSet items = shop.getItems();
+  	while (items.next()) {
+  		String item = (items.getString(2));
+  		String imgname = items.getString(1);
+  		%>
+  		
+  		<div class="col-md-4">
+  		<h1><%=item %></h1>
+  		<img src=" <%= imgname %>.jpeg">
+  		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  		<br/>
+  		<button class="button-shop">ZUM PRODUKT</button>
+  		</div>
+  		
+  	<% }
+  %>
+    <div class="col-md-4" style="visibility: hidden;">
       <h1>5-Euro-Schein</h1>
       <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>

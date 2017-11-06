@@ -52,7 +52,8 @@ public class shop extends HttpServlet {
 		
 		try {
 	          Class.forName("com.mysql.jdbc.Driver");
-	          /* "jdbc:mysql://localhost:3306/webshop" */
+	          /* "jdbc:mysql://localhost:3306/webshop" 
+	           * "jdbc:mysql://192.168.64.2/webshop" */
 	          Connection con = DriverManager.getConnection("jdbc:mysql://192.168.64.2/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          String sql;

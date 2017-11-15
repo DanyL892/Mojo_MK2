@@ -47,7 +47,7 @@ public class register extends HttpServlet {
 	    String mail     = request.getParameter("email");
 	    String pass     = request.getParameter("password"); 
 		
-		//Eingabe prÃ¼fen
+		//Eingabe prüfen
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -58,11 +58,10 @@ public class register extends HttpServlet {
 		
 		try {
 	          Class.forName("com.mysql.jdbc.Driver");
-	          /* "jdbc:mysql://localhost:3306/webshop" */
-	          Connection con = DriverManager.getConnection("jdbc:mysql://192.168.64.2/webshop", "root", "");
+	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
-	          //prÃ¼fe ob Username bereits existiert
+	          //prüfe ob Username bereits existiert
 	          String sql;
 	      	  sql="SELECT name FROM users WHERE name='"+name+"'";
 	      	  ResultSet rs = null;
@@ -71,7 +70,7 @@ public class register extends HttpServlet {
 	        	  error = "Ein User mit diesem Namen existiert bereits!";
 	          } 
 	          
-	          //prÃ¼fe ob die Mail bereits verwendet wird
+	          //prüfe ob die Mail bereits verwendet wird
 	          sql="SELECT mail FROM users WHERE mail='"+mail+"'";
 	          ResultSet rs2 = null;
 	          rs2=st.executeQuery(sql);
@@ -110,7 +109,7 @@ public class register extends HttpServlet {
 			else if (success == true) {
 				message = "Du hast dich erfolgreich registriert";
 			} else if (success == false) { 
-				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es spÃ¤ter erneut.";
+				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
 	       		request.getRequestDispatcher("error.jsp").include(request, response);  
 		    } 
 			

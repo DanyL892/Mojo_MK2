@@ -16,7 +16,7 @@ public class Benutzer {
 	    String error = "";
 	    String message = "";
 		
-		//Eingabe prï¿½fen
+		//Eingabe prüfen
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -30,7 +30,7 @@ public class Benutzer {
 	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
-	          //prï¿½fe ob Username bereits existiert
+	          //prüfe ob Username bereits existiert
 	          String sql;
 	      	  sql="SELECT name FROM users WHERE name='"+name+"'";
 	      	  ResultSet rs = null;
@@ -39,7 +39,7 @@ public class Benutzer {
 	        	  error = "Ein User mit diesem Namen existiert bereits!";
 	          } 
 	          
-	          //prï¿½fe ob die Mail bereits verwendet wird
+	          //prüfe ob die Mail bereits verwendet wird
 	          sql="SELECT mail FROM users WHERE mail='"+mail+"'";
 	          ResultSet rs2 = null;
 	          rs2=st.executeQuery(sql);
@@ -76,7 +76,7 @@ public class Benutzer {
 			else if (success == true) {
 				message = "Du hast dich erfolgreich registriert";
 			} else if (success == false) { 
-				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es spï¿½ter erneut.";
+				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
 		    } 
 			
 			return message;
@@ -90,7 +90,7 @@ public class Benutzer {
 		String text     = "";
 		boolean success = false;
 		
-		//Eingabe prï¿½fen
+		//Eingabe prüfen
 		if (username == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -102,7 +102,7 @@ public class Benutzer {
 	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          
-	          //prï¿½fe ob Username existiert
+	          //prüfe ob Username existiert
 	          String sql;
 	      	  sql="SELECT * FROM users WHERE name='"+username+"'";
 	    	  ResultSet rs=st.executeQuery(sql);
@@ -122,7 +122,7 @@ public class Benutzer {
 		       	  }
 		       	  pass = hashedpasswd.toString();
 		       	  
-		       	  //Prï¿½fe Passwort auf Gï¿½ltigkeit
+		       	  //Prüfe Passwort auf Gültigkeit
 		       	  passwort = rs.getString("passwort");
 		       	  if (pass.equals(passwort)) {
 		       		  success = true;

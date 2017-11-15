@@ -52,15 +52,13 @@ public class shop extends HttpServlet {
 		
 		try {
 	          Class.forName("com.mysql.jdbc.Driver");
-	          /* "jdbc:mysql://localhost:3306/webshop" 
-	           * "jdbc:mysql://192.168.64.2/webshop" */
-	          Connection con = DriverManager.getConnection("jdbc:mysql://192.168.64.2/webshop", "root", "");
+	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 	          Statement st=con.createStatement();
 	          String sql;
 	      	  sql="SELECT * FROM products";
 	    	  rs = st.executeQuery(sql);
 	          if (rs.next() == false) {
-	        	  error = "Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es sp√§ter erneut.";
+	        	  error = "Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es sp‰ter erneut.";
 	          } 
 		}
 		catch(Exception e){

@@ -45,16 +45,21 @@ public class register extends HttpServlet {
 	    String message  = "";
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
-	    String pass     = request.getParameter("password"); 
+	    String pass     = request.getParameter("password");
+	    String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";
+	    
 		
 		//Eingabe prüfen
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
 			error = "Bitte gib ein Passwort ein.";
-		} else if (mail == "") {
+		} else if (mail == "" || mail == "Email") {
 			error = "Bitte gib eine E-Mail Adresse ein.";
+		} else if (mail.matches(mailRegex) == false) {
+			error = "Bitte gib eine gültige E-Mail Adresse ein.";	
 		}
+		
 		
 		try {
 	          Class.forName("com.mysql.jdbc.Driver");

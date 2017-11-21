@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class logout
+ * This servlet class is used to log out a user from
+ * the platform
  */
 @WebServlet("/logout")
 public class logout extends HttpServlet {
@@ -28,20 +30,18 @@ public class logout extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  
-            throws ServletException, IOException {  
-response.setContentType("text/html");  
-PrintWriter out=response.getWriter();  
-
-request.getRequestDispatcher("index.jsp").include(request, response);  
-
-HttpSession session=request.getSession();  
-session.invalidate();  
-
-out.print("You are successfully logged out!");  
-
-out.close();  
-}  
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
+    	//logout
+		response.setContentType("text/html");  
+		PrintWriter out=response.getWriter();   
+		
+		//invalidate the login session variable
+		HttpSession session=request.getSession();  
+		session.invalidate();  
+		request.getRequestDispatcher("index.jsp").include(request, response); 
+		out.print("Du hast dich erfolgreich ausgeloggt!");  
+		out.close();  
+	}  
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +51,7 @@ out.close();
 		response.setContentType("text/html");  
         PrintWriter out=response.getWriter();  
           
-        request.getRequestDispatcher("shop.jsp").include(request, response);  
+        request.getRequestDispatcher("index.jsp").include(request, response);  
           
         HttpSession session=request.getSession();  
         session.invalidate();  

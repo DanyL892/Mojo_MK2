@@ -12,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class register
+ * This servlet class is used to register a new user to the platform.
  */
 @WebServlet("/register")
 public class register extends HttpServlet {
@@ -40,16 +42,15 @@ public class register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//register
 		boolean success = false;
 	    String error    = "";
-	    String message  = "";
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
 	    String pass     = request.getParameter("password");
-	    String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";
-	    
+		String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";		
 		
-		//Eingabe prüfen
+		//check user input
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -60,64 +61,71 @@ public class register extends HttpServlet {
 			error = "Bitte gib eine gültige E-Mail Adresse ein.";	
 		}
 		
-		
-		try {
-	          Class.forName("com.mysql.jdbc.Driver");
-	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	          Statement st=con.createStatement();
+		if (error == "") {
+			//no errors occured, check existing input on database
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+	            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+	            Statement st=con.createStatement();
 	          
-	          //prüfe ob Username bereits existiert
-	          String sql;
-	      	  sql="SELECT name FROM users WHERE name='"+name+"'";
-	      	  ResultSet rs = null;
-	    	  rs=st.executeQuery(sql);
-	          if (rs.next()) {
+	            //check for preexisting username
+	            String sql;
+	      	  	sql="SELECT name FROM users WHERE name='"+name+"'";
+	      	  	ResultSet rs = null;
+	      	  	rs = st.executeQuery(sql);
+	      	  	if (rs.next()) {
 	        	  error = "Ein User mit diesem Namen existiert bereits!";
-	          } 
+	      	  	} 
 	          
-	          //prüfe ob die Mail bereits verwendet wird
-	          sql="SELECT mail FROM users WHERE mail='"+mail+"'";
-	          ResultSet rs2 = null;
-	          rs2=st.executeQuery(sql);
-	       	  if (rs2.next()) {
+	      	  	//check for preexisting mail
+	      	  	sql="SELECT mail FROM users WHERE mail='"+mail+"'";
+	      	  	ResultSet rs2 = null;
+	      	  	rs2 = st.executeQuery(sql);
+	      	  	if (rs2.next()) {
 	       		  error = "Diese E-Mail wird bereits verwendet.";
-	       	  } 
-	          if (error == "") {
-	       		  MessageDigest alg = MessageDigest.getInstance("MD5");
+	      	  	}
+	      	  	
+	      	  	if (error == "") {
+	       		  //no errors occured, attempt registration
+	      	  	  //hash password for safety purposes
+	      	  	  MessageDigest alg = MessageDigest.getInstance("MD5");
 	       		  alg.reset();
 	       		  alg.update(pass.getBytes());
 	       		  byte[] digest = alg.digest();
 	       		  StringBuffer hashedpasswd = new StringBuffer();
 	       		  String hx;
-		       	  for (int m=0; m<digest.length; m++){
-		       			hx =  Integer.toHexString(0xFF & digest[m]);
-		       			if(hx.length() == 1){hx = "0" + hx;}
-		       			hashedpasswd.append(hx);
+		       	  for (int m=0; m<digest.length; m++) {
+		       		  hx =  Integer.toHexString(0xFF & digest[m]);
+		       		  if(hx.length() == 1){hx = "0" + hx;}
+		       		  hashedpasswd.append(hx);
 		       	  }
 		       	  pass = hashedpasswd.toString();
-		       	  int i=st.executeUpdate("insert into users(name,passwort,mail) values('"+name+"','"+pass+"','"+mail+"')");
+		       	  st.executeUpdate("insert into users(name,passwort,mail) values('"+name+"','"+pass+"','"+mail+"')");
 	       		  success = true;
+	       		  //registration successful, lead to index.jsp
 	      	      request.getRequestDispatcher("index.jsp").include(request, response);
 	          }
 	       }
 		
-	       catch(Exception e){
-	       System.out.print(e);
-	       e.printStackTrace();
-	       success = false;
+	       catch(Exception e) {
+	    	   System.out.print(e);
+	    	   e.printStackTrace();
+	    	   success = false;
 	       }
-		
-			if (error != "") {
-				message = error;
-	       		request.getRequestDispatcher("error.jsp").include(request, response);  
-			}
-			else if (success == true) {
-				message = "Du hast dich erfolgreich registriert";
-			} else if (success == false) { 
-				message = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
-	       		request.getRequestDispatcher("error.jsp").include(request, response);  
-		    } 
 			
+			if (success == false) {
+				//check for left errors
+			}
+				error = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
+			}
+			
+			//check if errors occured
+			if (error != "") {
+				//set error session variable and lead to error page
+				HttpSession session=request.getSession();  
+		     	session.setAttribute("error",error); 
+				request.getRequestDispatcher("error.jsp").include(request, response); 
+			}
 	}
 
 }

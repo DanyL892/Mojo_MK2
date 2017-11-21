@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class login
+ * This servlet class is used to log in to 
+ * an excisting account on the platform
  */
 @WebServlet("/login")
 public class login extends HttpServlet {
@@ -30,23 +32,18 @@ public class login extends HttpServlet {
         // TODO Auto-generated constructor stub
     } 
       //...
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)  
-		            throws ServletException, IOException {  
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
     	
-    	//variablen ....
+    	//variables
     	String passwort = "";
     	String error    = "";
-    	String text     = "";
-    	boolean success = false;
+    	String name     = request.getParameter("username");  
+		String password = request.getParameter("password"); 
     			
 		response.setContentType("text/html");  
-		PrintWriter out=response.getWriter();  
-		request.getRequestDispatcher("home.jsp").include(request, response);  
-		  
-		String name     = request.getParameter("username");  
-		String password = request.getParameter("password");  
+		PrintWriter out=response.getWriter();     
 		
-		//Eingabe prüfen
+		//check input fields
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (password == "") {
@@ -54,57 +51,64 @@ public class login extends HttpServlet {
 		} 
 		
 		try {
-	          Class.forName("com.mysql.jdbc.Driver");
-	          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	          Statement st=con.createStatement();
+			//login attempt
+			Class.forName("com.mysql.jdbc.Driver");
+	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+	        Statement st = con.createStatement();
 	          
-	          //prüfe ob Username existiert
-	          String sql;
-	      	  sql="SELECT * FROM users WHERE name='"+name+"'";
-	    	  ResultSet rs=st.executeQuery(sql);
-	          if (rs.next() == false) {
-	        	  error = "Ein User mit diesem Namen existiert nicht";
-	          } else {
-	        	  MessageDigest alg = MessageDigest.getInstance("MD5");
-	       		  alg.reset();
-	       		  alg.update(password.getBytes());
-	       		  byte[] digest = alg.digest();
-	       		  StringBuffer hashedpasswd = new StringBuffer();
-	       		  String hx;
-		       	  for (int m=0; m<digest.length; m++){
-		       			hx =  Integer.toHexString(0xFF & digest[m]);
-		       			if(hx.length() == 1){hx = "0" + hx;}
-		       			hashedpasswd.append(hx);
-		       	  }
-		       	  password = hashedpasswd.toString();
+	        //check if username exists in the database
+	        String sql;
+	      	sql="SELECT * FROM users WHERE name='"+name+"'";
+	    	ResultSet rs=st.executeQuery(sql);
+	        if (rs.next() == false) {
+	        	error = "Ein User mit diesem Namen existiert nicht";
+	        } else {
+	        	//hash input password and validate from database
+	        	MessageDigest alg = MessageDigest.getInstance("MD5");
+	       		alg.reset();
+	       		alg.update(password.getBytes());
+	       		byte[] digest = alg.digest();
+	       		StringBuffer hashedpasswd = new StringBuffer();
+	       		String hx;
+		       	for (int m=0; m<digest.length; m++) {
+		       		hx =  Integer.toHexString(0xFF & digest[m]);
+		       		if(hx.length() == 1) {
+		       			hx = "0" + hx;
+		       		}
+		       		hashedpasswd.append(hx);
+		       	}
+		       	password = hashedpasswd.toString();
 		       	  
-		       	  //Prüfe Passwort auf Gültigkeit
-		       	  passwort = rs.getString("passwort");
-		       	  if (password.equals(passwort)) {
-		       		  success = true;
-		       		  text = "Welcome";
-		       		  //sessions setzen
-		       		  HttpSession session=request.getSession();  
-		       		  session.setAttribute("name",name);  
-		       		  out.println("success");
-		       	  }  
-		       	  else {  
-		       		  out.print("Sorry, username or password error!");  
-		       		  request.getRequestDispatcher("error.jsp").include(request, response);  
+		       	//validate password
+		       	passwort = rs.getString("passwort");
+		       	if (password.equals(passwort)) {
+		       		//set session variables
+		       		HttpSession session=request.getSession();  
+		       		session.setAttribute("name",name); 
+		       		//load index.jsp
+		       		request.getRequestDispatcher("index.jsp").include(request, response);
+		       	}  
+		       	else {
+		       		//wrong password
+		       		  error = "Das eingegebene Passwort ist falsch.";
 		       	  }  
 	          }
 		}
+		
 		catch(Exception e){
-		       System.out.print(e);
-		       e.printStackTrace();
-		       success = false;
-		       }
+			System.out.print(e);
+		     e.printStackTrace();
+		     error = "Es gab einen Fehler beim Login. Bitte versuche es später erneut.";
+		}
 			
-			if (error != "") {
-				text = error;
-			}
-		       	out.close();  
-		}  
+		if (error != "") {
+			//set error session variable and lead to error page
+			HttpSession session=request.getSession();  
+	     	session.setAttribute("error",error); 
+			request.getRequestDispatcher("error.jsp").include(request, response);
+		}
+		out.close();  
+	}  
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

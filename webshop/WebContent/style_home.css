@@ -80,11 +80,15 @@
     }
     
     .col-md-12 button {
-    margin-bottom: 1%;
+    	margin-bottom: 1%;
     }
 
     .col-md-12 p, .col-md-12 h1 {
       padding: 20px;
+    }
+    
+    .keep-separated {
+    	margin: 50px
     }
 
     @media screen and (max-width: 600px) {

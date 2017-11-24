@@ -21,7 +21,7 @@
         } 
         %>
         <%=name %></li></a><!-- Wenn user eingeloggt, hier den Namen anzeigen -->
-        <a href="shoppingcart.jsp"><li>EINKAUFSWAGEN</li></a>
+        <a href="cart.jsp"><li>EINKAUFSWAGEN</li></a>
       </ul>
     </div>
 </body>

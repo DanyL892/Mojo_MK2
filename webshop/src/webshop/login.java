@@ -39,6 +39,7 @@ public class login extends HttpServlet {
     	String error    = "";
     	String name     = request.getParameter("username");  
 		String password = request.getParameter("password"); 
+		String userid   = "";
     			
 		response.setContentType("text/html");  
 		PrintWriter out=response.getWriter();     
@@ -50,55 +51,64 @@ public class login extends HttpServlet {
 			error = "Bitte gib ein Passwort ein.";
 		} 
 		
-		try {
-			//login attempt
-			Class.forName("com.mysql.jdbc.Driver");
-	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	        Statement st = con.createStatement();
-	          
-	        //check if username exists in the database
-	        String sql;
-	      	sql="SELECT * FROM users WHERE name='"+name+"'";
-	    	ResultSet rs=st.executeQuery(sql);
-	        if (rs.next() == false) {
-	        	error = "Ein User mit diesem Namen existiert nicht";
-	        } else {
-	        	//hash input password and validate from database
-	        	MessageDigest alg = MessageDigest.getInstance("MD5");
-	       		alg.reset();
-	       		alg.update(password.getBytes());
-	       		byte[] digest = alg.digest();
-	       		StringBuffer hashedpasswd = new StringBuffer();
-	       		String hx;
-		       	for (int m=0; m<digest.length; m++) {
-		       		hx =  Integer.toHexString(0xFF & digest[m]);
-		       		if(hx.length() == 1) {
-		       			hx = "0" + hx;
-		       		}
-		       		hashedpasswd.append(hx);
-		       	}
-		       	password = hashedpasswd.toString();
-		       	  
-		       	//validate password
-		       	passwort = rs.getString("passwort");
-		       	if (password.equals(passwort)) {
-		       		//set session variables
-		       		HttpSession session=request.getSession();  
-		       		session.setAttribute("name",name); 
-		       		//load index.jsp
-		       		request.getRequestDispatcher("index.jsp").include(request, response);
-		       	}  
-		       	else {
-		       		//wrong password
-		       		  error = "Das eingegebene Passwort ist falsch.";
-		       	  }  
-	          }
-		}
-		
-		catch(Exception e){
-			System.out.print(e);
-		     e.printStackTrace();
-		     error = "Es gab einen Fehler beim Login. Bitte versuche es später erneut.";
+		if (error == "") {
+			
+			try {
+				//login attempt
+				Class.forName("com.mysql.jdbc.Driver");
+		        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+		        Statement st = con.createStatement();
+		          
+		        //check if username exists in the database
+		        String sql;
+		      	sql="SELECT * FROM users WHERE name='"+name+"'";
+		    	ResultSet rs=st.executeQuery(sql);
+		        if (rs.next() == false) {
+		        	error = "Ein User mit diesem Namen existiert nicht";
+		        } else {
+		        	//hash input password and validate from database
+		        	MessageDigest alg = MessageDigest.getInstance("MD5");
+		       		alg.reset();
+		       		alg.update(password.getBytes());
+		       		byte[] digest = alg.digest();
+		       		StringBuffer hashedpasswd = new StringBuffer();
+		       		String hx;
+			       	for (int m=0; m<digest.length; m++) {
+			       		hx =  Integer.toHexString(0xFF & digest[m]);
+			       		if(hx.length() == 1) {
+			       			hx = "0" + hx;
+			       		}
+			       		hashedpasswd.append(hx);
+			       	}
+			       	password = hashedpasswd.toString();
+			       	  
+			       	//validate password
+			       	passwort = rs.getString("passwort");
+			       	if (password.equals(passwort)) {
+			       		//set session variables
+			       		HttpSession session=request.getSession();  
+			       		session.setAttribute("name",name);
+			       		userid = rs.getString(1);
+			       		session.setAttribute("userid", userid);
+			       		//check for admin
+			       		if (name.equals("Jessica")) {
+			       			session.setAttribute("admin", true);
+			       		}
+			       		//load index.jsp
+			       		request.getRequestDispatcher("index.jsp").include(request, response);
+			       	}  
+			       	else {
+			       		//wrong password
+			       		  error = "Das eingegebene Passwort ist falsch.";
+			       	  }  
+		          }
+			}
+			
+			catch(Exception e){
+				System.out.print(e);
+			     e.printStackTrace();
+			     error = "Es gab einen Fehler beim Login. Bitte versuche es später erneut.";
+			}
 		}
 			
 		if (error != "") {

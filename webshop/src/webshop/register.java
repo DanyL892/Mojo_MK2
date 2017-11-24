@@ -47,20 +47,16 @@ public class register extends HttpServlet {
 	    String error    = "";
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
-	    String pass     = request.getParameter("password");
-		String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";		
+	    String pass     = request.getParameter("password"); 
 		
 		//check user input
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
 			error = "Bitte gib ein Passwort ein.";
-		} else if (mail == "" || mail == "Email") {
+		} else if (mail == "") {
 			error = "Bitte gib eine E-Mail Adresse ein.";
-		} else if (mail.matches(mailRegex) == false) {
-			error = "Bitte gib eine gültige E-Mail Adresse ein.";	
 		}
-		
 		if (error == "") {
 			//no errors occured, check existing input on database
 			try {
@@ -83,6 +79,7 @@ public class register extends HttpServlet {
 	      	  	rs2 = st.executeQuery(sql);
 	      	  	if (rs2.next()) {
 	       		  error = "Diese E-Mail wird bereits verwendet.";
+	       		  System.out.println("mail falsch");
 	      	  	}
 	      	  	
 	      	  	if (error == "") {
@@ -115,17 +112,17 @@ public class register extends HttpServlet {
 			
 			if (success == false) {
 				//check for left errors
-			}
 				error = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
 			}
+		}
 			
-			//check if errors occured
-			if (error != "") {
-				//set error session variable and lead to error page
-				HttpSession session=request.getSession();  
-		     	session.setAttribute("error",error); 
-				request.getRequestDispatcher("error.jsp").include(request, response); 
-			}
+		//check if errors occured
+		if (error != "") {
+			//set error session variable and lead to error page
+			HttpSession session=request.getSession();  
+		   	session.setAttribute("error",error); 
+			request.getRequestDispatcher("error.jsp").include(request, response); 
+		}
 	}
 
 }

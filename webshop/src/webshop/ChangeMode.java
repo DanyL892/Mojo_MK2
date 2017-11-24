@@ -6,20 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class item
- * This class is used to display item details to each item found
- * in the shop.jsp page.
+ * Servlet implementation class ChangeMode
+ * This Servlet Class is used to toggle the admin change mode on the shop.jsp
+ * page
  */
-@WebServlet("/item")
-public class item extends HttpServlet {
+@WebServlet("/ChangeMode")
+public class ChangeMode extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public item() {
+    public ChangeMode() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +37,16 @@ public class item extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		//store detail information as session variables
-		String image = request.getParameter("image"); 
-		String item  = request.getParameter("item");
-		String price = request.getParameter("price");
-		String text  = request.getParameter("text");
+		HttpSession session=request.getSession();  
 		
-		request.getSession(true).setAttribute("image", image);
-		request.getSession(true).setAttribute("item", item);
-		request.getSession(true).setAttribute("price", price);
-		request.getSession(true).setAttribute("text", text);
+		System.out.println(request.getParameter("changemode"));
 		
-		//display the detail page
-		request.getRequestDispatcher("detail.jsp").include(request, response);  
+		if (request.getParameter("changemode").equals("change")) {
+			session.setAttribute("changemode", "none");
+		} else {
+			session.setAttribute("changemode","change");
+		}
+		request.getRequestDispatcher("shop.jsp").include(request, response);
 	}
 
 }

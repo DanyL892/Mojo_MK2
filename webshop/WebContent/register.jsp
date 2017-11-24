@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <link href="style_home.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
   
 </head>
 <body>
@@ -25,7 +25,7 @@
    		 <input type="text" name="username" value="Name" onclick="this.value=''"/><br/>  
    		 <input type="text" name="email"  value="Email" onclick="this.value=''"/><br/>  
    		 <input type="password" name="password"  value="Password" onclick="this.value=''"/><br/>  
-   		 <input type="submit" class="button" value="Registrieren"/>  
+   		 <button type="submit" class="button" value="Registrieren">Registrieren</button>  
      </form>  
   </div>
 
@@ -66,9 +66,6 @@ $('a[href*="#"]')
         });
       }
     }
-  });
-  $(document).ready(function() {
-    $("html").hide().fadeIn(2000);
   });
 </script>
 </body>

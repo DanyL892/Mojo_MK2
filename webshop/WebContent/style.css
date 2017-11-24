@@ -1,0 +1,284 @@
+@charset "ISO-8859-1";
+
+html, body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Roboto Condensed', sans-serif;
+	padding: 0;
+	margin: 0;
+} 
+
+.header {
+	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    color: white;
+    border: 1px solid transparent;
+    overflow: auto;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);*/
+}
+
+.header-shop {
+	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/happy.jpg");
+    background-size: cover;
+    min-height: 100%;
+    height: 100% auto !important;
+    text-align: center;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.header-cart {
+	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
+    background-size: cover;
+    min-height: 100%;
+    height: 100% auto !important;
+    text-align: center;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.header-bug {
+	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bug.jpg");
+    background-size: cover;
+    min-height: 100%;
+    height: 100% auto !important;
+    text-align: center;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.header-cart h1 {
+	font-size: 2.5em;
+	padding-top: 5%;
+}
+
+.header h1 {
+	font-size: 3em;
+	padding-top: 10%;
+}
+
+hr {
+	color: white;
+	width: 50%;
+}
+
+.menu {
+    color: white;
+    margin-top: 20px;
+}
+
+.menu a {
+    color: white;
+}
+
+.menu ul li {
+    display: inline-block;
+    padding: 20px;
+    margin: 5px;
+    margin-left: 5%;
+    margin-right: 5%;
+    transition: .3s ease-in-out;
+    border: 3px solid white;
+}
+
+.menu ul li:hover {
+    border-left: 3px solid white;
+    border-bottom: 3px solid white;
+    border-top: 3px solid transparent;
+    border-right: 3px solid transparent;
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    color: black;
+    border: .2px solid black;
+    font-size: 12px;
+    transition: .4s ease-in-out;
+    background-color: rgba(255, 255, 255, .5);
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
+}
+
+.content {
+	width: 100%;
+	text-align: center;
+}
+
+.small {
+	width: 30%;
+	display: inline-block;
+    margin: .5%;
+    margin-top: 8%;
+    text-align: justify;
+    hyphens: auto;
+    background-color: rgba(255,255,255,.8);
+    color: black;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.shop {
+	background-color: rgba(255, 255, 255, .5);
+}
+
+    
+.small img {
+    width: 60%;
+    height: 200px;
+    margin-top: -20%;
+}
+
+.shop img {
+	height: auto;
+	margin-top: -25%;
+}
+
+.shopping {
+	background: url("img/bridge.jpg") no-repeat center center fixed;
+	background-size: cover;
+}
+
+.small p {
+	padding: 5%;
+	text-align: justify;
+	hyphens: auto;
+}
+
+.big {
+	width: 100%;
+    text-align: center;
+    hyphens: auto;
+    margin: 20px;
+    background:linear-gradient(0deg,rgba(255,255,255, .6),rgba(255,255,255, .6)),url("img/wald.jpg");
+    background-size: cover;
+    margin-bottom: 1%;
+    margin-left: 0;
+}
+
+.big p {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+.big h1 {
+	padding: 2%;
+}
+
+.keep-separated {
+   	margin: 50px
+}
+
+.items {
+	margin: 2%;
+	padding: 5px;
+	background-color: rgba(255, 255, 255, .6);
+	color: black;
+	width: 20%;
+	float: left;
+}
+
+.gesamt {
+	border: 2px solid white;
+	padding: 5px;
+	width: 20%;
+	margin-left: 40%;
+}
+
+.detail {
+	background:linear-gradient(0deg,rgba(77,141,162, .7),rgba(77,141,162, .5)),url("img/ny.jpg");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.detail p {
+	margin-top: 5%;
+}
+
+.detail img {
+	width: 40%;
+    height: auto;
+    -webkit-box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
+	-moz-box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
+	box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
+	border-radius: 2px;
+}
+
+input {
+	border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0);
+    border: .1px solid white;
+    color: black;
+    padding: 10px;
+    margin: 10px;
+    width: 20%;
+}
+
+.bright {
+	color: white;
+}
+
+.biginput {
+	width: 90%;
+}
+
+#login {
+	margin-top: 10%;
+    width: 50%;
+    margin-left: 25%;
+    background-color: rgba(255,255,255,.6);
+    border-radius: 2px;
+    padding: 10px;
+    color: #58546A;
+}
+
+/*media queries*/
+@media screen and (max-width: 600px) {
+	.small {
+		display: block;
+		width: 80%;
+		margin-left: 10%;
+		margin-top: 20%;
+	}
+	
+	.small img {
+		height: auto;
+	}
+	
+	.items {
+		width: 80%;
+		float: none;
+		margin: 0;
+		margin-top: 2%;
+		margin-left: 10%;
+	}
+	
+	.label {
+		margin-top: 10px;
+	}
+	
+	.gesamt {
+		width: 80%;
+		margin-left: 10%;
+	}
+	
+	.shop h1 {
+		padding-top: 40px;
+	}
+	
+	.shop img {
+		margin-top: 10px;
+	}
+}

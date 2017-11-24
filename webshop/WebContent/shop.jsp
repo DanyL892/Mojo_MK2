@@ -5,57 +5,73 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title>Bucks Money</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="utf-8">
-  <link href="style_shop.css" rel="stylesheet">
-</head>
-<body>
-
-  <div class="header">
-  <%@include file="menu_part.jsp" %>
-      <h1>Unser Shop</h1>
-      <hr/>
-      <a href="#content"><button class="button">JETZT EINKAUFEN</button></a>
-  </div>
-  <div class="col-md-12">
-    <h1>Lorem ipsum dolor</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
-  <div class="content" id="content">
-  <%
-  	shop shop = new shop();
-  	ResultSet items = shop.getItems();
-  	while (items.next()) {
-  		String item = (items.getString(2));
-  		String imgname = items.getString(1);
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		  <title>Bucks Money</title>
+		  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <meta charset="utf-8">
+		  <link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+  	  <div class="header header-shop">
+  	  	<%@include file="menu_part.jsp" %>
+      	<h1>Unser Shop</h1>
+      	<hr/>
+      	<a href="#content"><button class="button">JETZT EINKAUFEN</button></a>
+      	<% 
+  			if(session.getAttribute("admin") != null) {%>
+  				<form method="post" action="ChangeMode">
+  					<input type="hidden" name="changemode" value="<%=session.getAttribute("changemode")%>">
+  					<button type="submit">TOGGLE ÄNDERUNGSMODUS</button>
+  				</form>
+  			<%} %>
+  	  </div>
+  	  <div class="big">
+      	<h1>Lorem ipsum dolor</h1>
+      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  	  </div>
+  	  <div class="content shopping" id="content">
+  		<%
+  		shop shop = new shop();
+  		ResultSet items = shop.getItems();
+  		while (items.next()) {
+  			String item    = (items.getString(2));
+  			String imgname = items.getString(1);
+  			String text    = items.getString(3);
+  			String price   = items.getString(4);
   		%>
   		
-  		<div class="col-md-4">
-  		<h1><%=item %></h1>
-  		<img src=" <%= imgname %>.jpeg">
-  		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  		<br/>
-  		<button class="button-shop">ZUM PRODUKT</button>
+  		<div class="small shop">
+  		 	<% if (session.getAttribute("changemode") == null || session.getAttribute("changemode").equals("none")) {%>
+  			<form method="post" action="item"><%} %>
+  				<h1><%=item %></h1>
+  				<input type="hidden" name="item" value="<%=item%>">
+  				<img src=" img/<%= imgname %>.jpeg">
+  				<input type="hidden" name="image" value="<%=imgname%>.jpeg">
+  				<% 
+  					if(session.getAttribute("changemode") != null) {
+  						if(session.getAttribute("changemode").equals("change")) {%>
+  						<form method="post" action="Change">
+  							<input type="hidden" name="changeitem" value="<%=item%>">
+  							<textarea type="text" class="biginput" name="text"><%=text %></textarea>
+  							<button type="submit">Text ändern</button>
+  						</form>
+  					<% } else {%>
+  						<p><%=text %>
+  						<input type="hidden" name="text" value="<%=text %>">	
+  					<%}} %>
+  				<br/>
+  				<h3>Preis: <%=price %> Euro</h3>
+  				<input type="hidden" name="price" value="<%=price%>">
+  				<% if (session.getAttribute("changemode") == null || session.getAttribute("changemode").equals("none")) {%>
+  				<button class="button-shop" type="submit">ZUM PRODUKT</button>
+  				<%} %>
+  			</form>
   		</div>
   		
   	<% }
   %>
-    <div class="col-md-4" style="visibility: hidden;">
-      <h1>5-Euro-Schein</h1>
-      <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/IMG_3750.jpg?w=2210&quality=50">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="parameters">
-        <span class="inline"><p>Menge: </p><p class="amount">1</p><div class="more">+</div><div class="less">-</div>
-      </div>
-      <button class="button-shop">JETZT KAUFEN</button>
-    </div>
-  </div>
-  <div class="footer">
-  </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
@@ -96,9 +112,6 @@ $('a[href*="#"]')
     }
   });
 
-  $(document).ready(function() {
-    $("html").hide().fadeIn(2000);
-  });
 </script>
 </body>
 </html>

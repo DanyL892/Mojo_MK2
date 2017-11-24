@@ -52,16 +52,28 @@ public class createAdress extends HttpServlet {
 		String housenumber = request.getParameter("housenumber");
 		String postalcode  = request.getParameter("postalcode");
 		String city        = request.getParameter("city");
+		String streetRegex = "([A-z\\.-]+[\\s]{0,})+";
+		String hnRegex = "[0-9-]+[\\s]{0,}[A-z-]{0,}";
+		String pcRegex = "[0-9]{5,5}";
+		String cityRegex = "([A-z\\.-]+[\\s]{0,})+";
 
 		// check user input
-		if (street == "") {
+		if (street == "" || street == "Straße") {
 			error = "Bitte gib einen Straßennamen ein.";
+		} else if (street.matches(streetRegex) == false) {
+			error = "Bitte gib eine gültige Straße ein.";
 		} else if (housenumber == "") {
 			error = "Bitte gib eine Hausnummer ein.";
+		} else if (housenumber.matches(hnRegex) == false) {
+			error = "Bitte gib eine gültige Hausnummer ein.";
 		} else if (postalcode == "") {
 			error = "Bitte gib eine Postleitzahl ein.";
+		} else if (postalcode.matches(pcRegex) == false) {
+			error = "Bitte gib eine gültige Postleitzahl ein.";
 		} else if (city == "") {
 			error = "Bitte gib eine Stadt ein.";
+		} else if (city.matches(cityRegex) == false) {
+			error = "Bitte gib eine gültige Stadt ein.";
 		}
 
 		if (error == "") {
@@ -72,10 +84,8 @@ public class createAdress extends HttpServlet {
 				Statement st = con.createStatement();
 
 				// check for preexisting adress
-				String query;
-				// Check whether this works
-				query = "SELECT * FROM adress WHERE " + "street='" + street + "',  " + "housenumber ='" + housenumber
-						+ "', " + "postalcode = '" + postalcode + "',  " + "city = '" + city + "'  ";
+				String query = "SELECT * FROM adress WHERE userid='" +userid+ "' AND " + "street='" +street+ "' AND " 
+						+ "housenumber='" +housenumber+ "' AND " + "postalcode='" +postalcode+ "' AND " + "city='" +city+ "'";
 				ResultSet rs = null;
 				rs = st.executeQuery(query);
 				if (rs.next()) {
@@ -84,8 +94,9 @@ public class createAdress extends HttpServlet {
 
 				if (error == "") {
 					// no errors occured, attempt registration
-					st.executeUpdate("insert into adress(userid,street,housenumber,postalcode, city) " + "values('"
-							+ userid + "','" + street + "','" + housenumber + "''" + postalcode + "','" + city + "',)");
+					String insertQuery = "INSERT INTO adress(userid,street,housenumber,postalcode,city) " 
+							+ "VALUES('"+userid+"','"+street+"','"+housenumber+"','"+postalcode+"','"+city+"')";
+					st.executeUpdate(insertQuery);
 					success = true;
 					// registration successful, lead to index.jsp
 					request.getRequestDispatcher("index.jsp").include(request, response);

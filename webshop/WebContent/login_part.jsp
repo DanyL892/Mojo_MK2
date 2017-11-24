@@ -6,7 +6,6 @@
 		<title>Bucks Money - Mein Konto</title>
 	</head>
 	<body>
-		<% if (session.getAttribute("name") == null) { %>
 			<form method="post" action="login" id="login">
   	  			<p>Du bist zur Zeit nicht eingeloggt. Bitte melde dich mit deinen Nutzerdaten an</p>
   	  			<input class="dark" type="text" name="username" value="Username" onclick="this.value=''"><br/>
@@ -15,13 +14,5 @@
   	  		</form>
   	  		<p class="close">Noch kein Mitglied?</p>
 	  		<a href="register.jsp"><button class="button">Registrieren</button></a>
-	  		<%
-	  		} else { %>
-	  		<h2>Hallo <%=session.getAttribute("name") %>!</h2>
-	  		 <p>Hier kannst du bald deine Daten einsehen.</p>
-	 		 <a href="enter_adress.jsp"><button class="button">Neue Adresse</button></a>
-	 		<div class="keep-separated"></div>
-	  		<a href="logout">Logout</a>
-	  		<%} %>
 	</body>
 </html>

@@ -48,14 +48,17 @@ public class register extends HttpServlet {
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
 	    String pass     = request.getParameter("password"); 
+	    String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";		
 		
 		//check user input
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
 			error = "Bitte gib ein Passwort ein.";
-		} else if (mail == "") {
+		} else if (mail == "" || mail == "Email") {
 			error = "Bitte gib eine E-Mail Adresse ein.";
+		} else if (mail.matches(mailRegex) == false) {
+			error = "Bitte gib eine gültige E-Mail Adresse ein.";	
 		}
 		if (error == "") {
 			//no errors occured, check existing input on database
@@ -97,7 +100,7 @@ public class register extends HttpServlet {
 		       		  hashedpasswd.append(hx);
 		       	  }
 		       	  pass = hashedpasswd.toString();
-		       	  st.executeUpdate("insert into users(name,passwort,mail) values('"+name+"','"+pass+"','"+mail+"')");
+		       	  st.executeUpdate("INSERT INTO users(name,passwort,mail) VALUES('"+name+"','"+pass+"','"+mail+"')");
 	       		  success = true;
 	       		  //registration successful, lead to index.jsp
 	      	      request.getRequestDispatcher("index.jsp").include(request, response);

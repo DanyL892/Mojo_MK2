@@ -10,11 +10,6 @@
 <body>
 	<div class="header">
 		<%@include file="menu_part.jsp"%>
-		<% if (session.getAttribute("name") == null) { %>
-			<%@include file="login_part.jsp"%>
-		<%} else { %>
-		  	<%@include file="userdata.jsp"%>
-		<%} %>
-	</div>
+		<%@include file="login_part.jsp"%>
 	</body>
 </html>

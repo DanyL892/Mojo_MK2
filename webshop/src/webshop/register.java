@@ -48,7 +48,7 @@ public class register extends HttpServlet {
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
 	    String pass     = request.getParameter("password"); 
-	    String mailRegex = "[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}";		
+	    String mailRegex = "[A-z0-9ядць._%+-]+@[A-z0-9ядць.-]+\\.[A-z]{2,}";		
 		
 		//check user input
 		if (name == "") {

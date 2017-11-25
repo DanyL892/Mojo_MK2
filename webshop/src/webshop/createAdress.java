@@ -44,7 +44,7 @@ public class createAdress extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// register
+		// create new adress
 		boolean success    = false;
 		String error       = "";
 		Integer userid     = Integer.parseInt(request.getParameter("userid"));
@@ -52,10 +52,10 @@ public class createAdress extends HttpServlet {
 		String housenumber = request.getParameter("housenumber");
 		String postalcode  = request.getParameter("postalcode");
 		String city        = request.getParameter("city");
-		String streetRegex = "([A-z\\.-]+[\\s]{0,})+";
+		String streetRegex = "([A-z‰ˆ¸ﬂ\\.-]+[\\s]{0,})+";
 		String hnRegex = "[0-9-]+[\\s]{0,}[A-z-]{0,}";
 		String pcRegex = "[0-9]{5,5}";
-		String cityRegex = "([A-z\\.-]+[\\s]{0,})+";
+		String cityRegex = "([A-z‰ˆ¸ﬂ\\.-]+[\\s]{0,})+";
 
 		// check user input
 		if (street == "" || street == "Straﬂe") {
@@ -93,13 +93,13 @@ public class createAdress extends HttpServlet {
 				}
 
 				if (error == "") {
-					// no errors occured, attempt registration
+					// no errors occured, attempt adress creation
 					String insertQuery = "INSERT INTO adress(userid,street,housenumber,postalcode,city) " 
 							+ "VALUES('"+userid+"','"+street+"','"+housenumber+"','"+postalcode+"','"+city+"')";
 					st.executeUpdate(insertQuery);
 					success = true;
-					// registration successful, lead to index.jsp
-					request.getRequestDispatcher("index.jsp").include(request, response);
+					// creation successful, lead to konto.jsp
+					request.getRequestDispatcher("konto.jsp").include(request, response);
 				}
 			}
 

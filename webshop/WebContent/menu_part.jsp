@@ -11,7 +11,7 @@
       <ul>
         <a href="index.jsp"><li>HOME</li></a>
         <a href="shop.jsp"><li>SHOP</li></a>
-        <a href="konto.jsp"><li>
+        <a href="konto"><li>
         <% 
         String name = "";
         if(session.getAttribute("name") != null) {

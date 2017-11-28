@@ -67,7 +67,7 @@ public class cart extends HttpServlet {
 				if (shopItem.getZustand().equals(myItem.getZustand())) {
 					//aggregate items of the same type
 					myItem.addAnzahl();
-					//delete doublicates
+					//delete duplicates
 					shoppingItems.remove(i);
 				}
 			} 

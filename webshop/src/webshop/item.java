@@ -15,7 +15,40 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/item")
 public class item extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private String image;
+	private String item;
+	private String price;
+	private String text;
+	
+	
+	public String getImage(){
+	       return this.image;
+	  }
+	public void setImage(String image){
+	       this.image = image;
+	  }
+	
+	public String getItem(){
+	       return this.item;
+	  }
+	public void setItem(String item){
+	       this.item = item;
+	  }
+	
+	public String getPrice(){
+	       return this.price;
+	  }
+	public void setPrice(String price){
+	       this.price = price;
+	  }
+	
+	public String getText(){
+	       return this.text;
+	  }
+	public void setText(String text){
+	       this.text = text;
+	  }
+	
     /**
      * @see HttpServlet#HttpServlet()
      */

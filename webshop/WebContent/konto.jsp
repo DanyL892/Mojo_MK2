@@ -11,5 +11,6 @@
 	<div class="header">
 		<%@include file="menu_part.jsp"%>
 		<%@include file="login_part.jsp"%>
+	</div>
 	</body>
 </html>

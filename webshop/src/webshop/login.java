@@ -91,7 +91,7 @@ public class login extends HttpServlet {
 			       		userid = rs.getString(1);
 			       		session.setAttribute("userid", userid);
 			       		//check for admin
-			       		if (name.equals("Jessica")) {
+			       		if (name.equals("admin")) {
 			       			session.setAttribute("admin", true);
 			       		}
 			       		//load index.jsp

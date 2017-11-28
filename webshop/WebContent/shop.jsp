@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="webshop.shop" %>
 <%@page import="java.sql.ResultSet" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -31,6 +33,11 @@
       	<h1>Lorem ipsum dolor</h1>
       	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   	  </div>
+	  
+	  	<div>
+	  		<%@include file="searchbar.jsp"%>
+	  	</div>  
+  	
   	  <div class="content shopping" id="content">
   		<%
   		shop shop = new shop();
@@ -62,7 +69,8 @@
   						<input type="hidden" name="text" value="<%=text %>">	
   					<%}} %>
   				<br/>
-  				<h3>Preis: <%=price %> Euro</h3>
+  				<h3>Preis: <fmt:formatNumber type = "number" 
+       		 	minFractionDigits = "2" value = "<%=price%>"/> Euro</h3>
   				<input type="hidden" name="price" value="<%=price%>">
   				<% if (session.getAttribute("changemode") == null || session.getAttribute("changemode").equals("none")) {%>
   				<button class="button-shop" type="submit">ZUM PRODUKT</button>
@@ -70,8 +78,8 @@
   			</form>
   		</div>
   		
-  	<% }
-  %>
+  	<% }%>
+  </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>

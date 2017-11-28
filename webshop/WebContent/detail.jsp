@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="webshop.shop" %>
 <%@page import="java.sql.ResultSet" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,7 +31,8 @@
   				</select>
   			</label>
   			<br/>
-  			<h2>Preis: <%=session.getAttribute("price") %> Euro</h2>
+  			<h2>Preis: <fmt:formatNumber type = "number" 
+       		 			minFractionDigits = "2" value = "<%=session.getAttribute(\"price\") %>"/>  Euro</h2>
   			<input type="hidden" name="price" value="<%=session.getAttribute("price")%>">
   			<button type="submit" class="button-shop">IN DEN WARENKORB</button>
   		</form>

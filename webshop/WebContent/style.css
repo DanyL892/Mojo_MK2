@@ -234,6 +234,29 @@ input {
 	width: 90%;
 }
 
+.searchbar {
+	width: 30%;
+	display: inline-block;
+    margin: .5%;
+    margin-top: 8%;
+    text-align: justify;
+    hyphens: auto;
+    background-color: rgba(100,100,100,.5);
+    color: black;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.searchbar:hover {
+    border: 1px solid #777;
+}
+
+.searchbar img {
+    width: 10%;
+    height: 10%;
+    margin-top: -20%;
+}
+
 #login {
 	margin-top: 10%;
     width: 50%;

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="webshop.*" %>
 <%@page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -28,7 +30,8 @@
 					<form method="get" action="cart">
 						<p><%=shopItem.getItem() %></p>
 						<input type="hidden" name="shopItem" value="<%=shopItem.getItem()%>">
-						<p>Einzelpreis: <%=shopItem.getPrice() %> Euro</p>
+						<p>Einzelpreis: <fmt:formatNumber type = "number" 
+       		 			minFractionDigits = "2" value = "<%=shopItem.getPrice() %>" />  Euro</p>
 						<p>Zustand: <%=shopItem.getZustand() %></p>
 						<input type="hidden" name="shopZustand" value="<%=shopItem.getZustand()%>">
 						<p>Anzahl: <%=shopItem.getAnzahl() %></p>
@@ -36,7 +39,8 @@
 					</form>
 				</div>
 				<%}}%>
-				<h2 class="gesamt" style="clear: both;">Gesamtpreis: <%=price %> Euro</h2>
+				<h2 class="gesamt" style="clear: both;">Gesamtpreis: <fmt:formatNumber type = "number" 
+       		 			minFractionDigits = "2" value = "<%=price%>" />  Euro</h2>
 		</div>
 	</body>
 </html>

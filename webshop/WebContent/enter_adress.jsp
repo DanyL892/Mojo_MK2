@@ -17,7 +17,7 @@
 	   		 <input type="text" name="postalcode"  value="Postleitzahl" onclick="this.value=''"><br/>  
 	   		 <input type="text" name="city"  value="Stadt" onclick="this.value=''"><br/>  
 	   		 <input type="hidden" name="userid" value="<%=session.getAttribute("userid") %>">
-	   		 <input type="submit" class="button" value="Adresse speichern">  
+	   		 <button type="submit" class="button" value="Adresse speichern">Adresse speichern</button>
 	     	</form>  
 	  	</div>
 	</body>

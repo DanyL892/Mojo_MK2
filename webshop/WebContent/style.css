@@ -54,6 +54,11 @@ html, body {
 	padding-top: 5%;
 }
 
+.header-cart a {
+	color: white;
+	
+}
+
 .header h1 {
 	font-size: 3em;
 	padding-top: 10%;
@@ -108,6 +113,7 @@ button:hover {
 
 .content {
 	width: 100%;
+	min-height: 100%;
 	text-align: center;
 }
 
@@ -235,26 +241,39 @@ input {
 }
 
 .searchbar {
-	width: 30%;
+	width: 110%;
+	height: auto;
+	color: white;
 	display: inline-block;
-    margin: .5%;
-    margin-top: 8%;
-    text-align: justify;
+    margin-top: -6%;
+    margin-bottom: -7%;
+    margin-left: -5%;
+    margin-right: 0%;
     hyphens: auto;
-    background-color: rgba(100,100,100,.5);
-    color: black;
     box-sizing: border-box;
-    text-align: center;
-}
-
-.searchbar:hover {
-    border: 1px solid #777;
+    text-align: left;
 }
 
 .searchbar img {
-    width: 10%;
-    height: 10%;
-    margin-top: -20%;
+    width: 11%;
+    height: 22%;
+    margin-right: 5%;
+}
+
+.searchbar button {
+	width: 80px;
+    height: 40px;
+    color: black;
+    border: .2px solid black;
+    font-size: 12px;
+    transition: .4s ease-in-out;
+    background-color: rgba(255, 255, 255, .2);
+    margin-left: 36%;
+}
+
+.searchbar button:hover {
+	background-color: rgba(0, 0, 0, .6);
+    color: white;
 }
 
 #login {

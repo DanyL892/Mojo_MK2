@@ -22,6 +22,7 @@
         %>
         <%=name %></li></a><!-- Wenn user eingeloggt, hier den Namen anzeigen -->
         <a href="cart.jsp"><li>EINKAUFSWAGEN</li></a>
+        <li><%@include file="searchbar.jsp"%> </li>
       </ul>
     </div>
 </body>

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,18 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class shop
- * This servlet class is used to display all items from
- * the database in the webshop.
+ * Servlet implementation class Adresse
  */
-@WebServlet("/shop")
-public class shop extends HttpServlet {
+@WebServlet("/Adresse")
+public class Adresse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public int userid;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public shop() {
+    public Adresse() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,43 +44,38 @@ public class shop extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public ResultSet getItems() {
-		//get items from the database
-		String error = "";
-		boolean success = false;
+	public void setId(int id) {
+		userid = id;
+	}
+	
+	public int getId() {
+		return userid;
+	}
+	
+	public ResultSet showAdresses() {
+		//HttpSession session = request.getSession();
+		Integer user_id    = getId();
 		ResultSet rs = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	        Statement st = con.createStatement();
-	        
-	        //select items from the database
-	        String sql;
-	      	sql="SELECT * FROM products";
-	    	rs = st.executeQuery(sql);
-	        if (rs.next() == false) {
-	        	//no items found
-	        	error = "Es konnte keine Verbindung zur Datenbank aufgebaut werden.";
-	        } 
-			success = true;
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			Statement st = con.createStatement();
+
+			// check for existing user adress
+			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
+			rs = st.executeQuery(query);
+			while(rs.next()) {
+				System.out.println(rs.getString(3));
+			}
 		}
 		
-		catch(Exception e){
-		     System.out.print(e);
-		     e.printStackTrace();
-		     success = false;
+		catch (Exception e) {
+			System.out.print(e);
+			e.printStackTrace();
 		}
 		
-		if (success == false) {
-			error = "Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
-		}
-		
-		if (error != "") {
-			//store error variable in session variable and lead to error.jsp
-		}
-		
-		return rs;  
+		return rs;
 	}
 
 }

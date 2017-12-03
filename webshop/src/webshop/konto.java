@@ -29,17 +29,13 @@ public class konto extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		response.setContentType("text/html");  
-		PrintWriter out=response.getWriter(); 
 		
 		HttpSession session=request.getSession();
 		if (session.getAttribute("name") == null) { 
 			request.getRequestDispatcher("konto.jsp").include(request, response);
 		} else { 
-			request.getRequestDispatcher("getAdresses").include(request, response);
+			request.getRequestDispatcher("userdata.jsp").include(request, response);
 		}
 	}
 
@@ -47,7 +43,6 @@ public class konto extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

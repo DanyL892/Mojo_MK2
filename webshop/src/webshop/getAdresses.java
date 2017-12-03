@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/getAdresses")
 public class getAdresses extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public int userid;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,68 +35,48 @@ public class getAdresses extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession session=request.getSession();
-		String error = "";
-		Integer userid     = Integer.parseInt(session.getAttribute("userid").toString());
-		String street;
-		String housenumber;
-		String postalcode;
-		String city;
-		Boolean success = false;
+		HttpSession session = request.getSession();
+		userid             = Integer.parseInt(session.getAttribute("userid").toString());
 		
 		response.setContentType("text/html");  
 		PrintWriter out=response.getWriter(); 
-
 		
-			if (error == "") {
-				// no errors occured, check existing input on database
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-					Statement st = con.createStatement();
+		request.getRequestDispatcher("userdata.jsp").include(request, response);
+	}
+	
+	public void setId(int id) {
+		userid = id;
+	}
+	
+	public int getId() {
+		return userid;
+	}
+	
+	public ResultSet showAdresses() {
+		//HttpSession session = request.getSession();
+		Integer user_id    = getId();
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			Statement st = con.createStatement();
 
-					// check for existing user adress
-					String query = "SELECT * FROM adress WHERE userid='"+userid+ "'";
-					ResultSet rs = null;
-					rs = st.executeQuery(query);
-					
-					//While (rs.next()){...}
-					//If more adresses exist, more need to be displayed
-					if (rs.next() == false) {
-						request.getRequestDispatcher("userdata.jsp").include(request, response);
-					}
-
-					else {
-						// no errors occured, attempt registration
-						street = rs.getString(3);
-						housenumber = rs.getString(4);
-						postalcode = rs.getString(5);
-						city = rs.getString(6);
-						
-						success = true;
-						//userid = rs.getString(1);
-						request.setAttribute("street", street);
-						request.setAttribute("housenumber", housenumber);
-						request.setAttribute("postalcode", postalcode);
-						request.setAttribute("city", city);
-						// registration successful, lead to index.jsp
-						request.getRequestDispatcher("userdata.jsp").include(request, response);
-					}
-				}
-				
-				catch (Exception e) {
-					System.out.print(e);
-					e.printStackTrace();
-					success = false;
-				}
-
-				if (success == false) {
-					// check for left errors
-					error = "Es gab einen Fehler beim Abruf deiner Adressen. Bitte versuche es später erneut.";
+			// check for existing user adress
+			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
+			rs = st.executeQuery(query);
+			while(rs.next()) {
+				System.out.println(rs.getString(3));
 			}
 		}
+		
+		catch (Exception e) {
+			System.out.print(e);
+			e.printStackTrace();
+		}
+		
+		return rs;
 	}
 
 	/**

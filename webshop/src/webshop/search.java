@@ -66,7 +66,7 @@ public class search extends HttpServlet {
 	    	rs = st.executeQuery(sql);
 	        if (rs.next() == false) {
 	        	success = true;
-	        	request.setAttribute("message","Es wurden keine passenden Produkte gefunden :(");
+	        	request.setAttribute("message","Es wurden leider keine passenden Produkte gefunden :(");
 				request.getRequestDispatcher("search_results.jsp").include(request, response);
 	        }
 	        List<item> results = new ArrayList<item>();

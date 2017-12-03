@@ -41,6 +41,14 @@
 				<%}}%>
 				<h2 class="gesamt" style="clear: both;">Gesamtpreis: <fmt:formatNumber type = "number" 
        		 			minFractionDigits = "2" value = "<%=price%>" />  Euro</h2>
+       		 	<br/>
+       		 	<%
+       		 	if(price > 0) {
+       		 	%>
+       		 	<form method="post" action="order">
+       		 		<button type="submit">JETZT BESTELLEN</button>
+       		 	</form>
+       		 	<%} %>
 		</div>
 	</body>
 </html>

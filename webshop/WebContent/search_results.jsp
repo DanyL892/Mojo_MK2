@@ -20,6 +20,7 @@
 <body>
 
 <div class="content shopping" id="content">
+<%@include file="menu_part.jsp" %>
   		<%
   		if (request.getAttribute("message")!= ""){%>
   			<h1><%=request.getAttribute("message")%></h1>
@@ -41,6 +42,7 @@
   				<input type="hidden" name="item" value="<%=item%>">
   				<img src=" img/<%= imgname %>.jpeg">
   				<input type="hidden" name="image" value="<%=imgname%>.jpeg">
+  				<p><%=text %></p>
   				<br/>
   				<h3>Preis: <fmt:formatNumber type = "number" 
        		 	minFractionDigits = "2" value = "<%=price%>"/> Euro</h3>

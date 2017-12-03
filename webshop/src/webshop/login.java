@@ -89,6 +89,7 @@ public class login extends HttpServlet {
 			       		HttpSession session=request.getSession();  
 			       		session.setAttribute("name",name);
 			       		userid = rs.getString(1);
+			       		System.out.println(rs.getString(1));
 			       		session.setAttribute("userid", userid);
 			       		//check for admin
 			       		if (name.equals("admin")) {

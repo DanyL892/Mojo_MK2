@@ -1,7 +1,6 @@
 package webshop;
 
 import java.io.IOException;
-import java;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.dbutils.DbUtils;
 
 /**
  * Servlet implementation class Adresse
@@ -74,61 +75,43 @@ public class Adresse extends HttpServlet {
 		//HttpSession session = request.getSession();
 		Integer user_id    = getId();
 		ResultSet rs = null;
+		Connection con = null;
+		Statement st = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
-
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			st = con.createStatement();
+			
 			// check for existing user adress
 			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
 			rs = st.executeQuery(query);
 			
-			this.street = rs.getString(3);
-			this.number = rs.getString(4);
-			this.zip = rs.getString(5);
-			this.city = rs.getString(6);			
+			if (rs.next()) {
+				this.street = rs.getString(3);
+				this.number = rs.getString(4);
+				this.zip = rs.getString(5);
+				this.city = rs.getString(6);
+			}
 			
+			else {
+				this.street = "";
+				this.number = "";
+				this.zip = "";
+				this.city = "";
+			}
 		}
-		
 		catch (Exception e) {
 			System.out.print(e);
 			e.printStackTrace();
 		}
-		
     	finally {
     		DbUtils.closeQuietly(rs);
     	    DbUtils.closeQuietly(st);
     	    DbUtils.closeQuietly(con);
-    }
-		
+    	}
 	}
     
-	public ResultSet showAdresses() {
-		//HttpSession session = request.getSession();
-		Integer user_id    = getId();
-		ResultSet rs = null;
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
-
-			// check for existing user adress
-			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
-			rs = st.executeQuery(query);
-			while(rs.next()) {
-				System.out.println(rs.getString(3));
-			}
-		}
-		
-		catch (Exception e) {
-			System.out.print(e);
-			e.printStackTrace();
-		}
-		
-		return rs;
-	}
 	
 	public void createAdress() {
 		//to be done

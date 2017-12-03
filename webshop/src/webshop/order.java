@@ -38,8 +38,7 @@ public class order extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -47,6 +46,7 @@ public class order extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//generate an order
+		response.setContentType("text/html"); 
 		HttpSession session = request.getSession();
 		ResultSet rs = null;
 		int adress_id = 0;
@@ -55,6 +55,14 @@ public class order extends HttpServlet {
 		int anzahl    = 0;
 		float preis   = 0;
 		String item   = "";
+		String error = "";
+		
+		//Check whether user has logged in
+		if(session.getAttribute("userid")==null) {
+			//set error session variable and lead to error page
+	     	session.setAttribute("error","Bitte melde dich erst an."); 
+			request.getRequestDispatcher("error.jsp").include(request, response);
+		}
 		
 		//get user from session variable
 		int userid = Integer.parseInt(session.getAttribute("userid").toString());
@@ -68,6 +76,7 @@ public class order extends HttpServlet {
 			// get user adress
 			String query = "SELECT * FROM adress WHERE userid='"+userid+ "'";
 			rs = st.executeQuery(query);
+			
 			while(rs.next()) {
 				adress_id = Integer.parseInt(rs.getString(1).toString());
 			}

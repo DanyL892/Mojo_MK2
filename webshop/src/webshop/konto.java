@@ -29,10 +29,11 @@ public class konto extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+
 		HttpSession session=request.getSession();
-		if (session.getAttribute("name") == null) { 
+		response.setContentType("text/html");  
+		PrintWriter out=response.getWriter();
+		if (session.getAttribute("name") == null || session.getAttribute("name") == "MEIN KONTO") { 
 			request.getRequestDispatcher("konto.jsp").include(request, response);
 		} else { 
 			request.getRequestDispatcher("userdata.jsp").include(request, response);

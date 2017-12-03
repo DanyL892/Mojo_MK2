@@ -22,32 +22,32 @@ public class item extends HttpServlet {
 	
 	
 	public String getImage(){
-	       return this.image;
-	  }
+		return this.image;
+	}
 	public void setImage(String image){
-	       this.image = image;
-	  }
+		this.image = image;
+	}
 	
 	public String getItem(){
-	       return this.item;
-	  }
+		return this.item;
+	}
 	public void setItem(String item){
-	       this.item = item;
-	  }
+		this.item = item;
+	}
 	
 	public String getPrice(){
-	       return this.price;
-	  }
+		return this.price;
+	}
 	public void setPrice(String price){
-	       this.price = price;
-	  }
+		this.price = price;
+	}
 	
 	public String getText(){
-	       return this.text;
-	  }
+		return this.text;
+	}
 	public void setText(String text){
-	       this.text = text;
-	  }
+		this.text = text;
+	}
 	
     /**
      * @see HttpServlet#HttpServlet()

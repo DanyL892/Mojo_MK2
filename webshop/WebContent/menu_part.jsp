@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="menu">
+	  <a href="#" class="menu-icon"><hr><hr><hr></a>
       <ul>
         <a href="index.jsp"><li>HOME</li></a>
         <a href="shop.jsp"><li>SHOP</li></a>

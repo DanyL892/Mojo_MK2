@@ -31,8 +31,6 @@ public class konto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session=request.getSession();
-		response.setContentType("text/html");  
-		PrintWriter out=response.getWriter();
 		if (session.getAttribute("name") == null || session.getAttribute("name") == "MEIN KONTO") { 
 			request.getRequestDispatcher("konto.jsp").include(request, response);
 		} else { 

@@ -48,14 +48,15 @@ public class order extends HttpServlet {
 		//generate an order
 		response.setContentType("text/html"); 
 		HttpSession session = request.getSession();
-		ResultSet rs = null;
-		int adress_id = 0;
-		int order_id  = 0;
-		int status    = 1;
-		int anzahl    = 0;
-		float preis   = 0;
-		String item   = "";
-		String error = "";
+		ResultSet rs   = null;
+		int adress_id  = 0;
+		int order_id   = 0;
+		int status     = 1;
+		int anzahl     = 0;
+		float preis    = 0;
+		String item    = "";
+		String error   = "";
+		String zustand = "";
 		
 		//Check whether user has logged in
 		if(session.getAttribute("userid")==null) {
@@ -93,8 +94,7 @@ public class order extends HttpServlet {
         String date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
         
         //creader order_id
-        order_id = ThreadLocalRandom.current().nextInt(1, 200 + 1);
-        order_id = order_id + userid;
+        order_id = ThreadLocalRandom.current().nextInt(1, 2000 + 1);
         
 		//insert order to order table "orders"
 		try {
@@ -116,9 +116,10 @@ public class order extends HttpServlet {
 
 		for(int i=0; i<itemList.size(); i++) {
 			ShoppingItem shopItem = itemList.get(i);
-			preis  = shopItem.getPrice();
-			item   = shopItem.getItem();
-			anzahl = shopItem.getAnzahl();
+			preis   = shopItem.getPrice();
+			item    = shopItem.getItem();
+			anzahl  = shopItem.getAnzahl();
+			zustand = shopItem.getZustand();
 			
 			//insert into database
 			try {
@@ -126,7 +127,7 @@ public class order extends HttpServlet {
 				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 				Statement st = con.createStatement();
 				
-				st.executeUpdate("INSERT INTO order_items(ord_id,product,anzahl,preis) VALUES('"+order_id+"','"+item+"','"+anzahl+"','"+preis+"')");
+				st.executeUpdate("INSERT INTO order_items(ord_id,product,anzahl,preis,zustand) VALUES('"+order_id+"','"+item+"','"+anzahl+"','"+preis+"','"+zustand+"')");
 			}
 			catch (Exception e) {
 				System.out.print(e);
@@ -140,6 +141,46 @@ public class order extends HttpServlet {
 			request.getRequestDispatcher("orders.jsp").include(request, response);  
 			
 		}
+	}
+	
+	public ResultSet getOrders(int userid) {
+		//get orders from the database
+		String error    = "";
+		String message  = "";
+		boolean success = false;
+		ResultSet rs    = null;
+				
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			Statement st = con.createStatement();
+			        
+			//select items from the database
+			 String sql;
+			 sql="SELECT * FROM orders LEFT JOIN order_items ON orders.id = order_items.ord_id WHERE orders.cust_id = '"+userid+"'";
+			 rs = st.executeQuery(sql);
+			 if (rs.next() == false) {
+			 //no orders found
+				 message = "Du hast bisher noch keine Bestellungen.";
+			 } 
+			success = true;
+			}
+				
+		catch(Exception e){
+			System.out.print(e);
+			e.printStackTrace();
+			success = false;
+		}
+				
+		if (success == false) {
+			error = "Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+		}
+				
+		if (error != "") {
+			//store error variable in session variable and lead to error.jsp
+		}
+				
+		return rs;  
 	}
 
 }

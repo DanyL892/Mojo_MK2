@@ -16,7 +16,6 @@ html, body {
     color: white;
     border: 1px solid transparent;
     overflow: auto;
-    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);*/
 }
 
 .header-shop {
@@ -74,6 +73,14 @@ hr {
     margin-top: 20px;
 }
 
+.menu-icon {
+	display: none;
+	width: 40px;
+	height: 40px;
+	background-color: black;
+	border-radius: 4%;
+}
+
 .menu a {
     color: white;
 }
@@ -82,8 +89,8 @@ hr {
     display: inline-block;
     padding: 20px;
     margin: 5px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
     transition: .3s ease-in-out;
     border: 3px solid white;
 }
@@ -104,6 +111,11 @@ button {
     transition: .4s ease-in-out;
     background-color: rgba(255, 255, 255, .5);
     margin-bottom: 10px;
+}
+
+.button-small {
+	width: 100px;
+	height: 50px;
 }
 
 button:hover {
@@ -286,7 +298,42 @@ input {
     color: #58546A;
 }
 
+.wrapper {
+	width: 80%;
+	margin-left: 10%;
+	background-color: rgba(255, 255, 255, .8);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+table {
+	width: 80%;
+	margin-left: 10%;
+	border-collapse: collapse;
+}
+
+.heading {
+	background-color: rgba(53, 91, 153, .5);
+}
+
+table tr {
+	color: black;
+}
+
+table tr {
+	border-bottom: 1px solid black;
+}
+
+table tr td {
+	padding: 5px;
+}
+
 /*media queries*/
+@media screen and (min-width: 600px) {
+	.header {
+		 clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+	}
+}
 @media screen and (max-width: 600px) {
 	.small {
 		display: block;
@@ -299,12 +346,50 @@ input {
 		height: auto;
 	}
 	
+	.menu-icon {
+		display: inline-block;
+	}
+	
+	.menu ul {
+		display: none;
+		transition: .2s ease-in-out;
+	}
+	
+	.menu:hover ul {
+		display: block;
+		margin-left: -10%;
+	}
+	
+	.menu:hover ul li {
+		display: block;
+	}
+	
+	#login input {
+		width: 90%;
+		margin-left: -1%;
+	}
+	
 	.items {
 		width: 80%;
 		float: none;
 		margin: 0;
 		margin-top: 2%;
 		margin-left: 10%;
+	}
+	
+	.wrapper {
+		width: 100%;
+		margin: 0;
+	}
+	
+	table {
+		width: 90%;
+		margin-left: 5%;
+		font-size: 12px;
+	}
+	
+	table tr td {
+		padding: 2px;
 	}
 	
 	.label {
@@ -314,6 +399,10 @@ input {
 	.gesamt {
 		width: 80%;
 		margin-left: 10%;
+	}
+	
+	.header-shop {
+		background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bridge.jpg");
 	}
 	
 	.shop h1 {

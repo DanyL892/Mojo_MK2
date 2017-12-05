@@ -13,17 +13,22 @@
 		<div class="header-cart">
 		<%@include file="menu_part.jsp" %>
 			<h2>Hallo <%=session.getAttribute("name")%>!</h2>
-  			<p>Hier kannst du deine Daten einsehen.</p>
+  			<p>Hier kannst du deine Daten einsehen und ändern.</p>
   			
   			  <%Adresse adresse = new Adresse();
   				adresse.setId(Integer.parseInt(session.getAttribute("userid").toString()));
     			adresse.showAdress();%>
-  				
-  				<p><%=adresse.getStreet()%> <%=adresse.getNumber() %></p>
-				<p><%=adresse.getZip()%></p>
-				<p><%=adresse.getCity()%></p>
-  				
-    	<a href="enter_adress.jsp"><button class="button">Neue Adresse</button></a>
+  				<%
+  					if(adresse.getHasAdress() == true) {
+  				%>
+	  				<p><%=adresse.getStreet()%> <%=adresse.getNumber() %></p>
+					<p><%=adresse.getZip()%></p>
+					<p><%=adresse.getCity()%></p>
+					
+				<% } else { %>	
+    				<a href="enter_adress.jsp"><button class="button">Neue Adresse</button></a>
+    			<%} %>
+    			<a href="orders.jsp"><button>Meine Bestellungen</button></a>
     	<br/>
   		<a class="logout" href="logout">Logout</a>
 		</div>

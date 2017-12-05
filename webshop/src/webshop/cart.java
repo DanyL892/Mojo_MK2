@@ -56,7 +56,7 @@ public class cart extends HttpServlet {
 		String item     = request.getParameter("item");
 		String preis    = request.getParameter("price");
 		float  price    = Float.parseFloat(preis);
-		String zustand  = "neu";
+		String zustand  = request.getParameter("zustaende");
 		
 		//create a ShoppingItem with given values
 		ShoppingItem myItem = new ShoppingItem(item, price, zustand);

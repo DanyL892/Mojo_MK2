@@ -30,10 +30,11 @@
   			<%} %>
   	  </div>
   	  <div class="big">
-      	<h1>Lorem ipsum dolor</h1>
-      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      	<h1>Unsere Stylevielfalt</h1>
+      	<p>Durch unsere unterschiedlichsten Angebote finden all unsere Kunden genau das, was sie brauchen.
+      	   Unsere Mitarbeiter behandeln das Geld stets liebevoll und voller Hingabe - und das merkt man auch
+      	   am Endprodukt.</p>
   	  </div>
-	 
   	
   	  <div class="content shopping" id="content">
   		<%
@@ -53,6 +54,8 @@
   				<input type="hidden" name="item" value="<%=item%>">
   				<img src=" img/<%= imgname %>.jpeg">
   				<input type="hidden" name="image" value="<%=imgname%>.jpeg">
+  				<p><%=text %></p>
+  				<input type="hidden" name="text" value="<%=text %>">
   				<% 
   					if(session.getAttribute("changemode") != null) {
   						if(session.getAttribute("changemode").equals("change")) {%>
@@ -61,10 +64,8 @@
   							<textarea type="text" class="biginput" name="text"><%=text %></textarea>
   							<button type="submit">Text ändern</button>
   						</form>
-  					<% } else {%>
-  						<p><%=text %>
-  						<input type="hidden" name="text" value="<%=text %>">	
-  					<%}} %>
+  					<% } %>
+  					<%} %>
   				<br/>
   				<h3>Preis: <fmt:formatNumber type = "number" 
        		 	minFractionDigits = "2" value = "<%=price%>"/> Euro</h3>

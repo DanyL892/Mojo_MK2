@@ -24,23 +24,34 @@ pageEncoding="ISO-8859-1"%>
   		</div>
   		<div class="content" id="content">
     		<div class="small">
-      			<img src="img/frau.jpg">
-      			<h1>Waschen</h1>
-      			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    		</div>
+      			<img src="img/fresh.jpeg">
+      			<h1>Druckfrisch</h1>
+      			<p>Wer kennt es nicht? Das Dinner im Restaurant, der Besuch des örtlichen Theaters oder auch
+      			   die Übergabe eines Geldgeschenkes - häufig sehen die eigenen Geldscheine einfach
+      			   abgenutzt und unästhetisch aus. Die Banknoten unserer "Druckfrisch"-Serie sind genau das 
+      			   Richtige, um solcheunangenehmen Situationen zu vermeiden. Mit einem Exemplar dieser Serie 
+      			   sind Sie immer bestens vorbereitet.</p>
+      			</div>
     		<div class="small">
-      			<img src="img/buegel.jpg">
-      			<h1>Bügeln</h1>
-      			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    		</div>
+      			<img src="img/used.jpeg">
+      			<h1>Everyday</h1>
+      			<p>Es muss nicht immer extravagant sein. Häufig sind die einfachen Dinge zielführend. Das 
+      			   Gleiche gilt auch für unsere Gelscheine der "Everday"-Reihe. Stets zweckmäßig, nie unpassend
+      			   und garantiert immer eine gute Wahl.</p><br/>
+      			</div>
     		<div class="small">
-      			<img src="img/gold.jpg">
-     		    <h1>Glücklich sein</h1>
-      			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    		</div>
+      			<img src="img/vintage.jpeg">
+     		    <h1>Vintage</h1>
+     		    <p>Für echte Sammler und Begeisterte der ersten Stunde: Unsere Vintagekollektion! Die
+     		       Sammlung beherbergt Scheine aus den ersten Prägungen sowie Banknoten, denen der Zahn der 
+     		       Zeit ordentlich zugesetzt hat. Und das darf man auch gerne sehen.</p><br/>
+      		</div>
     		<div class="big">
       			<h1>Unsere patentierte Wasch- und Bügeltechnik (refurbished bucks)</h1>
-      			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      			<p>Ein unschöner Geldschein kann häufig die Wirkung des Portemonnaies und dessen Inhabers
+      			   stark beeinträchtigen. Wir von Bucks Money wollen das verhindern. Mit der Auswahl an 
+      			   Geldscheinen aus unseren Kollektionen ist für jede Situation die passende Banknote
+      			   nur einen Klick entfernt.</p>
       			<a href="shop.jsp"><button>ZUM SHOP</button></a>
   			</div>
   		</div>
@@ -84,7 +95,7 @@ pageEncoding="ISO-8859-1"%>
 			    }
 			  });
 			  $(document).ready(function() {
-			    $("html").hide().fadeIn(2000);
+			    $("html").hide().fadeIn(1000);
 			  });
 		</script>
 	</body>

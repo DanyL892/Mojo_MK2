@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.dbutils.DbUtils;
-
 /**
  * Servlet implementation class Adresse
  */
@@ -26,12 +24,20 @@ public class Adresse extends HttpServlet {
 	private String number;
 	private String zip;
 	private String city;
+	private boolean hasAdress = false;
 	
 	public int getId() {
 		return userid;
 	}
 	public void setId(int id) {
 		userid = id;
+	}
+	
+	public boolean getHasAdress() {
+		return hasAdress;
+	}
+	public void setHasAdress(boolean has) {
+		hasAdress = has;
 	}
 	
 	public String getStreet(){
@@ -92,6 +98,7 @@ public class Adresse extends HttpServlet {
 				this.number = rs.getString(4);
 				this.zip = rs.getString(5);
 				this.city = rs.getString(6);
+				this.hasAdress = true;
 			}
 			
 			else {
@@ -105,11 +112,6 @@ public class Adresse extends HttpServlet {
 			System.out.print(e);
 			e.printStackTrace();
 		}
-    	finally {
-    		DbUtils.closeQuietly(rs);
-    	    DbUtils.closeQuietly(st);
-    	    DbUtils.closeQuietly(con);
-    	}
 	}
     
 	

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="webshop.Adresse" %>
-<%@page import="java.sql.ResultSet" %>
+<%@ page import="webshop.Adresse" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -17,18 +16,12 @@
   			
   			  <%Adresse adresse = new Adresse();
   			  	int userid = Integer.parseInt(session.getAttribute("userid").toString());
-  				adresse.setId(userid);
-    			adresse.getUserAdress();%>
+    			adresse.getUserAdress(userid);%>
   				<%
-  					if(adresse.hasAnAdress(userid) == true) {
-  				%>
-	  				<p><%=adresse.getStreet()%> <%=adresse.getNumber() %></p>
-					<p><%=adresse.getZip()%></p>
-					<p><%=adresse.getCity()%></p>
-					
-				<% } else { %>	
+  				if(!adresse.hasAnAdress(userid)) { %>	
     				<a href="enter_adress.jsp"><button class="button">Neue Adresse anlegen</button></a>
-    			<%} %>
+    			<%} 
+    			%>
     			<a href="userdata_change.jsp"><button>Meine Daten ändern</button></a>
     			<a href="orders.jsp"><button>Meine Bestellungen</button></a>
     	<br/>

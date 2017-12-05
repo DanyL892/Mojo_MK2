@@ -9,7 +9,7 @@
 			<form method="post" action="login" id="login">
   	  			<p>Du bist zur Zeit nicht eingeloggt. Bitte melde dich mit deinen Nutzerdaten an</p>
   	  			<input class="dark" type="text" name="username" value="Username" onclick="this.value=''"><br/>
-  	  			<input type="password" name="password" value="Passwort" onclick="this.value''"><br/>
+  	  			<input type="password" name="password" value="Passwort" onclick="this.value=''"><br/>
   	  			<button type="submit" value="Einloggen">Einloggen</button>
   	  		</form>
   	  		<p class="close">Noch kein Mitglied?</p>

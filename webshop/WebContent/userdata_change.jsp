@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="webshop.Adresse" %>
-<%@page import="java.sql.ResultSet" %>
+<%@ page import="webshop.Adresse" %>
+<%@ page import="webshop.User" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -12,26 +12,35 @@
 	<body>
 		<div class="header-cart">
 		<%@include file="menu_part.jsp" %>
-			<h2>Hallo <%=session.getAttribute("name")%>!</h2>
-  			<p>Hier kannst du deine Daten einsehen und ändern.</p>
-  			
-  			  <%Adresse adresse = new Adresse();
-  				adresse.setId(Integer.parseInt(session.getAttribute("userid").toString()));
-    			adresse.getUserAdress();%>
-  				<%
-  					if(adresse.getHasAdress() == true) {
+
+
+			<%
+			int userid = Integer.parseInt(session.getAttribute("userid").toString());
+			User currUser = new User();
+			currUser = currUser.receiveDataset(userid);
+			%>
+	      	<h1>Ändere hier deine persönlichen Daten</h1>
+	      	<form class="dark" method="post" action="" id="Adresse">
+	   		 <input type="text" name="Name" value=<%=currUser.getName()%> onclick="this.value=''"><br/>  
+	   		 <input type="text" name="Passwort"  value="" onclick="this.value=''"><br/>  
+	   		 <input type="text" name="E-Mail"  value=<%=currUser.getEmail()%> onclick="this.value=''"><br/>  
+	   		 <button type="submit" class="button" value="Neue Daten speichern">Neue Daten speichern</button>
+	     	</form>  
+
+	      	<%
+	      	Adresse adresse = new Adresse(); 
+  			if(adresse.hasAnAdress(userid) == true) {
+  				adresse.getUserAdress(userid);
   				%>
-	  				<p><%=adresse.getStreet()%> <%=adresse.getNumber() %></p>
-					<p><%=adresse.getZip()%></p>
-					<p><%=adresse.getCity()%></p>
-					
-				<% } else { %>	
-    				<a href="enter_adress.jsp"><button class="button">Neue Adresse anlegen</button></a>
-    			<%} %>
-    			<a href="userdata_change.jsp"><button>Meine Daten ändern</button></a>
-    			<a href="orders.jsp"><button>Meine Bestellungen</button></a>
-    	<br/>
-  		<a class="logout" href="logout">Logout</a>
-		</div>
+	      	<h1>Ändere hier deine Adresse</h1>
+	      	<form class="dark" method="post" action="" id="Adresse">
+	   		 <input type="text" name="street" value=<%=adresse.getStreet()%> onclick="this.value=''"><br/>  
+	   		 <input type="text" name="housenumber"  value=<%=adresse.getNumber()%> onclick="this.value=''"><br/>  
+	   		 <input type="text" name="postalcode"  value=<%=adresse.getZip()%> onclick="this.value=''"><br/>  
+	   		 <input type="text" name="city"  value=<%=adresse.getCity()%> onclick="this.value=''"><br/>  
+	   		 <button type="submit" class="button" value="Adresse speichern">Adresse speichern</button>
+	     	</form> 
+	     	<%}%> 
+	  	</div>
 	</body>
 </html>

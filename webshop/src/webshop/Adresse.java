@@ -115,9 +115,7 @@ public class Adresse extends HttpServlet {
 		return success;	
     }
     
-    public void getUserAdress() {
-		//HttpSession session = request.getSession();
-		Integer user_id    =  this.userid;
+    public void getUserAdress(int user_id) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -213,10 +211,9 @@ public class Adresse extends HttpServlet {
 						st = con.createStatement();
 
 						// check for preexisting adress
-						String query = "SELECT * FROM adress WHERE userid='" +userid+ "'";/* AND " + "street='" +street+ "' AND " 
-								+ "housenumber='" +housenumber+ "' AND " + "postalcode='" +postalcode+ "' AND " + "city='" +city+ "'";*/
+						String query = "SELECT * FROM adress WHERE userid='" +userid+ "'";
 						rs = st.executeQuery(query);
-						if (rs.next()) {
+						if (rs.isBeforeFirst()) {
 							error = "Du hast bereits eine Adresse angelegt.";
 							success = true;
 						}
@@ -228,7 +225,7 @@ public class Adresse extends HttpServlet {
 							st.executeUpdate(insertQuery);
 							success = true;
 							// creation successful, lead to konto.jsp
-							request.getRequestDispatcher("konto.jsp").include(request, response);
+							request.getRequestDispatcher("/Konto").include(request, response);
 						}
 					}
 

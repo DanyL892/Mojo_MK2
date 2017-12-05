@@ -101,7 +101,7 @@ public class login extends HttpServlet {
 			       			session.setAttribute("admin", true);
 			       		}
 			       		//load index.jsp
-			       		request.getRequestDispatcher("index.jsp").include(request, response);
+			       		request.getRequestDispatcher("/Konto").include(request, response);
 			       	}  
 			       	else {
 			       		//wrong password

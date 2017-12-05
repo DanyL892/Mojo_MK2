@@ -1,7 +1,6 @@
 package webshop;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class search
  */
@@ -21,36 +22,29 @@ import javax.servlet.http.HttpServletResponse;
 public class search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public search() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		String error = "";
+		boolean success = false;
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
 		
 		response.setContentType("text/html");  
 		String searchtext = request.getParameter("searchtext");
-		String error = "";
-		boolean success = false;
-		ResultSet rs = null;
-        String[] splittedSearch = searchtext.trim().split("\\s+");
+        
+		String[] splittedSearch = searchtext.trim().split("\\s+");
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	        Statement st = con.createStatement();
+	        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+	        st = con.createStatement();
 	        
 	        //select items from the database
 	        String sql="SELECT * FROM products WHERE ";
@@ -63,7 +57,7 @@ public class search extends HttpServlet {
 	            }
 	        }
 	    	rs = st.executeQuery(sql);
-	        if (rs.next() == false) {
+	        if (!rs.isBeforeFirst()) {
 	        	success = true;
 	        	request.setAttribute("message","Es wurden leider keine passenden Produkte gefunden :(");
 				request.getRequestDispatcher("search_results.jsp").include(request, response);
@@ -86,11 +80,15 @@ public class search extends HttpServlet {
 			request.getRequestDispatcher("search_results.jsp").include(request, response);
 	        
 		}
-		
 		catch(Exception e){
 		     System.out.print(e);
 		     e.printStackTrace();
 		     success = false;
+		}
+		finally {
+			DbUtils.closeQuietly(rs);
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
 		}
 		
 		if (success == false) {
@@ -99,11 +97,8 @@ public class search extends HttpServlet {
 		
 		if (error != "") {
 			//store error variable in session variable and lead to error.jsp
-		}
-		
-		
-	}
-		
+		}	
+	}	
 }
 
 

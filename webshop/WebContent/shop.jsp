@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="webshop.shop" %>
-<%@page import="java.sql.ResultSet" %>
+<%@ page import="webshop.shop" %>
+<%@ page import="webshop.item" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -35,16 +37,17 @@
       	   Unsere Mitarbeiter behandeln das Geld stets liebevoll und voller Hingabe - und das merkt man auch
       	   am Endprodukt.</p>
   	  </div>
-  	
+
   	  <div class="content shopping" id="content">
   		<%
   		shop shop = new shop();
-  		ResultSet items = shop.getItems();
-  		while (items.next()) {
-  			String item    = (items.getString(2));
-  			String imgname = items.getString(1);
-  			String text    = items.getString(3);
-  			String price   = items.getString(4);
+  		List<item> items = shop.getItems();
+  		Iterator<item> it = items.iterator();
+  		for (item current : items) {
+  		    String item = current.getItem();
+  		  	String imgname = current.getImage();
+  		  	String text = current.getText();
+  		  	String price = current.getPrice();
   		%>
   		
   		<div class="small shop">

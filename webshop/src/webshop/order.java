@@ -123,7 +123,6 @@ public class order extends HttpServlet {
 		Statement st 	= null;
 		ResultSet rs 	= null;
 		
-		Adresse adresse	= new Adresse();
 		int userid;
 		int adress_id  	= 0;
 		int order_id   	= 0;
@@ -132,7 +131,6 @@ public class order extends HttpServlet {
 		float preis    	= 0;
 		String date;
 		String item    	= "";
-		String error   	= "";
 		String zustand 	= "";
 		
 		//Check whether user has logged in
@@ -146,6 +144,7 @@ public class order extends HttpServlet {
 		userid = Integer.parseInt(session.getAttribute("userid").toString());
 		
 		//Check whether user has an address
+		Adresse adresse	= new Adresse();
 		if (adresse.hasAnAdress(userid) == false) {
 	     	session.setAttribute("error","Bitte lege zuerst eine Adresse an."); 
 			request.getRequestDispatcher("error.jsp").include(request, response);
@@ -163,7 +162,7 @@ public class order extends HttpServlet {
 				rs = st.executeQuery(query);
 				
 				while(rs.next()) {
-					adress_id = Integer.parseInt(rs.getString(1).toString());
+					adress_id = rs.getInt(1);
 				}
 			}
 			catch (Exception e) {
@@ -185,7 +184,6 @@ public class order extends HttpServlet {
 			
 	        try {		
 				st.executeUpdate("INSERT INTO orders(id,cust_id,adr_id,date,status) VALUES('"+order_id+"','"+userid+"','"+adress_id+"','"+date+"','"+status+"')");
-				System.out.println(order_id + "" + userid + "" + adress_id + "" + date + "" + status);
 			}
 			catch (Exception e) {
 				System.out.print(e);
@@ -194,7 +192,7 @@ public class order extends HttpServlet {
 			
 			//insert related items of order to table order_items
 			//get items from session
-			java.util.List<ShoppingItem> itemList = (java.util.List<ShoppingItem>)request.getSession().getAttribute("items");
+			List<ShoppingItem> itemList = (List<ShoppingItem>)request.getSession().getAttribute("items");
 	
 			for(int i=0; i<itemList.size(); i++) {
 				ShoppingItem shopItem = itemList.get(i);
@@ -231,10 +229,11 @@ public class order extends HttpServlet {
 		}
 	}
 	
+	
+	
 	public List<order> getOrders(int userid) {
 		//get orders from the database
 		String error    = "";
-		String message  = "";
 		boolean success = false;
 		Connection con 	= null;
 		Statement st 	= null;
@@ -251,21 +250,20 @@ public class order extends HttpServlet {
 			 sql="SELECT * FROM orders LEFT JOIN order_items ON orders.id = order_items.ord_id WHERE orders.cust_id = '"+userid+"'";
 			 rs = st.executeQuery(sql);
 			 
-			 if (rs.next() == false) {
+			 if (!rs.isBeforeFirst()) {
 			 //no orders found
-				 message = "Du hast bisher noch keine Bestellungen.";
+				 String message = "Du hast bisher noch keine Bestellungen.";
 			 } 
 			 
 			 while(rs.next()) {
 		           order result = new order();
-		           result.setStatus(Integer.parseInt(rs.getString(4)));
-		           result.setStatus(rs.getInt(4));
-		           result.setDate(rs.getString(3));
-		           result.setNummer(rs.getInt(6));
-		           result.setItem(rs.getString(7));
-		           result.setAnzahl(rs.getInt(8));
-		           result.setPreis(rs.getInt(9));
-		           result.setZustand(rs.getString(10));
+		           result.setDate(rs.getString(4));
+		           result.setStatus(rs.getInt(5));
+		           result.setNummer(rs.getInt(7));
+		           result.setItem(rs.getString(8));
+		           result.setAnzahl(rs.getInt(9));
+		           result.setPreis(rs.getInt(10));
+		           result.setZustand(rs.getString(11));
 
 		           currOrder.add(result);
 		        }

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class register
  * This servlet class is used to register a new user to the platform.
@@ -27,24 +29,22 @@ public class register extends HttpServlet {
      */
     public register() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//register
 		boolean success = false;
 	    String error    = "";
+	    Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+	    
 	    String name     = request.getParameter("username");
 	    String mail     = request.getParameter("email");
 	    String pass     = request.getParameter("password"); 
@@ -64,63 +64,65 @@ public class register extends HttpServlet {
 			//no errors occured, check existing input on database
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-	            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-	            Statement st=con.createStatement();
+	            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+	            st=con.createStatement();
 	          
 	            //check for preexisting username
 	            String sql;
 	      	  	sql="SELECT name FROM users WHERE name='"+name+"'";
-	      	  	ResultSet rs = null;
+	      	  	rs = null;
 	      	  	rs = st.executeQuery(sql);
-	      	  	if (rs.next()) {
-	        	  error = "Ein User mit diesem Namen existiert bereits!";
+	      	  	if (rs.isBeforeFirst()) {
+	      	  		error = "Ein User mit diesem Namen existiert bereits!";
 	      	  	} 
 	          
 	      	  	//check for preexisting mail
 	      	  	sql="SELECT mail FROM users WHERE mail='"+mail+"'";
-	      	  	ResultSet rs2 = null;
-	      	  	rs2 = st.executeQuery(sql);
-	      	  	if (rs2.next()) {
-	       		  error = "Diese E-Mail wird bereits verwendet.";
-	       		  System.out.println("mail falsch");
+	      	  	//ResultSet is automatically closed
+	      	  	rs = st.executeQuery(sql);
+	      	  	if (rs.isBeforeFirst()) {
+	      	  		error = "Diese E-Mail wird bereits verwendet.";
 	      	  	}
 	      	  	
 	      	  	if (error == "") {
-	       		  //no errors occured, attempt registration
-	      	  	  //hash password for safety purposes
-	      	  	  MessageDigest alg = MessageDigest.getInstance("MD5");
-	       		  alg.reset();
-	       		  alg.update(pass.getBytes());
-	       		  byte[] digest = alg.digest();
-	       		  StringBuffer hashedpasswd = new StringBuffer();
-	       		  String hx;
-		       	  for (int m=0; m<digest.length; m++) {
-		       		  hx =  Integer.toHexString(0xFF & digest[m]);
-		       		  if(hx.length() == 1){hx = "0" + hx;}
-		       		  hashedpasswd.append(hx);
-		       	  }
-		       	  pass = hashedpasswd.toString();
-		       	  st.executeUpdate("INSERT INTO users(name,passwort,mail) VALUES('"+name+"','"+pass+"','"+mail+"')");
-	       		  success = true;
-	       		  //registration successful, lead to index.jsp
-	      	      request.getRequestDispatcher("index.jsp").include(request, response);
-	          }
+					//no errors occured, attempt registration
+					//hash password for safety purposes
+					MessageDigest alg = MessageDigest.getInstance("MD5");
+					alg.reset();
+					alg.update(pass.getBytes());
+					byte[] digest = alg.digest();
+					StringBuffer hashedpasswd = new StringBuffer();
+					String hx;
+					for (int m=0; m<digest.length; m++) {
+						hx =  Integer.toHexString(0xFF & digest[m]);
+						if(hx.length() == 1){hx = "0" + hx;}
+						hashedpasswd.append(hx);
+					}
+					pass = hashedpasswd.toString();
+					st.executeUpdate("INSERT INTO users(name,passwort,mail) VALUES('"+name+"','"+pass+"','"+mail+"')");
+					success = true;
+					//registration successful, lead to index.jsp
+					request.getRequestDispatcher("/Konto").include(request, response);
+	      	  	}
 	       }
-		
-	       catch(Exception e) {
-	    	   System.out.print(e);
-	    	   e.printStackTrace();
-	    	   success = false;
-	       }
+		   catch(Exception e) {
+			   System.out.print(e);
+			   e.printStackTrace();
+			   success = false;
+		   }
+		   finally {
+			   DbUtils.closeQuietly(rs);
+			   DbUtils.closeQuietly(st);
+			   DbUtils.closeQuietly(con);
+		   }
 			
-			if (success == false) {
-				//check for left errors
-				error = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
-			}
-		}
-			
+		   if (success == false) {
+			   //check for left errors
+			   error = "Es gab einen Fehler bei der Registrierung. Bitte versuche es später erneut.";
+		   }
+		}	
 		//check if errors occured
-		if (error != "") {
+		else if (error != "") {
 			//set error session variable and lead to error page
 			HttpSession session=request.getSession();  
 		   	session.setAttribute("error",error); 

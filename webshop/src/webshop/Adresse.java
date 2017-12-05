@@ -29,6 +29,11 @@ public class Adresse extends HttpServlet {
 	private String city;
 	private boolean hasAdress = false;
 	
+	
+	public Adresse() {
+        super();
+    }
+	
 	public int getId() {
 		return userid;
 	}
@@ -73,20 +78,12 @@ public class Adresse extends HttpServlet {
 	}	
 	
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Adresse() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-	
-    public boolean hasAnAdress(){
+    public boolean hasAnAdress(int userid){
     	//HttpSession session = request.getSession();
-		Integer user_id	= this.userid;
-		ResultSet rs 	= null;
+		//Integer user_id	= this.userid;
 		Connection con 	= null;
 		Statement st 	= null;
+		ResultSet rs 	= null;
 		boolean success	= false;	
 		
 		try {
@@ -95,7 +92,7 @@ public class Adresse extends HttpServlet {
 			st = con.createStatement();
 			
 			// check for existing user adress
-			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
+			String query = "SELECT * FROM adress WHERE userid='"+userid+ "'";
 			rs = st.executeQuery(query);
 			
 			if (rs.next()) {
@@ -115,16 +112,15 @@ public class Adresse extends HttpServlet {
       	    DbUtils.closeQuietly(con);
 		}
 		
-		return success;
-		
+		return success;	
     }
     
     public void getUserAdress() {
 		//HttpSession session = request.getSession();
 		Integer user_id    =  this.userid;
-		ResultSet rs = null;
 		Connection con = null;
 		Statement st = null;
+		ResultSet rs = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

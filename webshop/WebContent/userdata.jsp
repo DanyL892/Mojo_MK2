@@ -16,10 +16,11 @@
   			<p>Hier kannst du deine Daten einsehen und ändern.</p>
   			
   			  <%Adresse adresse = new Adresse();
-  				adresse.setId(Integer.parseInt(session.getAttribute("userid").toString()));
+  			  	int userid = Integer.parseInt(session.getAttribute("userid").toString());
+  				adresse.setId(userid);
     			adresse.getUserAdress();%>
   				<%
-  					if(adresse.getHasAdress() == true) {
+  					if(adresse.hasAnAdress(userid) == true) {
   				%>
 	  				<p><%=adresse.getStreet()%> <%=adresse.getNumber() %></p>
 					<p><%=adresse.getZip()%></p>

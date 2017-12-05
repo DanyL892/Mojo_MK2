@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class Change
  * This servlet class lets the admin user make changes to item texts and update the database 
@@ -23,16 +25,19 @@ public class Change extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//change texts from items on the database
+		Connection con 	= null;
+		Statement st 	= null;
 		
 		//get information from the jsp 
 		String text = request.getParameter("text");
 		String item = request.getParameter("changeitem");
 		
+		
 		//connect to database
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-            Statement st=con.createStatement();
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+            st=con.createStatement();
             //save new description text to database
             st.executeUpdate("UPDATE products SET text = '"+text+"' WHERE title = '"+item+"'");
             request.getRequestDispatcher("shop.jsp").include(request, response);
@@ -40,7 +45,11 @@ public class Change extends HttpServlet {
 		catch(Exception e) {
 	    	   System.out.print(e);
 	    	   e.printStackTrace();
-	       }
+	    }
+		finally {
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
+		}
 	}
 
 }

@@ -2,12 +2,14 @@ package webshop;
 import java.sql.*;
 
 public class DBConnector {
+	static Connection con = null;
 	
-	Connection connection;
-	 
-	public DBConnector() {
-	 
-	}
+	public static Connection getConnection()
+    {
+        if (con != null) return con;
+        // get db, user, pass from settings file
+        return getConnection(db, user, pass);
+    }
 	 
 	public static Connection connect() {
 	try {

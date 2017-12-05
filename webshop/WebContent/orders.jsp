@@ -4,6 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="webshop.order" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,9 +21,10 @@
 		<h1>Meine Bestellungen</h1>
 		<div class="wrapper">
 		<%
+			int userid = Integer.parseInt(session.getAttribute("userid").toString());
 			order order = new order();
-			ResultSet orders = order.getOrders(Integer.parseInt(session.getAttribute("userid").toString()));
-			int ordernumber  = Integer.parseInt(orders.getString(6).toString());
+			List<order> orderList = order.getOrders(userid);
+			int ordernumber  = orderList.get(0).getNummer();
 			int preisGesamt  = 0;
 			%>
 				<table>
@@ -35,14 +37,15 @@
 						<th>Zustand</th>
 					</tr>
 					<tr>
-			<%while(orders.next()) {
-				String datum   = orders.getString(4);
-				int Status     = Integer.parseInt(orders.getString(5).toString());
-				int nummer     = Integer.parseInt(orders.getString(6).toString());
-				String produkt = orders.getString(7);
-				int anzahl     = Integer.parseInt(orders.getString(8).toString());
-				int preis      = Integer.parseInt(orders.getString(9).toString());
-				String zustand = orders.getString(10);
+			<%Iterator<order> it = orderList.iterator();
+	  		for (order currOrder : orderList) {
+				String datum   = currOrder.getDate();
+				int Status     = currOrder.getStatus();
+				int nummer     = currOrder.getNummer();
+				String produkt = currOrder.getItem();
+				int anzahl     = currOrder.getAnzahl();
+				int preis      = currOrder.getPreis();
+				String zustand = currOrder.getZustand();
 				preisGesamt    = preisGesamt + preis;
 				String stat    = "";
 				if(Status == 1) {

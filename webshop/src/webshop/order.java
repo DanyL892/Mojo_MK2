@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.ServletException;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class order
  * This servlet class lets a user order items from the shop
@@ -25,38 +29,111 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/order")
 public class order extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public order() {
+	private int id;
+	private int cust_id;
+	private int addr_id;
+	private String date;
+	private int status;
+	private int nummer;
+	private int anzahl;
+	private int preis;
+	private String item;
+	private String zustand;
+	
+	public order() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+    
+	
+	public int getId() {
+		return this.id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getCust_id() {
+		return this.cust_id;
+	}
+	public void setCust_id(int id) {
+		this.cust_id = id;
+	}
+	
+	public int getAddr_id() {
+		return this.addr_id;
+	}
+	public void setAddr_id(int id) {
+		this.addr_id = id;
+	}
+	
+	public String getDate() {
+		return this.date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public int getStatus() {
+		return this.status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public int getNummer() {
+		return this.nummer;
+	}
+	public void setNummer(int nummer) {
+		this.nummer = nummer;
+	}
+	
+	public int getAnzahl() {
+		return this.anzahl;
+	}
+	public void setAnzahl(int anzahl) {
+		this.anzahl = anzahl;
+	}
+	
+	public int getPreis() {
+		return this.preis;
+	}
+	public void setPreis(int preis) {
+		this.preis = preis;
+	}
+	
+	public String getItem() {
+		return this.item;
+	}
+	public void setItem(String item) {
+		this.item = item;
+	}
+	
+	public String getZustand() {
+		return this.zustand;
+	}
+	public void setZustand(String zustand) {
+		this.zustand = zustand;
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//generate an order
 		response.setContentType("text/html"); 
 		HttpSession session = request.getSession();
-		ResultSet rs   = null;
-		int adress_id  = 0;
-		int order_id   = 0;
-		int status     = 1;
-		int anzahl     = 0;
-		float preis    = 0;
-		String item    = "";
-		String error   = "";
-		String zustand = "";
+		Connection con 	= null;
+		Statement st 	= null;
+		ResultSet rs 	= null;
+		
+		Adresse adresse	= new Adresse();
+		int userid;
+		int adress_id  	= 0;
+		int order_id   	= 0;
+		int status     	= 1;
+		int anzahl     	= 0;
+		float preis    	= 0;
+		String date;
+		String item    	= "";
+		String error   	= "";
+		String zustand 	= "";
 		
 		//Check whether user has logged in
 		if(session.getAttribute("userid")==null) {
@@ -66,121 +143,156 @@ public class order extends HttpServlet {
 		}
 		
 		//get user from session variable
-		int userid = Integer.parseInt(session.getAttribute("userid").toString());
+		userid = Integer.parseInt(session.getAttribute("userid").toString());
 		
-		//get adress id from user
+		//Check whether user has an address
+		if (adresse.hasAnAdress(userid) == false) {
+	     	session.setAttribute("error","Bitte lege zuerst eine Adresse an."); 
+			request.getRequestDispatcher("error.jsp").include(request, response);
+		}
+		
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
-			
-			// get user adress
-			String query = "SELECT * FROM adress WHERE userid='"+userid+ "'";
-			rs = st.executeQuery(query);
-			
-			while(rs.next()) {
-				adress_id = Integer.parseInt(rs.getString(1).toString());
-			}
-		}
-		catch (Exception e) {
-			System.out.print(e);
-			e.printStackTrace();
-		}
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			st = con.createStatement();
 		
-		//get date
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Calendar c = df.getCalendar();
-        c.setTimeInMillis(System.currentTimeMillis());
-        String date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
-        
-        //create order_id
-        order_id = ThreadLocalRandom.current().nextInt(1, 2000 + 1);
-        
-		//insert order to order table "orders"
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
-			
-			st.executeUpdate("INSERT INTO orders(id,cust_id,adr_id,date,status) VALUES('"+order_id+"','"+userid+"','"+adress_id+"','"+date+"','"+status+"')");
-			System.out.println(order_id + "" + userid + "" + adress_id + "" + date + "" + status);
-		}
-		catch (Exception e) {
-			System.out.print(e);
-			e.printStackTrace();
-		}
-		
-		//insert related items of order to table order_items
-		//get items from session
-		java.util.List<ShoppingItem> itemList = (java.util.List<ShoppingItem>)request.getSession().getAttribute("items");
-
-		for(int i=0; i<itemList.size(); i++) {
-			ShoppingItem shopItem = itemList.get(i);
-			preis   = shopItem.getPrice();
-			item    = shopItem.getItem();
-			anzahl  = shopItem.getAnzahl();
-			zustand = shopItem.getZustand();
-			
-			//insert into database
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-				Statement st = con.createStatement();
+				// get user adress
+				String query = "SELECT * FROM adress WHERE userid='"+userid+ "'";
+				rs = st.executeQuery(query);
 				
-				st.executeUpdate("INSERT INTO order_items(ord_id,product,anzahl,preis,zustand) VALUES('"+order_id+"','"+item+"','"+anzahl+"','"+preis+"','"+zustand+"')");
+				while(rs.next()) {
+					adress_id = Integer.parseInt(rs.getString(1).toString());
+				}
 			}
 			catch (Exception e) {
 				System.out.print(e);
 				e.printStackTrace();
 			}
 			
-			//empty cart
-			session.removeAttribute("items");
 			
-			//lead user to orders page
-			request.getRequestDispatcher("orders.jsp").include(request, response);  
+			//get date
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+	        Calendar c = df.getCalendar();
+	        c.setTimeInMillis(System.currentTimeMillis());
+	        date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
+	        
+	        //create order_id
+	        order_id = ThreadLocalRandom.current().nextInt(1, 2000 + 1);
+	        
+			//insert order to order table "orders"
 			
+	        try {		
+				st.executeUpdate("INSERT INTO orders(id,cust_id,adr_id,date,status) VALUES('"+order_id+"','"+userid+"','"+adress_id+"','"+date+"','"+status+"')");
+				System.out.println(order_id + "" + userid + "" + adress_id + "" + date + "" + status);
+			}
+			catch (Exception e) {
+				System.out.print(e);
+				e.printStackTrace();
+			}
+			
+			//insert related items of order to table order_items
+			//get items from session
+			java.util.List<ShoppingItem> itemList = (java.util.List<ShoppingItem>)request.getSession().getAttribute("items");
+	
+			for(int i=0; i<itemList.size(); i++) {
+				ShoppingItem shopItem = itemList.get(i);
+				preis   = shopItem.getPrice();
+				item    = shopItem.getItem();
+				anzahl  = shopItem.getAnzahl();
+				zustand = shopItem.getZustand();
+				
+				//insert into database
+				try {
+					st.executeUpdate("INSERT INTO order_items(ord_id,product,anzahl,preis,zustand) VALUES('"+order_id+"','"+item+"','"+anzahl+"','"+preis+"','"+zustand+"')");
+				}
+				catch (Exception e) {
+					System.out.print(e);
+					e.printStackTrace();
+				}
+				
+				//empty cart
+				session.removeAttribute("items");
+				
+				//lead user to orders page
+				request.getRequestDispatcher("orders.jsp").include(request, response);  
+				
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+			e.printStackTrace();	
+		}
+		finally {
+			DbUtils.closeQuietly(rs);
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
 		}
 	}
 	
-	public ResultSet getOrders(int userid) {
+	public List<order> getOrders(int userid) {
 		//get orders from the database
 		String error    = "";
 		String message  = "";
 		boolean success = false;
-		ResultSet rs    = null;
+		Connection con 	= null;
+		Statement st 	= null;
+		ResultSet rs 	= null;
+		List<order> currOrder = new ArrayList<order>();
 				
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			st = con.createStatement();
 			        
 			//select items from the database
 			 String sql;
 			 sql="SELECT * FROM orders LEFT JOIN order_items ON orders.id = order_items.ord_id WHERE orders.cust_id = '"+userid+"'";
 			 rs = st.executeQuery(sql);
+			 
 			 if (rs.next() == false) {
 			 //no orders found
 				 message = "Du hast bisher noch keine Bestellungen.";
 			 } 
-			success = true;
-			}
-				
+			 
+			 while(rs.next()) {
+		           order result = new order();
+		           result.setStatus(Integer.parseInt(rs.getString(4)));
+		           result.setStatus(rs.getInt(4));
+		           result.setDate(rs.getString(3));
+		           result.setNummer(rs.getInt(6));
+		           result.setItem(rs.getString(7));
+		           result.setAnzahl(rs.getInt(8));
+		           result.setPreis(rs.getInt(9));
+		           result.setZustand(rs.getString(10));
+
+		           currOrder.add(result);
+		        }
+			 
+			 success = true;
+	  
+		}		
 		catch(Exception e){
 			System.out.print(e);
 			e.printStackTrace();
 			success = false;
 		}
-				
-		if (success == false) {
-			error = "Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
-		}
-				
-		if (error != "") {
-			//store error variable in session variable and lead to error.jsp
-		}
-				
-		return rs;  
+		finally {	
+			DbUtils.closeQuietly(rs);
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
+		
+		
+      	    if (success == false) {
+  			error = "Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.";
+      	    }
+  				
+      	    if (error != "") {
+  			//store error variable in session variable and lead to error.jsp
+      	    }
+  		}
+		return currOrder;
 	}
 
 }

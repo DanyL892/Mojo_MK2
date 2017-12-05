@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Servlet implementation class login
  * This servlet class is used to log in to 
@@ -33,8 +35,10 @@ public class login extends HttpServlet {
     } 
       //...
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
+    	Connection con 	= null;
+		Statement st 	= null;
+		ResultSet rs 	= null;
     	
-    	//variables
     	String passwort = "";
     	String error    = "";
     	String name     = request.getParameter("username");  
@@ -56,13 +60,14 @@ public class login extends HttpServlet {
 			try {
 				//login attempt
 				Class.forName("com.mysql.jdbc.Driver");
-		        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-		        Statement st = con.createStatement();
+		        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+		        st = con.createStatement();
 		          
 		        //check if username exists in the database
 		        String sql;
 		      	sql="SELECT * FROM users WHERE name='"+name+"'";
-		    	ResultSet rs=st.executeQuery(sql);
+		    	rs=st.executeQuery(sql);
+		    	
 		        if (rs.next() == false) {
 		        	error = "Ein User mit diesem Namen existiert nicht";
 		        } else {
@@ -104,12 +109,17 @@ public class login extends HttpServlet {
 			       	  }  
 		          }
 			}
-			
 			catch(Exception e){
 				System.out.print(e);
 			     e.printStackTrace();
 			     error = "Es gab einen Fehler beim Login. Bitte versuche es später erneut.";
 			}
+			finally {
+				DbUtils.closeQuietly(rs);
+	      	    DbUtils.closeQuietly(st);
+	      	    DbUtils.closeQuietly(con);
+			}
+			
 		}
 			
 		if (error != "") {
@@ -120,18 +130,6 @@ public class login extends HttpServlet {
 		}
 		out.close();  
 	}  
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 
 
 }

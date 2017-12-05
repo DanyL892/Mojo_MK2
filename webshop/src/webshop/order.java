@@ -93,7 +93,7 @@ public class order extends HttpServlet {
         c.setTimeInMillis(System.currentTimeMillis());
         String date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
         
-        //creader order_id
+        //create order_id
         order_id = ThreadLocalRandom.current().nextInt(1, 2000 + 1);
         
 		//insert order to order table "orders"

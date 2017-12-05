@@ -11,7 +11,7 @@
 	  	<div class="header">
 	  	<%@include file="menu_part.jsp" %>
 	      	<h1>Neue Adresse eingeben</h1>
-	      	<form class="dark" method="post" action="createAdress" id="createAdress">
+	      	<form class="dark" method="post" action="Adresse" id="Adresse">
 	   		 <input type="text" name="street" value="Straße" onclick="this.value=''"><br/>  
 	   		 <input type="text" name="housenumber"  value="Hausnummer" onclick="this.value=''"><br/>  
 	   		 <input type="text" name="postalcode"  value="Postleitzahl" onclick="this.value=''"><br/>  

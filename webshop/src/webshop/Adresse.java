@@ -1,6 +1,8 @@
 package webshop;
 
 import java.io.IOException;
+import org.apache.commons.dbutils.DbUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Adresse
@@ -36,6 +39,7 @@ public class Adresse extends HttpServlet {
 	public boolean getHasAdress() {
 		return hasAdress;
 	}
+	
 	public void setHasAdress(boolean has) {
 		hasAdress = has;
 	}
@@ -77,9 +81,47 @@ public class Adresse extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	
-    public void showAdress() {
+    public boolean hasAnAdress(){
+    	//HttpSession session = request.getSession();
+		Integer user_id	= this.userid;
+		ResultSet rs 	= null;
+		Connection con 	= null;
+		Statement st 	= null;
+		boolean success	= false;	
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+			st = con.createStatement();
+			
+			// check for existing user adress
+			String query = "SELECT * FROM adress WHERE userid='"+user_id+ "'";
+			rs = st.executeQuery(query);
+			
+			if (rs.next()) {
+				success = true;
+			}
+			else {
+				success = false;
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+			e.printStackTrace();
+		}
+		finally {
+			DbUtils.closeQuietly(rs);
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
+		}
+		
+		return success;
+		
+    }
+    
+    public void getUserAdress() {
 		//HttpSession session = request.getSession();
-		Integer user_id    = getId();
+		Integer user_id    =  this.userid;
 		ResultSet rs = null;
 		Connection con = null;
 		Statement st = null;
@@ -112,12 +154,13 @@ public class Adresse extends HttpServlet {
 			System.out.print(e);
 			e.printStackTrace();
 		}
+		finally {
+			DbUtils.closeQuietly(rs);
+      	    DbUtils.closeQuietly(st);
+      	    DbUtils.closeQuietly(con);
+		}
 	}
     
-	
-	public void createAdress() {
-		//to be done
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -130,8 +173,94 @@ public class Adresse extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// create new adress
+				boolean success    = false;
+				String error       = "";
+				Connection con = null;
+				Statement st = null;
+				ResultSet rs = null;
+				
+				Integer userid     = Integer.parseInt(request.getParameter("userid"));
+				String street      = request.getParameter("street");
+				String housenumber = request.getParameter("housenumber");
+				String postalcode  = request.getParameter("postalcode");
+				String city        = request.getParameter("city");
+				String streetRegex = "([A-zäöüß\\.-]+[\\s]{0,})+";
+				String hnRegex = "[0-9-]+[\\s]{0,}[A-z-]{0,}";
+				String pcRegex = "[0-9]{5,5}";
+				String cityRegex = "([A-zäöüß\\.-]+[\\s]{0,})+";
+
+				// check user input
+				if (street == "" || street == "Straße") {
+					error = "Bitte gib einen Straßennamen ein.";
+				} else if (street.matches(streetRegex) == false) {
+					error = "Bitte gib eine gültige Straße ein.";
+				} else if (housenumber == "") {
+					error = "Bitte gib eine Hausnummer ein.";
+				} else if (housenumber.matches(hnRegex) == false) {
+					error = "Bitte gib eine gültige Hausnummer ein.";
+				} else if (postalcode == "") {
+					error = "Bitte gib eine Postleitzahl ein.";
+				} else if (postalcode.matches(pcRegex) == false) {
+					error = "Bitte gib eine gültige Postleitzahl ein.";
+				} else if (city == "") {
+					error = "Bitte gib eine Stadt ein.";
+				} else if (city.matches(cityRegex) == false) {
+					error = "Bitte gib eine gültige Stadt ein.";
+				}
+
+				if (error == "") {
+					// no errors occured, check existing input on database
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+						con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+						st = con.createStatement();
+
+						// check for preexisting adress
+						String query = "SELECT * FROM adress WHERE userid='" +userid+ "'";/* AND " + "street='" +street+ "' AND " 
+								+ "housenumber='" +housenumber+ "' AND " + "postalcode='" +postalcode+ "' AND " + "city='" +city+ "'";*/
+						rs = st.executeQuery(query);
+						if (rs.next()) {
+							error = "Du hast bereits eine Adresse angelegt.";
+							success = true;
+						}
+
+						if (error == "") {
+							// no errors occured, attempt adress creation
+							String insertQuery = "INSERT INTO adress(userid,street,housenumber,postalcode,city) " 
+									+ "VALUES('"+userid+"','"+street+"','"+housenumber+"','"+postalcode+"','"+city+"')";
+							st.executeUpdate(insertQuery);
+							success = true;
+							// creation successful, lead to konto.jsp
+							request.getRequestDispatcher("konto.jsp").include(request, response);
+						}
+					}
+
+					catch (Exception e) {
+						System.out.print(e);
+						e.printStackTrace();
+						success = false;
+					}
+					finally {
+						DbUtils.closeQuietly(rs);
+			      	    DbUtils.closeQuietly(st);
+			      	    DbUtils.closeQuietly(con);
+					}
+
+					if (success == false) {
+						// check for left errors
+						error = "Es gab einen Fehler bei der Speicherung der Adresse. Bitte versuche es später erneut.";
+					}
+				}
+
+				// check if errors occured
+				if (error != "") {
+					// set error session variable and lead to error page
+					HttpSession session = request.getSession();
+					session.setAttribute("error", error);
+					request.getRequestDispatcher("error.jsp").include(request, response);
+				}
+			}
 	}
 	
-}
+

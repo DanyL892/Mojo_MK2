@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Bucks Money - Mein Konto</title>
+		<title>Bucks Money - Meine Daten ändern</title>
 		<link href="style.css" rel="stylesheet">
 	</head>
 	<body>

@@ -42,7 +42,7 @@
       			<img src="img/vintage.jpeg">
      		    <h1>Vintage</h1>
      		    <p>Für echte Sammler und Begeisterte der ersten Stunde: Unsere Vintagekollektion! Die
-     		       Sammlung beherbergt Scheine aus den ersten Prägungen sowie Banknoten, denen der Zahn der 
+     		       Sammlung beherbergt Scheine der ersten Stunde sowie Banknoten, denen der Zahn der 
      		       Zeit ordentlich zugesetzt hat. Und das darf man auch gerne sehen.</p><br/>
       		</div>
     		<div class="big">

@@ -53,7 +53,7 @@
 				} else if(Status == 2) {
 					stat = "Versandt";
 				} else if(Status == 3) {
-					stat = "storniert";
+					stat = "Storniert";
 				}
 				if(ordernumber == nummer) {
 			%>

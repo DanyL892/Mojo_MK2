@@ -31,19 +31,31 @@ public class login extends HttpServlet {
      */
     public login() {  
         super();
-        // TODO Auto-generated constructor stub
     } 
-      //...
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
+
+    
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {      	
     	Connection con 	= null;
 		Statement st 	= null;
 		ResultSet rs 	= null;
     	
+		String name;
+		String password;
     	String passwort = "";
-    	String error    = "";
-    	String name     = request.getParameter("username");  
-		String password = request.getParameter("password"); 
+    	String error    = ""; 
 		String userid   = "";
+		
+		if (request.getParameter("button-login")!= null) {
+			name     = request.getParameter("username");
+			password = request.getParameter("password");
+        } 
+		else {
+			name     = (String)request.getAttribute("username");
+			password = (String)request.getAttribute("password");
+        }
+		
+		
     			
 		response.setContentType("text/html");  
 		PrintWriter out=response.getWriter();     
@@ -64,9 +76,7 @@ public class login extends HttpServlet {
 		        st = con.createStatement();
 		          
 		        //check if username exists in the database
-		        String sql;
-		      	sql="SELECT * FROM users WHERE name='"+name+"'";
-		    	rs=st.executeQuery(sql);
+		        rs=st.executeQuery("SELECT * FROM users WHERE name='"+name+"'");
 		    	
 		        if (rs.next() == false) {
 		        	error = "Ein User mit diesem Namen existiert nicht";

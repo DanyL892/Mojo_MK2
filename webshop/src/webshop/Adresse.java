@@ -164,17 +164,17 @@ public class Adresse extends HttpServlet {
 		Statement st 	= null;
 		
 		Integer userid     	= Integer.parseInt(request.getParameter("userid"));
-		String street      	= request.getParameter("street");
-		String housenumber 	= request.getParameter("housenumber");
-		String postalcode  	= request.getParameter("postalcode");
-		String city        	= request.getParameter("city");
+		String street      	= request.getParameter("chg_street");
+		String housenumber 	= request.getParameter("chg_housenumber");
+		String postalcode  	= request.getParameter("chg_postalcode");
+		String city        	= request.getParameter("chg_city");
 		String streetRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
 		String hnRegex 		= "[0-9-]+[\\s]{0,}[A-z-]{0,}";
 		String pcRegex 		= "[0-9]{5,5}";
 		String cityRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
 		
 		// check user input
-		if (street == "" || street == "Straße") {
+		if (street.equals("") || street.equals("Straße")) {
 			error = "Bitte gib einen Straßennamen ein.";
 		} else if (street.matches(streetRegex) == false) {
 			error = "Bitte gib eine gültige Straße ein.";
@@ -186,7 +186,7 @@ public class Adresse extends HttpServlet {
 			error = "Bitte gib eine Postleitzahl ein.";
 		} else if (postalcode.matches(pcRegex) == false) {
 			error = "Bitte gib eine gültige Postleitzahl ein.";
-		} else if (city == "") {
+		} else if (city.equals("") || city.equals("Stadt")) {
 			error = "Bitte gib eine Stadt ein.";
 		} else if (city.matches(cityRegex) == false) {
 			error = "Bitte gib eine gültige Stadt ein.";
@@ -247,17 +247,17 @@ public class Adresse extends HttpServlet {
 		ResultSet rs 	= null;
 		
 		Integer userid     	= Integer.parseInt(request.getParameter("userid"));
-		String street      	= request.getParameter("street");
-		String housenumber 	= request.getParameter("housenumber");
-		String postalcode  	= request.getParameter("postalcode");
-		String city        	= request.getParameter("city");
+		String street      	= request.getParameter("add_street");
+		String housenumber 	= request.getParameter("add_housenumber");
+		String postalcode  	= request.getParameter("add_postalcode");
+		String city        	= request.getParameter("add_city");
 		String streetRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
 		String hnRegex 		= "[0-9-]+[\\s]{0,}[A-z-]{0,}";
 		String pcRegex 		= "[0-9]{5,5}";
 		String cityRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
 
 		// check user input
-		if (street == "" || street == "Straße") {
+		if (street.equals("") || street.equals("Straße")) {
 			error = "Bitte gib einen Straßennamen ein.";
 		} else if (street.matches(streetRegex) == false) {
 			error = "Bitte gib eine gültige Straße ein.";
@@ -269,7 +269,7 @@ public class Adresse extends HttpServlet {
 			error = "Bitte gib eine Postleitzahl ein.";
 		} else if (postalcode.matches(pcRegex) == false) {
 			error = "Bitte gib eine gültige Postleitzahl ein.";
-		} else if (city == "") {
+		} else if (city.equals("") || city.equals("Stadt")) {
 			error = "Bitte gib eine Stadt ein.";
 		} else if (city.matches(cityRegex) == false) {
 			error = "Bitte gib eine gültige Stadt ein.";

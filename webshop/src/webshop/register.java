@@ -45,12 +45,12 @@ public class register extends HttpServlet {
 		Statement st = null;
 		ResultSet rs = null;
 	    
-	    String name     = request.getParameter("username");
-	    String mail     = request.getParameter("email");
-	    String pass     = request.getParameter("password"); 
+	    String name     = request.getParameter("reg_username");
+	    String mail     = request.getParameter("reg_email");
+	    String pass     = request.getParameter("reg_password");
 	    String mailRegex = "[A-z0-9ßäöü._%+-]+@[A-z0-9ßäöü.-]+\\.[A-z]{2,}";		
 		
-		//check user input
+		//check user input validity
 		if (name == "") {
 			error = "Bitte gib einen Nutzernamen ein.";
 		} else if (pass == "") {
@@ -101,7 +101,12 @@ public class register extends HttpServlet {
 					pass = hashedpasswd.toString();
 					st.executeUpdate("INSERT INTO users(name,passwort,mail) VALUES('"+name+"','"+pass+"','"+mail+"')");
 					success = true;
-					//registration successful, lead to index.jsp
+					
+					//registration successful, auto-login and lead to index.jsp
+					request.setAttribute("username", name);
+					request.setAttribute("password", request.getParameter("reg_password") );
+					login login = new login();
+					login.doPost(request, response);
 					request.getRequestDispatcher("/Konto").include(request, response);
 	      	  	}
 	       }

@@ -20,10 +20,17 @@
 			currUser = currUser.receiveDataset(userid);
 			%>
 	      	<h1>Ändere hier deine persönlichen Daten</h1>
-	      	<form class="dark" method="post" action="" id="Adresse">
-	   		 <input type="text" name="Name" value=<%=currUser.getName()%> onclick="this.value=''"><br/>  
-	   		 <input type="text" name="Passwort"  value="" onclick="this.value=''"><br/>  
-	   		 <input type="text" name="E-Mail"  value=<%=currUser.getEmail()%> onclick="this.value=''"><br/>  
+	      	<form class="dark" method="post" action="User" id="Userdata">
+	      	 <label for="chg_name">Neuer Name</label>
+	   		 <input type="text" name="chg_name" value="<%=currUser.getName()%>" onclick="this.value='<%=currUser.getName()%>'"><br/>  
+	   		 <label for="chg_password">Neues Passwort</label>
+	   		 <input type="password" name="chg_passwort"  value="*****" onclick="this.value=''"><br/>
+	   		 <label for="chg_password2">Neues Passwort bestätigen</label>
+	   		 <input type="password" name="chg_passwort2"  value="*****" onclick="this.value=''"><br/>   
+	   		 <label for="chg_email">Neue E-Mail Adresse</label>
+	   		 <input type="text" name="chg_email"  value="<%=currUser.getEmail()%>" onclick="this.value='<%=currUser.getEmail()%>'"><br/>  
+	   		 <input type="hidden" name="button-changeUserdata" />
+	   		 <input type="hidden" name="userid" value="<%=userid%>">
 	   		 <button type="submit" class="button" value="Neue Daten speichern">Daten ändern</button>
 	     	</form>  
 
@@ -34,11 +41,16 @@
   				%>
 	      	<h1>Ändere hier deine Adresse</h1>
 	      	<form class="dark" method="post" action="Adresse" id="Adresse">
-	   		 <input type="text" name="street" value=<%=adresse.getStreet()%> onclick="this.value=''"><br/>  
-	   		 <input type="text" name="housenumber"  value=<%=adresse.getNumber()%> onclick="this.value=''"><br/>  
-	   		 <input type="text" name="postalcode"  value=<%=adresse.getZip()%> onclick="this.value=''"><br/>  
-	   		 <input type="text" name="city"  value=<%=adresse.getCity()%> onclick="this.value=''"><br/>  
+	      	 <label for="chg_street">Neue Straße</label>
+	   		 <input type="text" name="chg_street" value="<%=adresse.getStreet()%>" onclick="this.value='<%=adresse.getStreet()%>'"><br/>  
+	   		 <label for="chg_housenumber">Neue Hausnummer</label>
+	   		 <input type="text" name="chg_housenumber"  value="<%=adresse.getNumber()%>" onclick="this.value='<%=adresse.getNumber()%>'"><br/>  
+	   		 <label for="chg_postalcode">Neue Postleitzahl</label>
+	   		 <input type="text" name="chg_postalcode"  value="<%=adresse.getZip()%>" onclick="this.value='<%=adresse.getZip()%>'"><br/>  
+	   		 <label for="chg_city">Neue Stadt</label>
+	   		 <input type="text" name="chg_city"  value="<%=adresse.getCity()%>" onclick="this.value='<%=adresse.getCity()%>'"><br/>  
 	   		 <input type="hidden" name="button-changeAddress" />
+	   		 <input type="hidden" name="userid" value="<%=userid%>">
 	   		 <button type="submit" class="button" value="Adresse speichern">Adresse ändern</button>
 	     	</form> 
 	     	<%}%> 

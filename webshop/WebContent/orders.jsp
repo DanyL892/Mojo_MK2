@@ -24,10 +24,15 @@
 			int userid = Integer.parseInt(session.getAttribute("userid").toString());
 			order order = new order();
 			List<order> orderList = order.getOrders(userid);
+			if(orderList == null) {%>
+				<p>Du hast bisher keine Bestellungen.</p>
+			<% } else {
 			int ordernumber  = orderList.get(0).getNummer();
 			int preisGesamt  = 0;
+			int first        = 1;
 			%>
 				<table>
+				<thead>
 					<tr>
 						<th>Datum</th>
 						<th>Status</th>
@@ -36,6 +41,7 @@
 						<th>Preis</th>
 						<th>Zustand</th>
 					</tr>
+				</thead>
 					<tr>
 			<%Iterator<order> it = orderList.iterator();
 	  		for (order currOrder : orderList) {
@@ -56,16 +62,30 @@
 					stat = "Storniert";
 				}
 				if(ordernumber == nummer) {
+					if(first == 1) {%>
+						<form method="post" action="Stornierung">
+						<tr><td class="heading">Bestellung <%=ordernumber %></td>
+							<input type="hidden" name="orderId" value="<%=ordernumber %>">
+							<td><button type="submit" class="button-small">Stornieren</button></td></tr>
+							<tr>
+						<td><p class="hidden_values">Datum: </p><%=datum%></td>
+						<td><p class="hidden_values">Status: </p><%=stat%></td>
+						<td><%=produkt%></td>
+						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
+						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
+					</tr>
+					<% first ++; } else {
 			%>
 					<tr>
-						<td><%=datum%></td>
-						<td><%=stat%></td>
+						<td><p class="hidden_values">Datum: </p><%=datum%></td>
+						<td><p class="hidden_values">Status: </p><%=stat%></td>
 						<td><%=produkt%></td>
-						<td><%=anzahl%></td>
-						<td><%=preis%> Euro</td>
-						<td><%=zustand %></td>
+						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
+						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
 					</tr>
-			<%} else { 
+			<%}} else { 
 					ordernumber = nummer;%>
 				<form method="post" action="Stornierung">
 					<tr><td class="heading">Bestellung <%=ordernumber %></td>
@@ -73,15 +93,15 @@
 						<td><button type="submit" class="button-small">Stornieren</button></td></tr>
 					<tr>
 				</form>
-						<td><%=datum%></td>
-						<td><%=stat%></td>
+						<td><p class="hidden_values">Datum: </p><%=datum%></td>
+						<td><p class="hidden_values">Status: </p><%=stat%></td>
 						<td><%=produkt%></td>
-						<td><%=anzahl%></td>
-						<td><%=preis%> Euro</td>
-						<td><%=zustand %></td>
+						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
+						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
 					</tr>
 				
-			<%} }%></table>
+			<%}}}%></table>
 	</div>
 	</div>
 </body>

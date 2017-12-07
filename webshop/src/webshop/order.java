@@ -178,7 +178,18 @@ public class order extends HttpServlet {
 	        date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
 	        
 	        //create order_id
-	        order_id = ThreadLocalRandom.current().nextInt(1, 2000 + 1);
+	        int first_part  = c.get(Calendar.DAY_OF_MONTH);
+	        int second_part = c.get(Calendar.MONTH) + 1;
+	        int third_part  = c.get(Calendar.YEAR);
+	        int fourth_part = userid;
+	        StringBuilder sb = new StringBuilder();
+	        sb.append("");
+	        sb.append(first_part);
+	        sb.append(second_part);
+	        sb.append(third_part);
+	        sb.append(fourth_part);
+	        String strI = sb.toString();
+	        order_id = Integer.parseInt(strI);
 	        
 			//insert order to order table "orders"
 			

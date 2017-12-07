@@ -21,9 +21,9 @@
   <%@include file="menu_part.jsp" %>
       <h1>Account erstellen</h1>
       <form method="post" action="register">
-   		 <input type="text" name="username" value="Name" onclick="this.value=''"/><br/>  
-   		 <input type="text" name="email"  value="Email" onclick="this.value=''"/><br/>  
-   		 <input type="password" name="password"  value="Password" onclick="this.value=''"/><br/>  
+   		 <input type="text" name="reg_username" value="Name" onclick="this.value=''"/><br/>  
+   		 <input type="text" name="reg_email"  value="Email" onclick="this.value=''"/><br/>  
+   		 <input type="password" name="reg_password"  value="Password" onclick="this.value=''"/><br/>  
    		 <button type="submit" class="button" value="Registrieren">Registrieren</button>  
      </form>  
   </div>

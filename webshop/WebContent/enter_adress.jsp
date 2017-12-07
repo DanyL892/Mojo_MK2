@@ -12,10 +12,10 @@
 	  	<%@include file="menu_part.jsp" %>
 	      	<h1>Neue Adresse eingeben</h1>
 	      	<form class="dark" method="post" action="Adresse" id="Adresse">
-	   		 <input type="text" name="street" value="Straße" onclick="this.value=''"><br/>  
-	   		 <input type="text" name="housenumber"  value="Hausnummer" onclick="this.value=''"><br/>  
-	   		 <input type="text" name="postalcode"  value="Postleitzahl" onclick="this.value=''"><br/>  
-	   		 <input type="text" name="city"  value="Stadt" onclick="this.value=''"><br/>  
+	   		 <input type="text" name="add_street" value="Straße" onclick="this.value=''"><br/>  
+	   		 <input type="text" name="add_housenumber"  value="Hausnummer" onclick="this.value=''"><br/>  
+	   		 <input type="text" name="add_postalcode"  value="Postleitzahl" onclick="this.value=''"><br/>  
+	   		 <input type="text" name="add_city"  value="Stadt" onclick="this.value=''"><br/>  
 	   		 <input type="hidden" name="userid" value="<%=session.getAttribute("userid") %>">
 	   		 <input type="hidden" name="button-saveAddress" />
 	   		 <button type="submit" class="button" value="Adresse speichern">Adresse speichern</button>

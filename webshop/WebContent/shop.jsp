@@ -31,7 +31,7 @@
   				</form>
   			<%} %>
   	  </div>
-  	  <div class="big">
+  	  <div class="big empty">
       	<h1>Unsere Stylevielfalt</h1>
       	<p>Durch unsere unterschiedlichsten Angebote finden all unsere Kunden genau das, was sie brauchen.
       	   Unsere Mitarbeiter behandeln das Geld stets liebevoll und voller Hingabe - und das merkt man auch

@@ -24,7 +24,7 @@
 	   		 <input type="text" name="Name" value=<%=currUser.getName()%> onclick="this.value=''"><br/>  
 	   		 <input type="text" name="Passwort"  value="" onclick="this.value=''"><br/>  
 	   		 <input type="text" name="E-Mail"  value=<%=currUser.getEmail()%> onclick="this.value=''"><br/>  
-	   		 <button type="submit" class="button" value="Neue Daten speichern">Neue Daten speichern</button>
+	   		 <button type="submit" class="button" value="Neue Daten speichern">Daten ändern</button>
 	     	</form>  
 
 	      	<%
@@ -33,12 +33,13 @@
   				adresse.getUserAdress(userid);
   				%>
 	      	<h1>Ändere hier deine Adresse</h1>
-	      	<form class="dark" method="post" action="" id="Adresse">
+	      	<form class="dark" method="post" action="Adresse" id="Adresse">
 	   		 <input type="text" name="street" value=<%=adresse.getStreet()%> onclick="this.value=''"><br/>  
 	   		 <input type="text" name="housenumber"  value=<%=adresse.getNumber()%> onclick="this.value=''"><br/>  
 	   		 <input type="text" name="postalcode"  value=<%=adresse.getZip()%> onclick="this.value=''"><br/>  
 	   		 <input type="text" name="city"  value=<%=adresse.getCity()%> onclick="this.value=''"><br/>  
-	   		 <button type="submit" class="button" value="Adresse speichern">Adresse speichern</button>
+	   		 <input type="hidden" name="button-changeAddress" />
+	   		 <button type="submit" class="button" value="Adresse speichern">Adresse ändern</button>
 	     	</form> 
 	     	<%}%> 
 	  	</div>

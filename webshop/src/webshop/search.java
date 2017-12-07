@@ -35,6 +35,7 @@ public class search extends HttpServlet {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
+		request.setAttribute("message","");
 		
 		response.setContentType("text/html");  
 		String searchtext = request.getParameter("searchtext");
@@ -62,23 +63,24 @@ public class search extends HttpServlet {
 	        	request.setAttribute("message","Es wurden leider keine passenden Produkte gefunden :(");
 				request.getRequestDispatcher("search_results.jsp").include(request, response);
 	        }
-	        List<item> results = new ArrayList<item>();
-
-	        while(rs.next()) {
-	           item result = new item();
-	           result.setImage(rs.getString(1));
-	           result.setItem(rs.getString(2));
-	           result.setText(rs.getString(3));
-	           result.setPrice(rs.getString(4));
-
-	           results.add(result);
+	        
+	        if(request.getAttribute("message") == "") {
+		        List<item> results = new ArrayList<item>();
+		        while(rs.next()) {
+		           item result = new item();
+		           result.setImage(rs.getString(1));
+		           result.setItem(rs.getString(2));
+		           result.setText(rs.getString(3));
+		           result.setPrice(rs.getString(4));
+	
+		           results.add(result);
+		        }
+		        
+		        success = true;
+		        request.setAttribute("results", results);
+		        request.setAttribute("message","");
+				request.getRequestDispatcher("search_results.jsp").include(request, response);
 	        }
-	        
-	        success = true;
-	        request.setAttribute("results", results);
-	        request.setAttribute("message","");
-			request.getRequestDispatcher("search_results.jsp").include(request, response);
-	        
 		}
 		catch(Exception e){
 		     System.out.print(e);

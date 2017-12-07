@@ -155,105 +155,187 @@ public class Adresse extends HttpServlet {
 		}
 	}
     
+    
+    private static void changeAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// create new adress
+		boolean success	= false;
+		String error   	= "";
+		Connection con 	= null;
+		Statement st 	= null;
+		
+		Integer userid     	= Integer.parseInt(request.getParameter("userid"));
+		String street      	= request.getParameter("street");
+		String housenumber 	= request.getParameter("housenumber");
+		String postalcode  	= request.getParameter("postalcode");
+		String city        	= request.getParameter("city");
+		String streetRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
+		String hnRegex 		= "[0-9-]+[\\s]{0,}[A-z-]{0,}";
+		String pcRegex 		= "[0-9]{5,5}";
+		String cityRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
+		
+		// check user input
+		if (street == "" || street == "Straße") {
+			error = "Bitte gib einen Straßennamen ein.";
+		} else if (street.matches(streetRegex) == false) {
+			error = "Bitte gib eine gültige Straße ein.";
+		} else if (housenumber == "") {
+			error = "Bitte gib eine Hausnummer ein.";
+		} else if (housenumber.matches(hnRegex) == false) {
+			error = "Bitte gib eine gültige Hausnummer ein.";
+		} else if (postalcode == "") {
+			error = "Bitte gib eine Postleitzahl ein.";
+		} else if (postalcode.matches(pcRegex) == false) {
+			error = "Bitte gib eine gültige Postleitzahl ein.";
+		} else if (city == "") {
+			error = "Bitte gib eine Stadt ein.";
+		} else if (city.matches(cityRegex) == false) {
+			error = "Bitte gib eine gültige Stadt ein.";
+		}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (error == "") {
+			// no errors occured, check existing input on database
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+				st = con.createStatement();
 
-	}
+				// check for preexisting adress
+				st.executeUpdate("UPDATE adress SET street = '"+street+
+						  "', housenumber = '" +housenumber+
+						  "', postalcode = '" +postalcode+ 
+						  "', city = '" +city+
+						  "' WHERE userid = '" +userid+ "'");
+				success = true;
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// create new adress
-				boolean success    = false;
-				String error       = "";
-				Connection con = null;
-				Statement st = null;
-				ResultSet rs = null;
+				// update successful, lead to konto.jsp
+				request.getRequestDispatcher("/Konto").include(request, response);
 				
-				Integer userid     = Integer.parseInt(request.getParameter("userid"));
-				String street      = request.getParameter("street");
-				String housenumber = request.getParameter("housenumber");
-				String postalcode  = request.getParameter("postalcode");
-				String city        = request.getParameter("city");
-				String streetRegex = "([A-zäöüß\\.-]+[\\s]{0,})+";
-				String hnRegex = "[0-9-]+[\\s]{0,}[A-z-]{0,}";
-				String pcRegex = "[0-9]{5,5}";
-				String cityRegex = "([A-zäöüß\\.-]+[\\s]{0,})+";
+			}
+			catch (Exception e) {
+				System.out.print(e);
+				e.printStackTrace();
+				success = false;
+			}
+			finally {
+	      	    DbUtils.closeQuietly(st);
+	      	    DbUtils.closeQuietly(con);
+			}
 
-				// check user input
-				if (street == "" || street == "Straße") {
-					error = "Bitte gib einen Straßennamen ein.";
-				} else if (street.matches(streetRegex) == false) {
-					error = "Bitte gib eine gültige Straße ein.";
-				} else if (housenumber == "") {
-					error = "Bitte gib eine Hausnummer ein.";
-				} else if (housenumber.matches(hnRegex) == false) {
-					error = "Bitte gib eine gültige Hausnummer ein.";
-				} else if (postalcode == "") {
-					error = "Bitte gib eine Postleitzahl ein.";
-				} else if (postalcode.matches(pcRegex) == false) {
-					error = "Bitte gib eine gültige Postleitzahl ein.";
-				} else if (city == "") {
-					error = "Bitte gib eine Stadt ein.";
-				} else if (city.matches(cityRegex) == false) {
-					error = "Bitte gib eine gültige Stadt ein.";
+			if (success == false) {
+				// check for left errors
+				error = "Es gab einen Fehler bei der Speicherung der Adresse. Bitte versuche es später erneut.";
+			}
+		}
+
+		// check if errors occured
+		if (error != "") {
+			// set error session variable and lead to error page
+			HttpSession session = request.getSession();
+			session.setAttribute("error", error);
+			request.getRequestDispatcher("error.jsp").include(request, response);
+		}
+    }
+    
+    
+    
+    private static void saveAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// create new adress
+		boolean success	= false;
+		String error   	= "";
+		Connection con 	= null;
+		Statement st 	= null;
+		ResultSet rs 	= null;
+		
+		Integer userid     	= Integer.parseInt(request.getParameter("userid"));
+		String street      	= request.getParameter("street");
+		String housenumber 	= request.getParameter("housenumber");
+		String postalcode  	= request.getParameter("postalcode");
+		String city        	= request.getParameter("city");
+		String streetRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
+		String hnRegex 		= "[0-9-]+[\\s]{0,}[A-z-]{0,}";
+		String pcRegex 		= "[0-9]{5,5}";
+		String cityRegex 	= "([A-zäöüß\\.-]+[\\s]{0,})+";
+
+		// check user input
+		if (street == "" || street == "Straße") {
+			error = "Bitte gib einen Straßennamen ein.";
+		} else if (street.matches(streetRegex) == false) {
+			error = "Bitte gib eine gültige Straße ein.";
+		} else if (housenumber == "") {
+			error = "Bitte gib eine Hausnummer ein.";
+		} else if (housenumber.matches(hnRegex) == false) {
+			error = "Bitte gib eine gültige Hausnummer ein.";
+		} else if (postalcode == "") {
+			error = "Bitte gib eine Postleitzahl ein.";
+		} else if (postalcode.matches(pcRegex) == false) {
+			error = "Bitte gib eine gültige Postleitzahl ein.";
+		} else if (city == "") {
+			error = "Bitte gib eine Stadt ein.";
+		} else if (city.matches(cityRegex) == false) {
+			error = "Bitte gib eine gültige Stadt ein.";
+		}
+
+		if (error == "") {
+			// no errors occured, check existing input on database
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+				st = con.createStatement();
+
+				// check for preexisting adress
+				String query = "SELECT * FROM adress WHERE userid='" +userid+ "'";
+				rs = st.executeQuery(query);
+				if (rs.isBeforeFirst()) {
+					error = "Du hast bereits eine Adresse angelegt.";
+					success = true;
 				}
 
 				if (error == "") {
-					// no errors occured, check existing input on database
-					try {
-						Class.forName("com.mysql.jdbc.Driver");
-						con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-						st = con.createStatement();
-
-						// check for preexisting adress
-						String query = "SELECT * FROM adress WHERE userid='" +userid+ "'";
-						rs = st.executeQuery(query);
-						if (rs.isBeforeFirst()) {
-							error = "Du hast bereits eine Adresse angelegt.";
-							success = true;
-						}
-
-						if (error == "") {
-							// no errors occured, attempt adress creation
-							String insertQuery = "INSERT INTO adress(userid,street,housenumber,postalcode,city) " 
-									+ "VALUES('"+userid+"','"+street+"','"+housenumber+"','"+postalcode+"','"+city+"')";
-							st.executeUpdate(insertQuery);
-							success = true;
-							// creation successful, lead to konto.jsp
-							request.getRequestDispatcher("/Konto").include(request, response);
-						}
-					}
-
-					catch (Exception e) {
-						System.out.print(e);
-						e.printStackTrace();
-						success = false;
-					}
-					finally {
-						DbUtils.closeQuietly(rs);
-			      	    DbUtils.closeQuietly(st);
-			      	    DbUtils.closeQuietly(con);
-					}
-
-					if (success == false) {
-						// check for left errors
-						error = "Es gab einen Fehler bei der Speicherung der Adresse. Bitte versuche es später erneut.";
-					}
-				}
-
-				// check if errors occured
-				if (error != "") {
-					// set error session variable and lead to error page
-					HttpSession session = request.getSession();
-					session.setAttribute("error", error);
-					request.getRequestDispatcher("error.jsp").include(request, response);
+					// no errors occured, attempt adress creation
+					String insertQuery = "INSERT INTO adress(userid,street,housenumber,postalcode,city) " 
+							+ "VALUES('"+userid+"','"+street+"','"+housenumber+"','"+postalcode+"','"+city+"')";
+					st.executeUpdate(insertQuery);
+					success = true;
+					// creation successful, lead to konto.jsp
+					request.getRequestDispatcher("/Konto").include(request, response);
 				}
 			}
+			catch (Exception e) {
+				System.out.print(e);
+				e.printStackTrace();
+				success = false;
+			}
+			finally {
+				DbUtils.closeQuietly(rs);
+	      	    DbUtils.closeQuietly(st);
+	      	    DbUtils.closeQuietly(con);
+			}
+
+			if (success == false) {
+				// check for left errors
+				error = "Es gab einen Fehler bei der Speicherung der Adresse. Bitte versuche es später erneut.";
+			}
+		}
+
+		// check if errors occured
+		if (error != "") {
+			// set error session variable and lead to error page
+			HttpSession session = request.getSession();
+			session.setAttribute("error", error);
+			request.getRequestDispatcher("error.jsp").include(request, response);
+		}
+    }
+    
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		if (request.getParameter("button-saveAddress")!= null) {
+            Adresse.saveAddress(request, response);
+        } 
+		else if (request.getParameter("button-changeAddress")!= null) {
+            Adresse.changeAddress(request, response);
+        }
 	}
+}
 	
 

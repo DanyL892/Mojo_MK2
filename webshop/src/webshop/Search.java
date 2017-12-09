@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class search
+ * Servlet implementation class Search
  */
-@WebServlet("/search")
-public class search extends HttpServlet {
+@WebServlet("/Search")
+public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public search() {
+    public Search() {
         super();
     }
 
@@ -65,9 +65,9 @@ public class search extends HttpServlet {
 	        }
 	        
 	        if(request.getAttribute("message") == "") {
-		        List<item> results = new ArrayList<item>();
+		        List<Item> results = new ArrayList<Item>();
 		        while(rs.next()) {
-		           item result = new item();
+		           Item result = new Item();
 		           result.setImage(rs.getString(1));
 		           result.setItem(rs.getString(2));
 		           result.setText(rs.getString(3));

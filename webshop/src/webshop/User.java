@@ -132,11 +132,18 @@ public class User extends HttpServlet {
 			//check for preexisting username
       	  	rs = st.executeQuery("SELECT name FROM users WHERE name='"+name+"'");
       	  	if (rs.isBeforeFirst()) {
-      	  		error = "Ein User mit diesem Namen existiert bereits!";
-      	  	} 
+      	  		rs.next();
+      	  		if (rs.getString(1).equals(name)) {
+      	  			error = "";
+      	  		}
+      	  		else {
+      	  			error = "Ein User mit diesem Namen existiert bereits!";
+      	  		}
+      	  	}
 				
       	  	if (error == "") {
-				//if password has been changed
+				
+      	  		//if password has been changed
 				if (!pass.equals("") && !pass.equals("*****")) {
 					//no errors occurred, attempt change
 					//hash password for safety purposes

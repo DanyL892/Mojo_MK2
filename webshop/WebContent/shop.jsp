@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="webshop.shop" %>
-<%@ page import="webshop.item" %>
+<%@ page import="webshop.Shop" %>
+<%@ page import="webshop.Item" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -42,10 +42,10 @@
 
   	  <div class="content shopping" id="content">
   		<%
-  		shop shop = new shop();
-  		List<item> items = shop.getItems();
-  		Iterator<item> it = items.iterator();
-  		for (item current : items) {
+  		Shop shop = new Shop();
+  		List<Item> items = shop.getItems();
+  		Iterator<Item> it = items.iterator();
+  		for (Item current : items) {
   		    String item = current.getItem();
   		  	String imgname = current.getImage();
   		  	String text = current.getText();

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ShoppingItem
  * This sevlet class is used to create items that
- * can later be stored in or deleted from the cart. 
+ * can later be stored in or deleted from the Cart. 
  */
 @WebServlet("/ShoppingItem")
 public class ShoppingItem extends HttpServlet {

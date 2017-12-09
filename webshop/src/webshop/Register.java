@@ -17,17 +17,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class register
- * This servlet class is used to register a new user to the platform.
+ * Servlet implementation class Register
+ * This servlet class is used to Register a new user to the platform.
  */
-@WebServlet("/register")
-public class register extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public register() {
+    public Register() {
         super();
     }
 
@@ -38,7 +38,7 @@ public class register extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//register
+		//Register
 		boolean success = false;
 	    String error    = "";
 	    Connection con = null;
@@ -102,10 +102,10 @@ public class register extends HttpServlet {
 					st.executeUpdate("INSERT INTO users(name,passwort,mail) VALUES('"+name+"','"+pass+"','"+mail+"')");
 					success = true;
 					
-					//registration successful, auto-login and lead to index.jsp
+					//registration successful, auto-Login and lead to index.jsp
 					request.setAttribute("username", name);
 					request.setAttribute("password", request.getParameter("reg_password") );
-					login login = new login();
+					Login login = new Login();
 					login.doPost(request, response);
 					request.getRequestDispatcher("/Konto").include(request, response);
 	      	  	}

@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class item
- * This class is used to display item details to each item found
+ * Servlet implementation class Item
+ * This class is used to display Item details to each Item found
  * in the shop.jsp page.
  */
-@WebServlet("/item")
-public class item extends HttpServlet {
+@WebServlet("/Item")
+public class Item extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String image;
 	private String item;
@@ -51,7 +51,6 @@ public class item extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		//store detail information as session variables
 		String image = request.getParameter("image"); 

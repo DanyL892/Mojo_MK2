@@ -16,7 +16,7 @@ import org.apache.commons.dbutils.DbUtils;
 
 /**
  * Servlet implementation class Stornierung
- * This servlet class lets a user cancel an order. The status of the order is changed in the database
+ * This servlet class lets a user cancel an Order. The status of the Order is changed in the database
  */
 @WebServlet("/Stornierung")
 public class Stornierung extends HttpServlet {
@@ -32,7 +32,7 @@ public class Stornierung extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//get order that has to be canceled
+		//get Order that has to be canceled
 		int order = Integer.parseInt(request.getParameter("orderId").toString());
 		Connection con 	= null;
 		Statement st 	= null;

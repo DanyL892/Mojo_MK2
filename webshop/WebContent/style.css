@@ -345,6 +345,12 @@ input {
 	padding-bottom: 20px;
 }
 
+label{
+	display: inline-block;
+  	width: 195px;
+  	text-align: right;	
+}
+
 table {
 	width: 80%;
 	margin-left: 10%;
@@ -378,6 +384,7 @@ table tr td {
 		 clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
 	}
 }
+
 @media screen and (max-width: 600px) {
 	#logo, #logo_shop {
 		position: relative;
@@ -390,6 +397,11 @@ table tr td {
 	
 	.small_logo {
 		width: 20%;
+	}
+	
+	label {
+	display: inline-block;
+  	text-align: left;
 	}
 	
 	.small {

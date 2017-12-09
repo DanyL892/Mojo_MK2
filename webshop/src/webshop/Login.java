@@ -18,18 +18,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class login
+ * Servlet implementation class Login
  * This servlet class is used to log in to 
  * an excisting account on the platform
  */
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public login() {  
+    public Login() {  
         super();
     } 
 
@@ -70,7 +70,7 @@ public class login extends HttpServlet {
 		if (error == "") {
 			
 			try {
-				//login attempt
+				//Login attempt
 				Class.forName("com.mysql.jdbc.Driver");
 		        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
 		        st = con.createStatement();

@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class logout
+ * Servlet implementation class Logout
  * This servlet class is used to log out a user from
  * the platform
  */
-@WebServlet("/logout")
-public class logout extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
-    	//logout
+    	//Logout
 		response.setContentType("text/html");  
 		PrintWriter out=response.getWriter();   
 		
-		//invalidate the login session variable
+		//invalidate the Login session variable
 		HttpSession session=request.getSession();  
 		session.invalidate();  
 		request.getRequestDispatcher("index.jsp").include(request, response); 

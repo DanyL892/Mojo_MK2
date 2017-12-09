@@ -9,32 +9,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class cart
+ * Servlet implementation class Cart
  * This servlet class is used to let the user
- * put items into a shopping cart and remove them.
+ * put items into a shopping Cart and remove them.
  */
-@WebServlet("/cart")
-public class cart extends HttpServlet {
+@WebServlet("/Cart")
+public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//ArrayList to store all cart items
+	//ArrayList to store all Cart items
 	public ArrayList<ShoppingItem> shoppingItems = new ArrayList<ShoppingItem>();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public cart() {
+    public Cart() {
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//delete items from shopping cart
+		//delete items from shopping Cart
 		
 		String item = request.getParameter("shopItem");
 		String zustand = request.getParameter("shopZustand");
 		
-		//find the item within the ArrayList
+		//find the Item within the ArrayList
 		for(int i=0; i<shoppingItems.size(); i++) {
 			ShoppingItem shopItem = shoppingItems.get(i);
 			if (shopItem.getItem().equals(item)) {
@@ -51,16 +51,16 @@ public class cart extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Add item to cart
+		//Add Item to Cart
 		
-		String item     = request.getParameter("item");
+		String item     = request.getParameter("Item");
 		String preis    = request.getParameter("price");
 		float  price    = Float.parseFloat(preis);
 		String zustand  = request.getParameter("zustaende");
 		
 		//create a ShoppingItem with given values
 		ShoppingItem myItem = new ShoppingItem(item, price, zustand);
-		//see if there are similar items in the cart yet
+		//see if there are similar items in the Cart yet
 		for(int i=0; i<shoppingItems.size(); i++) {
 			ShoppingItem shopItem = shoppingItems.get(i);
 			if (shopItem.getItem().equals(myItem.getItem())) {
@@ -72,10 +72,10 @@ public class cart extends HttpServlet {
 				}
 			} 
 		}
-		//add the new item to cart
+		//add the new Item to Cart
 		shoppingItems.add(myItem);
 		request.getSession(true).setAttribute("items", shoppingItems);
-		//load the cart page
-		request.getRequestDispatcher("cart.jsp").include(request, response);
+		//load the Cart page
+		request.getRequestDispatcher("Cart.jsp").include(request, response);
 	}
 }

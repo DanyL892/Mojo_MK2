@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="com.mysql.jdbc.PreparedStatement"%>
-<%@ page import="com.mysql.jdbc.Connection"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,7 +17,7 @@
   <div class="header">
   <%@include file="menu_part.jsp" %>
       <h1>Account erstellen</h1>
-      <form method="post" action="register">
+      <form method="post" action="Register">
    		 <input type="text" name="reg_username" value="Name" onclick="this.value=''"/><br/>  
    		 <input type="text" name="reg_email"  value="Email" onclick="this.value=''"/><br/>  
    		 <input type="password" name="reg_password"  value="Password" onclick="this.value=''"/><br/>  

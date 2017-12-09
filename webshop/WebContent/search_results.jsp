@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="webshop.shop" %>
+<%@ page import="webshop.Shop" %>
+<%@ page import="webshop.Item" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="webshop.item" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -26,10 +26,10 @@
   			<h1><%=request.getAttribute("message")%></h1>
   		<%}
   		else{
-  		shop shop = new shop();
-  		ArrayList<item> items = (ArrayList<item>) request.getAttribute("results");
-  		Iterator<item> it = items.iterator();
-  		for (item current : items) {
+  		Shop shop = new Shop();
+  		ArrayList<Item> items = (ArrayList<Item>) request.getAttribute("results");
+  		Iterator<Item> it = items.iterator();
+  		for (Item current : items) {
   		    String item = current.getItem();
   		  	String imgname = current.getImage();
   		  	String text = current.getText();

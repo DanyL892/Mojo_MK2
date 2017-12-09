@@ -2,9 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="webshop.order" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.util.*" %>
+<%@ page import="webshop.Order" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,8 +22,8 @@
 		<div class="wrapper">
 		<%
 			int userid = Integer.parseInt(session.getAttribute("userid").toString());
-			order order = new order();
-			List<order> orderList = order.getOrders(userid);
+			Order order = new Order();
+			List<Order> orderList = Order.getOrders(userid);
 			if(orderList.isEmpty()) {%>
 				<p>Du hast bisher keine Bestellungen.</p>
 			<% } else {
@@ -43,8 +43,8 @@
 					</tr>
 				</thead>
 					<tr>
-			<%Iterator<order> it = orderList.iterator();
-	  		for (order currOrder : orderList) {
+			<%Iterator<Order> it = orderList.iterator();
+	  		for (Order currOrder : orderList) {
 				String datum   = currOrder.getDate();
 				int Status     = currOrder.getStatus();
 				int nummer     = currOrder.getNummer();

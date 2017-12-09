@@ -24,11 +24,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class order
- * This servlet class lets a user order items from the shop
+ * Servlet implementation class Order
+ * This servlet class lets a user Order items from the shop
  */
-@WebServlet("/order")
-public class order extends HttpServlet {
+@WebServlet("/Order")
+public class Order extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int cust_id;
@@ -41,7 +41,7 @@ public class order extends HttpServlet {
 	private String item;
 	private String zustand;
 	
-	public order() {
+	public Order() {
         super();
     }
     
@@ -117,7 +117,7 @@ public class order extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//generate an order
+		//generate an Order
 		response.setContentType("text/html"); 
 		HttpSession session = request.getSession();
 		Connection con 	= null;
@@ -196,7 +196,7 @@ public class order extends HttpServlet {
 	        String strI = sb.toString();
 	        order_id = Integer.parseInt(strI);
 	        
-			//insert order to order table "orders"
+			//insert Order to Order table "orders"
 			
 	        try {		
 				st.executeUpdate("INSERT INTO orders(id,cust_id,adr_id,date,status) VALUES('"+order_id+"','"+userid+"','"+adress_id+"','"+date+"','"+status+"')");
@@ -206,7 +206,7 @@ public class order extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			//insert related items of order to table order_items
+			//insert related items of Order to table order_items
 			//get items from session
 			List<ShoppingItem> itemList = (List<ShoppingItem>)request.getSession().getAttribute("items");
 	
@@ -226,7 +226,7 @@ public class order extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				//empty cart
+				//empty Cart
 				session.removeAttribute("items");
 				
 				//lead user to orders page
@@ -247,14 +247,14 @@ public class order extends HttpServlet {
 	
 	
 	
-	public List<order> getOrders(int userid) {
+	public static List<Order> getOrders(int userid) {
 		//get orders from the database
 		String error    = "";
 		boolean success = false;
 		Connection con 	= null;
 		Statement st 	= null;
 		ResultSet rs 	= null;
-		List<order> currOrder = new ArrayList<order>();
+		List<Order> currOrder = new ArrayList<Order>();
 				
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -272,7 +272,7 @@ public class order extends HttpServlet {
 			 } 
 			 
 			 while(rs.next()) {
-		           order result = new order();
+		           Order result = new Order();
 		           result.setDate(rs.getString(4));
 		           result.setStatus(rs.getInt(5));
 		           result.setNummer(rs.getInt(7));

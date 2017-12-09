@@ -15,7 +15,7 @@ import org.apache.commons.dbutils.DbUtils;
 
 /**
  * Servlet implementation class Change
- * This servlet class lets the admin user make changes to item texts and update the database 
+ * This servlet class lets the admin user make changes to Item texts and update the database 
  * with those texts.
  */
 @WebServlet("/Change")

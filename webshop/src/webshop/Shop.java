@@ -18,19 +18,19 @@ import org.apache.commons.dbutils.DbUtils;
  * This servlet class is used to display all items from
  * the database in the webshop.
  */
-@WebServlet("/shop")
-public class shop extends HttpServlet {
+@WebServlet("/Shop")
+public class Shop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
-	public List<item> getItems() {
+	public List<Item> getItems() {
 		//get items from the database
 		String error = "";
 		boolean success = false;
 		Connection con 	= null;
 		Statement st 	= null;
 		ResultSet rs 	= null;
-		List<item> currSet = new ArrayList<item>();
+		List<Item> currSet = new ArrayList<Item>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -48,7 +48,7 @@ public class shop extends HttpServlet {
 	        } 
 	        
 	        while(rs.next()) {
-	           item result = new item();
+	           Item result = new Item();
 	           result.setImage(rs.getString(1));
 	           result.setItem(rs.getString(2));
 	           result.setText(rs.getString(3));

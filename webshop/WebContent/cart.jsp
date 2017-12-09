@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="webshop.*" %>
+<%@ page import="webshop.ShoppingItem" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -27,7 +27,7 @@
 				ShoppingItem shopItem = itemList.get(i);
 				price = price + shopItem.getPrice();%>
 				<div class="items">
-					<form method="get" action="cart">
+					<form method="get" action="Cart">
 						<p><%=shopItem.getItem() %></p>
 						<input type="hidden" name="shopItem" value="<%=shopItem.getItem()%>">
 						<p>Einzelpreis: <fmt:formatNumber type = "number" 
@@ -45,7 +45,7 @@
        		 	<%
        		 	if(price > 0) {
        		 	%>
-       		 	<form method="post" action="order">
+       		 	<form method="post" action="Order">
        		 		<button type="submit">JETZT BESTELLEN</button>
        		 	</form>
        		 	<%} %>

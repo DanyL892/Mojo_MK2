@@ -19,7 +19,9 @@
 	</head>
 	<body>
   	  <div class="header header-shop">
+		<img src="img/bmlogo.png" class="small_logo">
   	  	<%@include file="menu_part.jsp" %>
+  	  	<img id="logo_shop" src="img/bmlogo.png">
       	<h1>Unser Shop</h1>
       	<hr/>
       	<a href="#content"><button class="button">JETZT EINKAUFEN</button></a>

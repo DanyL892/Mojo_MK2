@@ -9,6 +9,16 @@ html, body {
 	margin: 0;
 } 
 
+.small_logo {
+	width: 4%;
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	border: 1px solid white;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, .2);
+}
+
 .header {
 	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
     background-size: cover;
@@ -17,6 +27,22 @@ html, body {
     color: white;
     border: 1px solid transparent;
     overflow: auto;
+}
+
+#logo {
+	width: 10%;
+	position: absolute;
+	left: 45%;
+	top: 15%;
+	background-color: rgba(255, 255, 255, .3);
+	border-radius: 50%;
+}
+
+#logo_shop{
+	width: 20%;
+	position: absolute;
+	left: 60%;
+	top: 50%;
 }
 
 .header-shop {
@@ -61,7 +87,7 @@ html, body {
 
 .header h1 {
 	font-size: 3em;
-	padding-top: 10%;
+	padding-top: 15%;
 }
 
 hr {
@@ -78,8 +104,12 @@ hr {
 	display: none;
 	width: 40px;
 	height: 40px;
-	background-color: black;
+	background-color: white;
 	border-radius: 4%;
+}
+
+.menu hr {
+	color: black;
 }
 
 .menu a {
@@ -349,11 +379,26 @@ table tr td {
 	}
 }
 @media screen and (max-width: 600px) {
+	#logo, #logo_shop {
+		position: relative;
+		width: 50%;
+		left: 0;
+		top: 25px;
+		background-color: rgba(255, 255, 255, .3);
+		border-radius: 50%;
+	}
+	
+	.small_logo {
+		width: 20%;
+	}
+	
 	.small {
 		display: block;
 		width: 80%;
 		margin-left: 10%;
 		margin-top: 20%;
+		border: 1px solid black;
+		background: linear-gradient(0deg,rgba(77,141,162, .2),rgba(156,39,176, .2));
 	}
 	
 	.small img {
@@ -381,6 +426,11 @@ table tr td {
 	#login input {
 		width: 90%;
 		margin-left: -1%;
+	}
+	
+	.dark input {
+		width: 80%;
+		color: white;
 	}
 	
 	.items {

@@ -15,7 +15,9 @@
 	<body> 
 
   		<div class="header">
+			<img src="img/bmlogo.png" class="small_logo">
     		<%@include file="menu_part.jsp"%>
+    		<img id="logo" src="img/bmlogo.png">
       		<h1>Bucks Money</h1>
       		<hr/>
       		<h2>Get more Bucks for your Money</h2>

@@ -24,7 +24,7 @@
 			int userid = Integer.parseInt(session.getAttribute("userid").toString());
 			order order = new order();
 			List<order> orderList = order.getOrders(userid);
-			if(orderList == null) {%>
+			if(orderList.isEmpty()) {%>
 				<p>Du hast bisher keine Bestellungen.</p>
 			<% } else {
 			int ordernumber  = orderList.get(0).getNummer();

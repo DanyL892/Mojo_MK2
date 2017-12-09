@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -178,16 +179,20 @@ public class order extends HttpServlet {
 	        date = c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "." + c.get(Calendar.YEAR);
 	        
 	        //create order_id
-	        int first_part  = c.get(Calendar.DAY_OF_MONTH);
-	        int second_part = c.get(Calendar.MONTH) + 1;
-	        int third_part  = c.get(Calendar.YEAR);
-	        int fourth_part = userid;
+	        LocalDateTime now = LocalDateTime.now();
+	        int year = now.getYear();
+	        int month = now.getMonthValue();
+	        int day = now.getDayOfMonth();
+	        int hour = now.getHour();
+	        int minute = now.getMinute();
+	        int second = now.getSecond();
+	        
 	        StringBuilder sb = new StringBuilder();
 	        sb.append("");
-	        sb.append(first_part);
-	        sb.append(second_part);
-	        sb.append(third_part);
-	        sb.append(fourth_part);
+	        sb.append(userid);
+	        sb.append(year);
+	        sb.append(hour);
+	        sb.append(second);
 	        String strI = sb.toString();
 	        order_id = Integer.parseInt(strI);
 	        

@@ -37,6 +37,9 @@
       	<p>Durch unsere unterschiedlichsten Angebote finden all unsere Kunden genau das, was sie brauchen.
       	   Unsere Mitarbeiter behandeln das Geld stets liebevoll und voller Hingabe - und das merkt man auch
       	   am Endprodukt.</p>
+      	   <%if(session.getAttribute("admin") != null) {%>
+      	   	<a href="upload.jsp"><button>Neues Produkt anlegen</button></a>
+      	   <%} %>
   	  </div>
 
   	  <div class="content shopping" id="content">

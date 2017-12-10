@@ -8,13 +8,17 @@
 		<title>Adressverwaltung</title>
 	</head>
 	<body>
-	  	<div class="header">
+	  	<div class="header closer">
 	  	<%@include file="menu_part.jsp" %>
 	      	<h1>Neue Adresse eingeben</h1>
 	      	<form class="dark" method="post" action="Adresse" id="Adresse">
+	   		 <label for="add_street">Straßenname</label>
 	   		 <input type="text" name="add_street" value="Straße" onclick="this.value=''"><br/>  
+	   		 <label for="add_housenumber">Hausnummer</label>
 	   		 <input type="text" name="add_housenumber"  value="Hausnummer" onclick="this.value=''"><br/>  
+	   		 <label for="add_postalcode">Postleitzahl</label>
 	   		 <input type="text" name="add_postalcode"  value="Postleitzahl" onclick="this.value=''"><br/>  
+	   		 <label for="add_city">Stadt</label>
 	   		 <input type="text" name="add_city"  value="Stadt" onclick="this.value=''"><br/>  
 	   		 <input type="hidden" name="userid" value="<%=session.getAttribute("userid") %>">
 	   		 <input type="hidden" name="button-saveAddress" />

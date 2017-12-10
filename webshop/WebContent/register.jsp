@@ -14,12 +14,15 @@
 </head>
 <body>
 
-  <div class="header">
+  <div class="header closer">
   <%@include file="menu_part.jsp" %>
       <h1>Account erstellen</h1>
       <form method="post" action="Register">
+   		 <label for="reg_username">Name</label>
    		 <input type="text" name="reg_username" value="Name" onclick="this.value=''"/><br/>  
+   		 <label for="reg_email">E-Mail Adresse</label>
    		 <input type="text" name="reg_email"  value="Email" onclick="this.value=''"/><br/>  
+   		 <label for="reg_password">Passwort</label>
    		 <input type="password" name="reg_password"  value="Password" onclick="this.value=''"/><br/>  
    		 <button type="submit" class="button" value="Registrieren">Registrieren</button>  
      </form>  

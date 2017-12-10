@@ -228,6 +228,7 @@ public class Order extends HttpServlet {
 				
 				//empty Cart
 				session.removeAttribute("items");
+				session.setAttribute("empty_cart", "true");
 				
 				//lead user to orders page
 				request.getRequestDispatcher("cart.jsp").include(request, response);  

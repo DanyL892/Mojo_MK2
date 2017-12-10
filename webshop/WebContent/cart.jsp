@@ -31,7 +31,7 @@
 						<p><%=shopItem.getItem() %></p>
 						<input type="hidden" name="shopItem" value="<%=shopItem.getItem()%>">
 						<p>Einzelpreis: <fmt:formatNumber type = "number" 
-       		 			minFractionDigits = "2" value = "<%=shopItem.getPrice() %>" />  Euro</p>
+       		 			minFractionDigits = "2" value = "<%=shopItem.getPrice() %>" /> Euro</p>
 						<p>Zustand: <%=shopItem.getZustand() %></p>
 						<input type="hidden" name="shopZustand" value="<%=shopItem.getZustand()%>">
 						<p>Anzahl: <%=shopItem.getAnzahl() %></p>
@@ -40,7 +40,7 @@
 				</div>
 				<%}}%>
 				<h2 class="gesamt" style="clear: both;">Gesamtpreis: <fmt:formatNumber type = "number" 
-       		 			minFractionDigits = "2" value = "<%=price%>" />  Euro</h2>
+       		 			minFractionDigits = "2" value = "<%=price%>" /> Euro</h2>
        		 	<br/>
        		 	<%
        		 	if(price > 0) {

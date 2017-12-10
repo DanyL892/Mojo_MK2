@@ -10,7 +10,7 @@
 		<div class="header header-bug">
 			<h1>Fehlermeldung</h1>
 			<h2>Leider gab es einen Bug...</h2>
-			<p>Error: <%=session.getAttribute("error") %></p>
+			<p><%=session.getAttribute("error") %></p>
 		</div>
 	</body>
 </html>

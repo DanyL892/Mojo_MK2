@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 
@@ -27,53 +28,54 @@ public class Upload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SAVE_DIR="img/";
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public Upload() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		 //String savePath  = File.separator + SAVE_DIR;
          //File fileSaveDir = new File(savePath);
          //if(!fileSaveDir.exists()){
          //    fileSaveDir.mkdir();
         // }
-         
-		String item = request.getParameter("produktname");
-	    String text = request.getParameter("produkttext");
-	    int preis   = Integer.parseInt(request.getParameter("preis"));
+        String error 		= "";
+		String item 		= request.getParameter("produktname");
+	    String text 		= request.getParameter("produkttext");
+	    String preisChecker = request.getParameter("preis");
+	    String preisRegex 	= "([0-9.])+";
+	    
+	    if (preisChecker.matches(preisRegex) == false) {
+			error = "Bitte gib einen gültigen Preis ein. Separiere eventuelle Nachkommastellen mit einem Punkt.";
+	    }
+	    
 	    //Part file = request.getPart("file");
 	    
 	    //String fileName=extractfilename(file);
 	    //file.write(savePath + File.separator + fileName);
 	    //String filePath= savePath + File.separator + fileName ;
 	    
-	    try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
-			Statement st = con.createStatement();
-			st.executeUpdate("INSERT INTO products(title,text,preis) VALUES('"+item+"','"+text+"','"+preis+"')");
-		}
-		catch (Exception e) {
-			System.out.print(e);
-			e.printStackTrace();
-		}
-	    request.getRequestDispatcher("shop.jsp").include(request, response); 
+	    if(error == "") {
+		    try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webshop", "root", "");
+				Statement st = con.createStatement();
+				
+				float preis = Float.parseFloat(preisChecker);
+				st.executeUpdate("INSERT INTO products(title,text,preis) VALUES('"+item+"','"+text+"','"+preis+"')");
+			}
+			catch (Exception e) {
+				System.out.print(e);
+				e.printStackTrace();
+			}
+		    request.getRequestDispatcher("shop.jsp").include(request, response); 
+	    }
+	    else {
+	    	HttpSession session = request.getSession();
+			session.setAttribute("error", error);
+			request.getRequestDispatcher("error.jsp").include(request, response);
+	    }
 	}
 	
 	private String extractfilename(Part file) {

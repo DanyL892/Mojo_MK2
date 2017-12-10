@@ -37,7 +37,7 @@ public class Order extends HttpServlet {
 	private int status;
 	private int nummer;
 	private int anzahl;
-	private int preis;
+	private float preis;
 	private String item;
 	private String zustand;
 	
@@ -95,10 +95,10 @@ public class Order extends HttpServlet {
 		this.anzahl = anzahl;
 	}
 	
-	public int getPreis() {
+	public float getPreis() {
 		return this.preis;
 	}
-	public void setPreis(int preis) {
+	public void setPreis(float preis) {
 		this.preis = preis;
 	}
 	
@@ -279,7 +279,7 @@ public class Order extends HttpServlet {
 		           result.setNummer(rs.getInt(7));
 		           result.setItem(rs.getString(8));
 		           result.setAnzahl(rs.getInt(9));
-		           result.setPreis(rs.getInt(10));
+		           result.setPreis(rs.getFloat(10));
 		           result.setZustand(rs.getString(11));
 
 		           currOrder.add(result);

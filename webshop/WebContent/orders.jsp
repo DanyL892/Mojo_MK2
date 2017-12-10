@@ -22,13 +22,12 @@
 		<div class="wrapper">
 		<%
 			int userid = Integer.parseInt(session.getAttribute("userid").toString());
-			Order order = new Order();
 			List<Order> orderList = Order.getOrders(userid);
 			if(orderList.isEmpty()) {%>
 				<p>Du hast bisher keine Bestellungen.</p>
 			<% } else {
 			int ordernumber  = orderList.get(0).getNummer();
-			int preisGesamt  = 0;
+			float preisGesamt= 0;
 			int first        = 1;
 			%>
 				<table>
@@ -50,7 +49,7 @@
 				int nummer     = currOrder.getNummer();
 				String produkt = currOrder.getItem();
 				int anzahl     = currOrder.getAnzahl();
-				int preis      = currOrder.getPreis();
+				float preis    = currOrder.getPreis();
 				String zustand = currOrder.getZustand();
 				preisGesamt    = preisGesamt + preis;
 				String stat    = "";
@@ -72,7 +71,10 @@
 						<td><p class="hidden_values">Status: </p><%=stat%></td>
 						<td><%=produkt%></td>
 						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
-						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Preis: </p><fmt:formatNumber 
+																type = "number" 
+       		 													minFractionDigits = "2" 
+       		 													value = "<%=preis%>" /> Euro</td>
 						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
 					</tr>
 					<% first ++; } else {
@@ -82,7 +84,10 @@
 						<td><p class="hidden_values">Status: </p><%=stat%></td>
 						<td><%=produkt%></td>
 						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
-						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Preis: </p><fmt:formatNumber 
+																type = "number" 
+       		 													minFractionDigits = "2" 
+       		 													value = "<%=preis%>" /> Euro</td>
 						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
 					</tr>
 			<%}} else { 
@@ -97,7 +102,10 @@
 						<td><p class="hidden_values">Status: </p><%=stat%></td>
 						<td><%=produkt%></td>
 						<td><p class="hidden_values">Anzahl: </p><%=anzahl%></td>
-						<td><p class="hidden_values">Preis: </p><%=preis%> Euro</td>
+						<td><p class="hidden_values">Preis: </p><fmt:formatNumber 
+																type = "number" 
+       		 													minFractionDigits = "2" 
+       		 													value = "<%=preis%>" /> Euro</td>
 						<td><p class="hidden_values">Zustand: </p><%=zustand %></td>
 					</tr>
 				

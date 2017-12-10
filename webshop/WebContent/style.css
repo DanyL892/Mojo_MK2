@@ -1,26 +1,25 @@
 @charset "ISO-8859-1";
-
-
+ 
 html, body {
-	width: 100%;
-	height: 100%;
-	font-family: 'Roboto Condensed', sans-serif;
-	padding: 0;
-	margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0;
+    margin: 0;
 } 
-
+ 
 .small_logo {
-	width: 4%;
-	position: absolute;
-	left: 20px;
-	top: 10px;
-	border: 1px solid white;
-	border-radius: 50%;
-	background-color: rgba(255, 255, 255, .2);
+    width: 4%;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .2);
 }
-
+ 
 .header {
-	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
+    background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
     background-size: cover;
     height: 100%;
     text-align: center;
@@ -28,25 +27,29 @@ html, body {
     border: 1px solid transparent;
     overflow: auto;
 }
-
+ 
 #logo {
-	width: 10%;
-	position: absolute;
-	left: 45%;
-	top: 15%;
-	background-color: rgba(255, 255, 255, .3);
-	border-radius: 50%;
+    width: 10%;
+    position: absolute;
+    left: 45%;
+    top: 15%;
+    background-color: rgba(255, 255, 255, .3);
+    border-radius: 50%;
 }
-
+ 
 #logo_shop{
-	width: 20%;
-	position: absolute;
-	left: 60%;
-	top: 50%;
+    width: 20%;
+    position: absolute;
+    left: 60%;
+    top: 50%;
 }
-
+ 
+.different h1 {
+    pading-top: 100px;
+}
+ 
 .header-shop {
-	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/happy.jpg");
+    background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/happy.jpg");
     background-size: cover;
     min-height: 100%;
     height: 100% auto !important;
@@ -54,9 +57,9 @@ html, body {
     color: white;
     border: 1px solid transparent;
 }
-
+ 
 .header-cart {
-	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
+    background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/city.jpg");
     background-size: cover;
     min-height: 100%;
     height: 100% auto !important;
@@ -64,9 +67,9 @@ html, body {
     color: white;
     border: 1px solid transparent;
 }
-
+ 
 .header-bug {
-	background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bug.jpg");
+    background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bug.jpg");
     background-size: cover;
     min-height: 100%;
     height: 100% auto !important;
@@ -74,48 +77,48 @@ html, body {
     color: white;
     border: 1px solid transparent;
 }
-
+ 
 .header-cart h1 {
-	font-size: 2.5em;
-	padding-top: 5%;
+    font-size: 2.5em;
+    padding-top: 5%;
 }
-
+ 
 .header-cart a {
-	color: white;
-	
+    color: white;
+     
 }
-
+ 
 .header h1 {
-	font-size: 3em;
-	padding-top: 15%;
+    font-size: 3em;
+    padding-top: 15%;
 }
-
+ 
 hr {
-	color: white;
-	width: 50%;
+    color: white;
+    width: 50%;
 }
-
+ 
 .menu {
     color: white;
     margin-top: 20px;
 }
-
+ 
 .menu-icon {
-	display: none;
-	width: 40px;
-	height: 40px;
-	background-color: white;
-	border-radius: 4%;
+    display: none;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 4%;
 }
-
+ 
 .menu hr {
-	color: black;
+    color: black;
 }
-
+ 
 .menu a {
     color: white;
 }
-
+ 
 .menu ul li {
     display: inline-block;
     padding: 20px;
@@ -125,14 +128,14 @@ hr {
     transition: .3s ease-in-out;
     border: 3px solid white;
 }
-
+ 
 .menu ul li:hover {
     border-left: 3px solid white;
     border-bottom: 3px solid white;
     border-top: 3px solid transparent;
     border-right: 3px solid transparent;
 }
-
+ 
 button {
     width: 150px;
     height: 50px;
@@ -143,26 +146,26 @@ button {
     background-color: rgba(255, 255, 255, .5);
     margin-bottom: 10px;
 }
-
+ 
 .button-small {
-	width: 100px;
-	height: 50px;
+    width: 100px;
+    height: 50px;
 }
-
+ 
 button:hover {
     background-color: rgba(0, 0, 0, .6);
     color: white;
 }
-
+ 
 .content {
-	width: 100%;
-	min-height: 100%;
-	text-align: center;
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
 }
-
+ 
 .small {
-	width: 30%;
-	display: inline-block;
+    width: 30%;
+    display: inline-block;
     margin: .5%;
     margin-top: 8%;
     text-align: justify;
@@ -172,40 +175,40 @@ button:hover {
     box-sizing: border-box;
     text-align: center;
 }
-
+ 
 .shop {
-	background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, .5);
 }
-
-    
+ 
+     
 .small img {
     width: 60%;
     height: 200px;
     margin-top: -20%;
-	-webkit-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
-	-moz-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
-	box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
-	border-radius: 2px;
+    -webkit-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+    box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+    border-radius: 2px;
 }
-
+ 
 .shop img {
-	height: 150px;;
-	margin-top: -25%;
+    height: 150px;;
+    margin-top: -20%;
 }
-
+ 
 .shopping {
-	background: url("img/bridge.jpg") no-repeat center center fixed;
-	background-size: cover;
+    background: url("img/bridge.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
-
+ 
 .small p {
-	padding: 5%;
-	text-align: justify;
-	hyphens: auto;
+    padding: 5%;
+    text-align: justify;
+    hyphens: auto;
 }
-
+ 
 .big {
-	width: 100%;
+    width: 100%;
     text-align: center;
     hyphens: auto;
     margin: 20px;
@@ -214,42 +217,42 @@ button:hover {
     margin-bottom: 1%;
     margin-left: 0;
 }
-
+ 
 .empty {
-	linear-gradient(0deg,rgba(255,255,255, .6),rgba(255,255,255, .6)),url("");
+    linear-gradient(0deg,rgba(255,255,255, .6),rgba(255,255,255, .6)),url("");
 }
-
+ 
 .big p {
-	padding-left: 5%;
-	padding-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
-
+ 
 .big h1 {
-	padding: 2%;
+    padding: 2%;
 }
-
+ 
 .keep-separated {
-   	margin: 50px
+    margin: 50px
 }
-
+ 
 .items {
-	margin: 2%;
-	padding: 5px;
-	background-color: rgba(255, 255, 255, .6);
-	color: black;
-	width: 20%;
-	float: left;
+    margin: 2%;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, .6);
+    color: black;
+    width: 20%;
+    float: left;
 }
-
+ 
 .gesamt {
-	border: 2px solid white;
-	padding: 5px;
-	width: 20%;
-	margin-left: 40%;
+    border: 2px solid white;
+    padding: 5px;
+    width: 20%;
+    margin-left: 40%;
 }
-
+ 
 .detail {
-	background:linear-gradient(0deg,rgba(77,141,162, .7),rgba(77,141,162, .5)),url("img/ny.jpg");
+    background:linear-gradient(0deg,rgba(77,141,162, .7),rgba(77,141,162, .5)),url("img/ny.jpg");
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -259,22 +262,22 @@ button:hover {
     padding: 0;
     overflow: auto;
 }
-
+ 
 .detail p {
-	margin-top: 5%;
+    margin-top: 5%;
 }
-
+ 
 .detail img {
-	width: 40%;
+    width: 40%;
     height: auto;
     -webkit-box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
-	-moz-box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
-	box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
-	border-radius: 2px;
+    -moz-box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
+    box-shadow: -9px 22px 31px 4px rgba(0,0,0,0.75);
+    border-radius: 2px;
 }
-
+ 
 input {
-	border-radius: 2px;
+    border-radius: 2px;
     background-color: rgba(255, 255, 255, 0);
     border: .1px solid white;
     color: black;
@@ -282,24 +285,24 @@ input {
     margin: 10px;
     width: 20%;
 }
-
+ 
 .header input {
-	color: white;
+    color: white;
 }
-
+ 
 .bright {
-	color: white;
+    color: white;
 }
-
+ 
 .biginput {
-	width: 90%;
+    width: 90%;
 }
-
+ 
 .searchbar {
-	width: 110%;
-	height: auto;
-	color: white;
-	display: inline-block;
+    width: 110%;
+    height: auto;
+    color: white;
+    display: inline-block;
     margin-top: -6%;
     margin-bottom: -7%;
     margin-left: -5%;
@@ -308,19 +311,19 @@ input {
     box-sizing: border-box;
     text-align: left;
 }
-
+ 
 .searchbar input {
-	color: white;
+    color: white;
 }
-
+ 
 .searchbar img {
     width: 11%;
     height: 22%;
     margin-right: 5%;
 }
-
+ 
 .searchbar button {
-	width: 80px;
+    width: 80px;
     height: 40px;
     color: black;
     border: .2px solid black;
@@ -329,14 +332,14 @@ input {
     background-color: rgba(255, 255, 255, .2);
     margin-left: 36%;
 }
-
+ 
 .searchbar button:hover {
-	background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .6);
     color: white;
 }
-
+ 
 #login {
-	margin-top: 10%;
+    margin-top: 10%;
     width: 50%;
     margin-left: 25%;
     background-color: rgba(255,255,255,.6);
@@ -344,197 +347,198 @@ input {
     padding: 10px;
     color: #58546A;
 }
-
+ 
 .wrapper {
-	width: 80%;
-	margin-left: 10%;
-	background-color: rgba(255, 255, 255, .8);
-	padding-top: 20px;
-	padding-bottom: 20px;
-	color: black;
+    width: 80%;
+    margin-left: 10%;
+    background-color: rgba(255, 255, 255, .8);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: black;
 }
-
+ 
 label{
-	display: inline-block;
-  	width: 195px;
-  	text-align: right;	
+    display: inline-block;
+    width: 195px;
+    text-align: right;  
 }
-
+ 
 table {
-	width: 80%;
-	margin-left: 10%;
-	border-collapse: collapse;
-	table-layout: fixed;
+    width: 80%;
+    margin-left: 10%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-
+ 
 .heading {
-	background-color: rgba(53, 91, 153, .5);
+    background-color: rgba(53, 91, 153, .5);
 }
-
+ 
 table tr {
-	color: black;
+    color: black;
 }
-
+ 
 table tr {
-	border-bottom: 1px solid black;
+    border-bottom: 1px solid black;
 }
-
+ 
 table tr td {
-	padding: 5px;
+    padding: 5px;
 }
-
+ 
 .hidden_values {
-	display: none;
+    display: none;
 }
-
+ 
 .change-data {
-	background-color: rgba(255, 255, 255, .4);
-	color: black;
+    background-color: rgba(255, 255, 255, .4);
+    color: black;
 }
-
+ 
 .change-data input {
-	background-color: rgba(0, 0, 0, .4);
-	color: white;
+    background-color: rgba(0, 0, 0, .4);
+    color: white;
 }
-
+ 
 .closer h1 {
-	margin-top: -10%;
+    margin-top: -10%;
 }
-
+ 
 /*media queries*/
 @media screen and (min-width: 600px) {
-	.header {
-		 clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-	}
+    .header {
+         clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    }
 }
-
+ 
 @media screen and (max-width: 600px) {
-	#logo, #logo_shop {
-		position: relative;
-		width: 50%;
-		left: 0;
-		top: 25px;
-		background-color: rgba(255, 255, 255, .3);
-		border-radius: 50%;
-	}
-	
-	.small_logo {
-		width: 20%;
-	}
-	
-	label {
-		display: inline-block;
-  		text-align: left;
-	}
-	
-	.searchbar input {
-		width: 80%;
-	}
-	
-	.small {
-		display: block;
-		width: 80%;
-		margin-left: 10%;
-		margin-top: 20%;
-		border: 1px solid black;
-		color: black;
-		background: linear-gradient(0deg,rgba(77,141,162, .2),rgba(156,39,176, .2));
-	}
-	
-	.small img {
-		height: auto;
-	}
-	
-	.menu-icon {
-		display: inline-block;
-	}
-	
-	.menu ul {
-		display: none;
-		transition: .2s ease-in-out;
-	}
-	
-	.menu:hover ul {
-		display: block;
-		margin-left: -10%;
-	}
-	
-	.menu:hover ul li {
-		display: block;
-	}
-	
-	#login input {
-		width: 90%;
-		margin-left: -1%;
-	}
-	
-	.dark input {
-		width: 80%;
-		color: white;
-	}
-	
-	.search-results {
-		color: white;
-	}
-	
-	.items {
-		width: 80%;
-		float: none;
-		margin: 0;
-		margin-top: 2%;
-		margin-left: 10%;
-	}
-	
-	.wrapper {
-		width: 100%;
-		margin: 0;
-	}
-	
-	table {
-		width: 90%;
-		margin-left: 5%;
-		font-size: 15px;
-	}
-	
-	table thead {
-		display: none;
-	}
-	
-	.hidden_values {
-		display: inline;
-	}
-	
-	table tr {
-		display: block;
-	}
-	
-	table tr td {
-		padding: 2px;
-		display: block;
-	}
-	
-	.label {
-		margin-top: 10px;
-	}
-	
-	.gesamt {
-		width: 80%;
-		margin-left: 10%;
-	}
-	
-	.header-shop {
-		background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bridge.jpg");
-	}
-	
-	.header input {
-		width: 80%;
-	}
-	
-	.shop h1 {
-		padding-top: 40px;
-	}
-	
-	.shop img {
-		margin-top: 10px;
-	}
+    #logo, #logo_shop {
+        position: relative;
+        width: 50%;
+        left: 0;
+        top: 25px;
+        background-color: rgba(255, 255, 255, .3);
+        border-radius: 50%;
+    }
+     
+    .small_logo {
+        width: 20%;
+    }
+     
+    label {
+        display: inline-block;
+        text-align: left;
+    }
+     
+    .searchbar input {
+        width: 80%;
+    }
+     
+    .small {
+        display: block;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 20%;
+        border: 1px solid black;
+        color: black;
+        background: linear-gradient(0deg,rgba(77,141,162, .2),rgba(156,39,176, .2));
+    }
+     
+    .small img {
+        height: auto;
+    }
+     
+    .menu-icon {
+        display: inline-block;
+    }
+     
+    .menu ul {
+        display: none;
+        transition: .2s ease-in-out;
+    }
+     
+    .menu:hover ul {
+        display: block;
+        margin-left: -10%;
+    }
+     
+    .menu:hover ul li {
+        display: block;
+    }
+     
+    #login input {
+        width: 90%;
+        margin-left: -1%;
+    }
+     
+    .dark input {
+        width: 80%;
+        color: white;
+    }
+     
+    .search-results {
+        color: white;
+    }
+     
+    .items {
+        width: 80%;
+        float: none;
+        margin: 0;
+        margin-top: 2%;
+        margin-left: 10%;
+    }
+     
+    .wrapper {
+        width: 100%;
+        margin: 0;
+    }
+     
+    table {
+        width: 90%;
+        margin-left: 5%;
+        font-size: 15px;
+    }
+     
+    table thead {
+        display: none;
+    }
+     
+    .hidden_values {
+        display: inline;
+    }
+     
+    table tr {
+        display: block;
+    }
+     
+    table tr td {
+        padding: 2px;
+        display: block;
+    }
+     
+    .label {
+        margin-top: 10px;
+    }
+     
+    .gesamt {
+        width: 80%;
+        margin-left: 10%;
+    }
+     
+    .header-shop {
+        background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bridge.jpg");
+    }
+     
+    .header input {
+        width: 80%;
+    }
+     
+    .shop h1 {
+        padding-top: 40px;
+    }
+     
+    .shop img {
+        margin-top: 10px;
+        width: 90%;
+    }
 }

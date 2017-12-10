@@ -54,12 +54,12 @@
   		  	String price = current.getPrice();
   		%>
   		
-  		<div class="small shop search-results">
+  		<div class="small shop search-results shop-items">
   		 	<% if (session.getAttribute("changemode") == null || session.getAttribute("changemode").equals("none")) {%>
   			<form method="post" action="Item"><%} %>
-  				<h1><%=item %></h1>
   				<input type="hidden" name="item" value="<%=item%>">
   				<img src=" img/<%= imgname %>.jpeg">
+  				<h1 class="different"><%=item %></h1>
   				<input type="hidden" name="image" value="<%=imgname%>.jpeg">
   				<p><%=text %></p>
   				<input type="hidden" name="text" value="<%=text %>">

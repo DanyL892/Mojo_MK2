@@ -19,6 +19,7 @@
 			User currUser = new User();
 			currUser = currUser.receiveDataset(userid);
 			%>
+			<div class="change-data">
 	      	<h1>Ändere hier deine persönlichen Daten</h1>
 	      	<form class="dark" method="post" action="User" id="Userdata">
 	      	 <label for="chg_name">Neuer Name</label>
@@ -32,13 +33,14 @@
 	   		 <input type="hidden" name="button-changeUserdata" />
 	   		 <input type="hidden" name="userid" value="<%=userid%>">
 	   		 <button type="submit" class="button" value="Neue Daten speichern">Daten ändern</button>
-	     	</form>  
+	     	</form>  </div>
 
 	      	<%
 	      	Adresse adresse = new Adresse(); 
   			if(adresse.hasAnAdress(userid) == true) {
   				adresse.getUserAdress(userid);
   				%>
+  				<div class="change-data">
 	      	<h1>Ändere hier deine Adresse</h1>
 	      	<form class="dark" method="post" action="Adresse" id="Adresse">
 	      	 <label for="chg_street">Neue Straße</label>
@@ -52,7 +54,7 @@
 	   		 <input type="hidden" name="button-changeAddress" />
 	   		 <input type="hidden" name="userid" value="<%=userid%>">
 	   		 <button type="submit" class="button" value="Adresse speichern">Adresse ändern</button>
-	     	</form> 
+	     	</form> </div>
 	     	<%}%> 
 	  	</div>
 	</body>

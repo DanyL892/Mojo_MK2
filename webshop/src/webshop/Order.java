@@ -230,7 +230,7 @@ public class Order extends HttpServlet {
 				session.removeAttribute("items");
 				
 				//lead user to orders page
-				request.getRequestDispatcher("orders.jsp").include(request, response);  
+				request.getRequestDispatcher("cart.jsp").include(request, response);  
 				
 			}
 		}

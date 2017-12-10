@@ -15,7 +15,7 @@
 	<body>
   		<div class="big detail">
     	<%@include file="menu_part.jsp" %>
-    	<form method="post" action="cart">
+    	<form method="post" action="Cart">
     		<h1><%=session.getAttribute("item") %></h1>
     		<input type="hidden" name="item" value="<%=session.getAttribute("item")%>">
     		<img src="img/<%=session.getAttribute("image") %>"/>

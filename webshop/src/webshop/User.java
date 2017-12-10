@@ -26,9 +26,6 @@ public class User extends HttpServlet {
 	private String name;
 	private String email;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public User() {
         super();
     }

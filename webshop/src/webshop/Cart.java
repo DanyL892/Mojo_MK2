@@ -44,7 +44,7 @@ public class Cart extends HttpServlet {
 			} 
 		}
 		//load shop page
-		request.getRequestDispatcher("shop.jsp").include(request, response);
+		request.getRequestDispatcher("cart.jsp").include(request, response);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class Cart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Add Item to Cart
 		
-		String item     = request.getParameter("Item");
+		String item     = request.getParameter("item");
 		String preis    = request.getParameter("price");
 		float  price    = Float.parseFloat(preis);
 		String zustand  = request.getParameter("zustaende");
@@ -73,9 +73,10 @@ public class Cart extends HttpServlet {
 			} 
 		}
 		//add the new Item to Cart
+		
 		shoppingItems.add(myItem);
 		request.getSession(true).setAttribute("items", shoppingItems);
 		//load the Cart page
-		request.getRequestDispatcher("Cart.jsp").include(request, response);
+		request.getRequestDispatcher("cart.jsp").include(request, response);
 	}
 }

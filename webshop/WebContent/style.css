@@ -182,6 +182,10 @@ button:hover {
     width: 60%;
     height: 200px;
     margin-top: -20%;
+	-webkit-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+	-moz-box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+	box-shadow: 15px 17px 25px 10px rgba(0,0,0,0.75);
+	border-radius: 2px;
 }
 
 .shop img {
@@ -279,6 +283,10 @@ input {
     width: 20%;
 }
 
+.header input {
+	color: white;
+}
+
 .bright {
 	color: white;
 }
@@ -343,6 +351,7 @@ input {
 	background-color: rgba(255, 255, 255, .8);
 	padding-top: 20px;
 	padding-bottom: 20px;
+	color: black;
 }
 
 label{
@@ -378,6 +387,11 @@ table tr td {
 	display: none;
 }
 
+.change-data {
+	background-color: rgba(255, 255, 255, .4);
+	color: black;
+}
+
 /*media queries*/
 @media screen and (min-width: 600px) {
 	.header {
@@ -400,8 +414,12 @@ table tr td {
 	}
 	
 	label {
-	display: inline-block;
-  	text-align: left;
+		display: inline-block;
+  		text-align: left;
+	}
+	
+	.searchbar input {
+		width: 80%;
 	}
 	
 	.small {
@@ -410,6 +428,7 @@ table tr td {
 		margin-left: 10%;
 		margin-top: 20%;
 		border: 1px solid black;
+		color: black;
 		background: linear-gradient(0deg,rgba(77,141,162, .2),rgba(156,39,176, .2));
 	}
 	
@@ -442,6 +461,10 @@ table tr td {
 	
 	.dark input {
 		width: 80%;
+		color: white;
+	}
+	
+	.search-results {
 		color: white;
 	}
 	
@@ -492,6 +515,10 @@ table tr td {
 	
 	.header-shop {
 		background:linear-gradient(0deg,rgba(77,141,162, .6),rgba(156,39,176, .2)),url("img/bridge.jpg");
+	}
+	
+	.header input {
+		width: 80%;
 	}
 	
 	.shop h1 {

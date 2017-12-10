@@ -36,17 +36,19 @@
   		  	String price = current.getPrice();
   		%>
   		
-  		<div class="small shop">
-  			<form method="post" action="item">
+  		<div class="small shop search-results">
+  			<form method="post" action="Item">
   				<h1><%=item %></h1>
   				<input type="hidden" name="item" value="<%=item%>">
   				<img src=" img/<%= imgname %>.jpeg">
   				<input type="hidden" name="image" value="<%=imgname%>.jpeg">
   				<p><%=text %></p>
+  				<input type="hidden" name="text" value="<%=text%>">
   				<br/>
   				<h3>Preis: <fmt:formatNumber type = "number" 
        		 	minFractionDigits = "2" value = "<%=price%>"/> Euro</h3>
   				<input type="hidden" name="price" value="<%=price%>">
+  				<button type="submit">MORE</button>
   			</form>
   		</div>
   		

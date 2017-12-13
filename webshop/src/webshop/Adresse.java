@@ -1,5 +1,4 @@
 package webshop;
-
 import java.io.IOException;
 import org.apache.commons.dbutils.DbUtils;
 
@@ -16,7 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Adresse
+ * @author Daniel Friedrichs
+ * @version 2.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet is used to store Address objects and change/update
+ * user addressdata via its doPost method. </br> </br>
+ * It implements 5 methods: </br>
+ * hasAnAdress: Checks for existing address of user </br>
+ * getUserAdress: fetches adressdata from database </br>
+ * changeAddress: changing adressdata based on user's form input </br>
+ * saveAddress: saves newly created address to database </br>
+ * doPost: controller method for directing post-requests
  */
 @WebServlet("/Adresse")
 public class Adresse extends HttpServlet {

@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
 /**
- * Servlet implementation class Konto
+ * @author Daniel Friedrichs
+ * @version 2.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet is used as a controller to direct users to different JSP-pages, depending on their
+ * login status.
  */
 @WebServlet("/Konto")
 public class Konto extends HttpServlet {

@@ -22,10 +22,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbutils.DbUtils;
-
 /**
- * Servlet implementation class Order
- * This servlet class lets a user Order items from the shop
+ * @author Jessica Buschkamp
+ * @version 1.6
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet class stores Order objects and lets a user order items from the shop </br> </br>
+ * 
+ * It implements various getter and setter methods for its attributes </br>
  */
 @WebServlet("/Order")
 public class Order extends HttpServlet {

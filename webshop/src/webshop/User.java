@@ -17,7 +17,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class User
+ * @author Daniel Friedrichs
+ * @version 2.1
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet is used to store User objects and change 
+ * userdata via its doPost method. </br> </br>
+ * It implements various getter and setter methods as well as: </br>
+ * receiveDataset: Fetches userdata from database and stores it in User object</br>
+ * updateDataset: changing userdata based on user's form input </br>
+ * doPost: controller method for directing post-requests
  */
 @WebServlet("/User")
 public class User extends HttpServlet {

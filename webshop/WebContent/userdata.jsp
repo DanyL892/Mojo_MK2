@@ -1,3 +1,12 @@
+<%/** 
+ * @author Daniel Friedrichs
+ * @version 1.3
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This file creates the user interface for logged-in users.
+ * It offers different sets of buttons depending on the presence of an user address
+ */%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="webshop.Adresse" %>

@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class Change
+ * @author Jessica Buschkamp
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br> 
  * This servlet class lets the admin user make changes to Item texts and update the database 
  * with those texts.
  */

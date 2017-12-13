@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ChangeMode
+ * @author Jessica Buschkamp
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br> 
  * This Servlet Class is used to toggle the admin change mode on the shop.jsp
  * page
  */
+
 @WebServlet("/ChangeMode")
 public class ChangeMode extends HttpServlet {
 	private static final long serialVersionUID = 1L;

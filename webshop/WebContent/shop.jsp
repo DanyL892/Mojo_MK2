@@ -1,3 +1,11 @@
+<%/** 
+ * @author Jessica Buschkamp
+ * @version 2.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This file displays the shop interface and presents all items fetched from the database
+ */%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="webshop.*" %>
@@ -44,8 +52,7 @@
 
   	  <div class="content shopping" id="content">
   		<%
-  		Shop shop = new Shop();
-  		List<Item> items = shop.getItems();
+  		List<Item> items = Item.getItems();
   		Iterator<Item> it = items.iterator();
   		for (Item current : items) {
   		    String item = current.getItem();

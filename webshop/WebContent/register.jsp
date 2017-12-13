@@ -1,3 +1,11 @@
+<%/** 
+ * @author Jessica Buschkamp
+ * @version 1.1
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This file creates the registration view
+ */%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 

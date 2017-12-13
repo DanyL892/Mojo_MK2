@@ -1,3 +1,11 @@
+<%/** 
+ * @author Jessica Buschkamp
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This file creates the cart's interface
+ */%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="webshop.ShoppingItem" %>
 <%@ page import="java.util.List" %>

@@ -19,10 +19,13 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.dbutils.DbUtils;
 
-
-
 /**
- * Servlet implementation class Upload
+ * @author Jessica Buschkamp
+ * @version 1.1
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet is used to store newly generated products in the database
  */
 @WebServlet("/Upload")
 @MultipartConfig(fileSizeThreshold=1024*1024*2,
@@ -38,11 +41,7 @@ public class Upload extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 //String savePath  = File.separator + SAVE_DIR;
-         //File fileSaveDir = new File(savePath);
-         //if(!fileSaveDir.exists()){
-         //    fileSaveDir.mkdir();
-        // }
+
         String error 		= "";
 		String item 		= request.getParameter("produktname");
 	    String text 		= request.getParameter("produkttext");
@@ -52,12 +51,6 @@ public class Upload extends HttpServlet {
 	    if (preisChecker.matches(preisRegex) == false) {
 			error = "Bitte gib einen gültigen Preis ein. Separiere eventuelle Nachkommastellen mit einem Punkt.";
 	    }
-	    
-	    //Part file = request.getPart("file");
-	    
-	    //String fileName=extractfilename(file);
-	    //file.write(savePath + File.separator + fileName);
-	    //String filePath= savePath + File.separator + fileName ;
 	    
 	    Connection con 	= null;
 		Statement st 	= null;
@@ -88,16 +81,4 @@ public class Upload extends HttpServlet {
 	    }
 	}
 	
-	private String extractfilename(Part file) {
-        String cd = file.getHeader("content-disposition");
-        String[] items = cd.split(";");
-        for (String string : items) {
-            if (string.trim().startsWith("filename")) {
-                return string.substring(string.indexOf("=") + 2, string.length()-1);
-            }
-        }
-        return "";
-    }
-
-
 }

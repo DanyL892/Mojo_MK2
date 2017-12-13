@@ -15,6 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
+ * @author Jessica Buschkamp
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet class lets a user cancel an Order. The status of the Order 
+ * can be changed in the database
+ */
+/**
  * Servlet implementation class Stornierung
  * This servlet class lets a user cancel an Order. The status of the Order is changed in the database
  */
@@ -22,9 +31,7 @@ import org.apache.commons.dbutils.DbUtils;
 public class Stornierung extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public Stornierung() {
         super();
     }

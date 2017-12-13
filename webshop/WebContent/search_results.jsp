@@ -1,6 +1,13 @@
+<%/** 
+ * @author Daniel Friedrichs
+ * @version 1.1
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This file displays search results from the shop search
+ */%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="webshop.Shop" %>
 <%@ page import="webshop.Item" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
@@ -26,7 +33,6 @@
   			<h1><%=request.getAttribute("message")%></h1>
   		<%}
   		else{
-  		Shop shop = new Shop();
   		ArrayList<Item> items = (ArrayList<Item>) request.getAttribute("results");
   		Iterator<Item> it = items.iterator();
   		for (Item current : items) {

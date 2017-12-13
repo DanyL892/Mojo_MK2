@@ -12,11 +12,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class Search
+ * @author Daniel Friedrichs
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet provides search functionality for the searchbar. It processes Input strings
+ * and compares them to database entries.
  */
 @WebServlet("/Search")
 public class Search extends HttpServlet {
@@ -39,7 +46,7 @@ public class Search extends HttpServlet {
 		
 		response.setContentType("text/html");  
 		String searchtext = request.getParameter("searchtext");
-        
+        //process search text
 		String[] splittedSearch = searchtext.trim().split("\\s+");
 		
 		try {
@@ -59,6 +66,7 @@ public class Search extends HttpServlet {
 	        }
 	    	rs = st.executeQuery(sql);
 	        if (!rs.isBeforeFirst()) {
+	        	//no match found
 	        	success = true;
 	        	request.setAttribute("message","Es wurden leider keine passenden Produkte gefunden :(");
 				request.getRequestDispatcher("search_results.jsp").include(request, response);
@@ -99,6 +107,9 @@ public class Search extends HttpServlet {
 		
 		if (error != "") {
 			//store error variable in session variable and lead to error.jsp
+			HttpSession session = request.getSession();
+			session.setAttribute("error", error);
+			request.getRequestDispatcher("error.jsp").include(request, response);
 		}	
 	}	
 }

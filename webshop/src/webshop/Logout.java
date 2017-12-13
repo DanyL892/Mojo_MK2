@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Logout
+ * @author Jessica Buschkamp
+ * @version 1.0
+ * </br>
+ * </br>
+ * Description:</br>
  * This servlet class is used to log out a user from
  * the platform
  */

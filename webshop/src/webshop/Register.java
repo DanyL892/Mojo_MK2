@@ -17,16 +17,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class Register
+ * @author Jessica Buschkamp
+ * @version 1.2
+ * </br>
+ * </br>
+ * Description:</br> 
  * This servlet class is used to Register a new user to the platform.
  */
 @WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public Register() {
         super();
     }

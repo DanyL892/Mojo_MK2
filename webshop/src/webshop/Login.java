@@ -18,9 +18,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.DbUtils;
 
 /**
- * Servlet implementation class Login
- * This servlet class is used to log in to 
- * an excisting account on the platform
+ * @author Jessica Buschkamp
+ * @version 1.2
+ * </br>
+ * </br>
+ * Description:</br> 
+ * This servlet class is used to log in to an existing account on the platform
+ * and provides an auto-login feature.
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -33,8 +37,7 @@ public class Login extends HttpServlet {
         super();
     } 
 
-    
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {      	
     	Connection con 	= null;
 		Statement st 	= null;

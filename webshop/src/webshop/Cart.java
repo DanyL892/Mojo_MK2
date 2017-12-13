@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Cart
+ * @author Jessica Buschkamp
+ * @version 1.3
+ * </br>
+ * </br>
+ * Description:</br> 
  * This servlet class is used to let the user
- * put items into a shopping Cart and remove them.
+ * put items into a shopping Cart and remove them
  */
 @WebServlet("/Cart")
 public class Cart extends HttpServlet {

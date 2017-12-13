@@ -8,9 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ShoppingItem
+ * @author Jessica Buschkamp
+ * @version 1.1
+ * </br>
+ * </br>
+ * Description:</br> 
  * This sevlet class is used to create items that
- * can later be stored in or deleted from the Cart. 
+ * can later be stored in or deleted from the Cart. </br> </br>
+ * It implements setter and getter methods as well as a internal counter method (addAnzahl)
  */
 @WebServlet("/ShoppingItem")
 public class ShoppingItem extends HttpServlet {
